@@ -115,6 +115,13 @@ jobs:
           python scripts/elo_challenger.py
           test -s results/elo_challenger.json
 
+      - name: Train odds-free feature challenger with sealed 2025-2026 holdout
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/precision_lab.py
+          test -s results/precision_lab.json
+
       - name: Validate predictions and generate provenance report
         shell: bash
         run: |
@@ -164,4 +171,5 @@ jobs:
             reference.json
             results/provenance.json
             results/elo_challenger.json
+            results/precision_lab.json
             results/summary.txt
