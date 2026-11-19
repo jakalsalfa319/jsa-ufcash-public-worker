@@ -6,6 +6,9 @@ on:
     paths:
       - ".github/workflows/jsa-ufcash.yml"
       - "scripts/evaluate_predictions.py"
+      - "scripts/precision_lab.py"
+      - "scripts/elo_challenger.py"
+      - "tests/*.py"
   workflow_dispatch:
 
 permissions:
