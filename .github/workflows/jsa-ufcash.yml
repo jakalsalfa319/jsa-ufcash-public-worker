@@ -7,6 +7,8 @@ on:
       - ".github/workflows/jsa-ufcash.yml"
       - "scripts/evaluate_predictions.py"
       - "scripts/precision_lab.py"
+      - "scripts/rolling_2026.py"
+      - "scripts/prospective_journal.py"
       - "scripts/elo_challenger.py"
       - "tests/*.py"
   workflow_dispatch:
@@ -125,6 +127,21 @@ jobs:
           python scripts/precision_lab.py
           test -s results/precision_lab.json
 
+      - name: Run fixed four-family quarterly 2026 replay
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/rolling_2026.py
+          test -s results/rolling_2026_summary.json
+          test -s results/rolling_2026_predictions.json
+
+      - name: Freeze pre-event research journal only when truly before event
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/prospective_journal.py
+          test -s results/prospective_journal.json
+
       - name: Validate predictions and generate provenance report
         shell: bash
         run: |
@@ -167,7 +184,7 @@ jobs:
         with:
           name: jsa-ufcash-public-research
           if-no-files-found: error
-          retention-days: 1
+          retention-days: 30
           path: |
             ufcash/results/upcoming_predictions.csv
             card/upcoming.csv
@@ -175,4 +192,7 @@ jobs:
             results/provenance.json
             results/elo_challenger.json
             results/precision_lab.json
+            results/rolling_2026_summary.json
+            results/rolling_2026_predictions.json
+            results/prospective_journal.json
             results/summary.txt
