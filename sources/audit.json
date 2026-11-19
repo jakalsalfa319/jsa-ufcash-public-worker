@@ -59,9 +59,9 @@
     },
     {
       "repo": "clarencechaan/ufc-cal",
-      "license": "not detected in GitHub repository metadata",
+      "license": "ISC declared in package.json; no repository-wide LICENSE file detected",
       "role": "public UFC event/fight schedule cross-check",
-      "action": "link to public ICS feed and compare event IDs/dates, no code incorporation",
+      "action": "consume public ICS feed for advisory event-date checks with attribution; review reuse rights before copying any code",
       "risk": "feed errors/cancellations, independent non-official feed",
       "priority": "high"
     },
