@@ -57,7 +57,7 @@ def summary(probabilities, outcomes, threshold=0.5):
     correct=sum((p>=0.5)==bool(y) for p,y in accepted)
     out={
         "selected":n,"eligible":len(probabilities),
-        "coverage":n/len(probabilities) if probabilities else None,
+        "coverage":n/len(probabilities) if len(probabilities)>0 else None,
         "correct":correct,"accuracy":correct/n if n else None,
         "wilson95Lower":wilson_lower(correct,n),
         "brier":sum((p-y)**2 for p,y in accepted)/n if n else None,
