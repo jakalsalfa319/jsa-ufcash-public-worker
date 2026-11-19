@@ -21,6 +21,20 @@ A dedicated **R0-infrastructure**, open-source-only UFC research, quality-contro
 
 The 12 user-supplied candidate repositories were individually reviewed for license, role, freshness and data-leakage risk in [sources/audit.json](sources/audit.json). Listing a repository is not a license to copy its code or redistribute its datasets.
 
+## Verified November 19, 2026 benchmark
+
+The third odds-free model [ran successfully](https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44616691072) using fixed training (2012-2023), 2024 validation and **untouched 2025-2026 retrospective holdout**.
+
+| Same eligible 551 test fights | Accuracy |
+|---|---:|
+| Pre-fight Elo baseline | 308/551 = **55.90%** |
+| New feature-based ML model | 347/551 = **62.98%** |
+| Higher-confidence model selections only | 101/141 = **71.63%**, **25.6% coverage** |
+
+The 75% confidence threshold was selected using 2024 validation only. The selected 2025 set was **57/72 (79.17%)**, but in 2026 it was only **44/69 (63.77%)**. This potential drift is a blocking research concern, not proof of stable profitability or anything close to 99.9% accuracy. None of the seven Qatar matchups passes the frozen threshold.
+
+Machine-readable verified output: [public/precision-lab-summary.json](public/precision-lab-summary.json). The full source-data report, predictions and hashes are available in the [successful GitHub Actions artifact](https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44616691072). Live read-only review: https://jsa-ai-trading-hq.vercel.app/precision.html.
+
 ## Precision Lab: time-separated third challenger
 
 **Actual source:** [scripts/precision_lab.py](scripts/precision_lab.py), with [independent tests](tests/test_precision_lab.py). The workflow executes this only after UFCash has built its public pre-fight feature table.
