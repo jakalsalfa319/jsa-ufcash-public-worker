@@ -1,0 +1,99 @@
+{
+  "schema": "JSA_UFCASH_REAL_INFERENCE_V1",
+  "eventDate": "2026-11-21",
+  "runAt": "2026-11-19T20:23:34.627012+00:00",
+  "githubRun": "https://github.com/jakalsalfa319/AI-auto-generate-video/actions/runs/44607768706",
+  "modelSource": "SolvAI/ufcash",
+  "modelCommit": "c6b1e8233b172fde6e2dabb8757d351c1a4a5ede",
+  "modelTrainedThrough": "2026-10-31 (author-reported model training cutoff)",
+  "inputReference": "https://jsa-ai-trading-hq.vercel.app/api/ufc-reference-odds",
+  "inputQuoteType": "UFC.com displayed reference, not bookmaker opening/executable odds",
+  "sampleCount": 7,
+  "csvSha256": "740536335ceb7cfce62823f3288dce5e1bc7dcbc98237e73e5b82ea10b877136",
+  "dataFileCount": 9,
+  "predictions": [
+    {
+      "red": "Jiri Prochazka",
+      "blue": "Navajo Stirling",
+      "division": "Light Heavyweight",
+      "modelPRed": 0.338,
+      "statsPRed": 0.256,
+      "openModelPRed": 0.303,
+      "marketPRed": 0.398,
+      "redUfcFights": 9,
+      "blueUfcFights": 6
+    },
+    {
+      "red": "Aljamain Sterling",
+      "blue": "Kevin Vallejos",
+      "division": "Featherweight",
+      "modelPRed": 0.438,
+      "statsPRed": 0.409,
+      "openModelPRed": 0.425,
+      "marketPRed": 0.457,
+      "redUfcFights": 23,
+      "blueUfcFights": 4
+    },
+    {
+      "red": "Dan Hooker",
+      "blue": "Brian Ortega",
+      "division": "Lightweight",
+      "modelPRed": 0.613,
+      "statsPRed": 0.457,
+      "openModelPRed": 0.589,
+      "marketPRed": 0.63,
+      "redUfcFights": 25,
+      "blueUfcFights": 14
+    },
+    {
+      "red": "Kyoji Horiguchi",
+      "blue": "Asu Almabayev",
+      "division": "Flyweight",
+      "modelPRed": 0.65,
+      "statsPRed": 0.593,
+      "openModelPRed": 0.645,
+      "marketPRed": 0.639,
+      "redUfcFights": 11,
+      "blueUfcFights": 8
+    },
+    {
+      "red": "Jared Cannonier",
+      "blue": "Ikram Aliskerov",
+      "division": "Middleweight",
+      "modelPRed": 0.226,
+      "statsPRed": 0.193,
+      "openModelPRed": 0.195,
+      "marketPRed": 0.286,
+      "redUfcFights": 21,
+      "blueUfcFights": 6
+    },
+    {
+      "red": "Aleksandre Topuria",
+      "blue": "Santiago Luna",
+      "division": "Bantamweight",
+      "modelPRed": 0.658,
+      "statsPRed": 0.279,
+      "openModelPRed": 0.602,
+      "marketPRed": 0.736,
+      "redUfcFights": 2,
+      "blueUfcFights": 3
+    },
+    {
+      "red": "Shamil Gaziev",
+      "blue": "Tallison Teixeira",
+      "division": "Heavyweight",
+      "modelPRed": 0.578,
+      "statsPRed": 0.36,
+      "openModelPRed": 0.533,
+      "marketPRed": 0.639,
+      "redUfcFights": 7,
+      "blueUfcFights": 4
+    }
+  ],
+  "notClaims": [
+    "No verified profit",
+    "No automatic wagering",
+    "No bookmaker executable odds",
+    "No proven model calibration on this specific event"
+  ]
+}
