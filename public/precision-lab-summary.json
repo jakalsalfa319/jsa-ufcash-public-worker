@@ -1,0 +1,123 @@
+{
+  "schema": "JSA_PRECISION_LAB_SUMMARY_V1",
+  "generatedBy": "scripts/precision_lab.py",
+  "eventDate": "2026-11-21",
+  "evaluatedOn": "2025-01-01 through 2026-11-18",
+  "runUrl": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44616691072",
+  "fullArtifactSha256": "f45553b50f0b9b0ed318d2e78411c552afee436ca9b9c579e6118336096f898b",
+  "sourceData": "public UFCStats pre-fight features built by pinned SolvAI/ufcash; current odds excluded from challenger",
+  "featureCount": 50,
+  "selectedAlgorithm": "logistic_weak",
+  "trainedOn": "2012–2023",
+  "validatedAndCalibratedOn": "2024",
+  "unseenPeriod": "2025–2026",
+  "counts": {
+    "train": 2586,
+    "validation": 306,
+    "test": 551
+  },
+  "validationSelection": {
+    "threshold": 0.75,
+    "eligible": 306,
+    "selected": 70,
+    "correct": 62,
+    "accuracy": 0.8857142857142857,
+    "coverage": 0.22875816993464052
+  },
+  "test": {
+    "overall": {
+      "eligible": 551,
+      "correct": 347,
+      "accuracy": 0.6297640653357531,
+      "brier": 0.23116436532186763,
+      "logloss": 0.6564169739192453,
+      "wilson95Lower": 0.5886772689196015
+    },
+    "matchedElo": {
+      "eligible": 551,
+      "correct": 308,
+      "accuracy": 0.558983666061706,
+      "brier": 0.245203378118697
+    },
+    "selective": {
+      "eligible": 551,
+      "selected": 141,
+      "correct": 101,
+      "accuracy": 0.7163120567375887,
+      "coverage": 0.2558983666061706,
+      "wilson95Lower": 0.6369382042061265
+    }
+  },
+  "selectedByYear": {
+    "2025": {
+      "eligible": 285,
+      "selected": 72,
+      "correct": 57,
+      "accuracy": 0.7916666666666666,
+      "coverage": 0.25263157894736843
+    },
+    "2026": {
+      "eligible": 266,
+      "selected": 69,
+      "correct": 44,
+      "accuracy": 0.6376811594202898,
+      "coverage": 0.2593984962406015
+    }
+  },
+  "driftStatus": "CAUTION: 2026 selected accuracy lower than 2025 (small year cohorts; exploratory, not proof of structural change)",
+  "upcomingPredictions": [
+    {
+      "fighterA": "Jiri Prochazka",
+      "fighterB": "Navajo Stirling",
+      "probabilityA": 0.253944,
+      "eligibleHistory": true,
+      "passesFrozenConfidenceGate": false
+    },
+    {
+      "fighterA": "Aljamain Sterling",
+      "fighterB": "Kevin Vallejos",
+      "probabilityA": 0.598431,
+      "eligibleHistory": true,
+      "passesFrozenConfidenceGate": false
+    },
+    {
+      "fighterA": "Dan Hooker",
+      "fighterB": "Brian Ortega",
+      "probabilityA": 0.394072,
+      "eligibleHistory": true,
+      "passesFrozenConfidenceGate": false
+    },
+    {
+      "fighterA": "Kyoji Horiguchi",
+      "fighterB": "Asu Almabayev",
+      "probabilityA": 0.555111,
+      "eligibleHistory": true,
+      "passesFrozenConfidenceGate": false
+    },
+    {
+      "fighterA": "Jared Cannonier",
+      "fighterB": "Ikram Aliskerov",
+      "probabilityA": 0.295392,
+      "eligibleHistory": true,
+      "passesFrozenConfidenceGate": false
+    },
+    {
+      "fighterA": "Aleksandre Topuria",
+      "fighterB": "Santiago Luna",
+      "probabilityA": null,
+      "eligibleHistory": false,
+      "passesFrozenConfidenceGate": false
+    },
+    {
+      "fighterA": "Shamil Gaziev",
+      "fighterB": "Tallison Teixeira",
+      "probabilityA": 0.59038,
+      "eligibleHistory": true,
+      "passesFrozenConfidenceGate": false
+    }
+  ],
+  "sufficientEvidenceFor99_9": false,
+  "verifiedProfitEdge": false,
+  "authorizedBookmakerExecution": false,
+  "disclaimer": "Odds-free experimental retrospective research. Event-specific predictions are not validated betting opportunities; source feature construction still requires independent auditing. No model tuning used the test cohort; results are not prospective confirmation."
+}
