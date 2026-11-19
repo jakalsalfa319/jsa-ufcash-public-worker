@@ -30,6 +30,10 @@ def metrics(points):
 
 
 def reconcile(snapshot, outcomes, verified_at):
+    stable={k:v for k,v in snapshot.items() if k!="snapshotSha256"}
+    calculated=digest(json.dumps(stable,sort_keys=True,separators=(",",":"),ensure_ascii=False).encode("utf-8"))
+    if calculated!=snapshot.get("snapshotSha256"):
+        raise ValueError("Original snapshot integrity checksum mismatch")
     if snapshot.get("status")!="PRE_EVENT_RESEARCH_ONLY":
         raise ValueError("No genuine pre-event snapshot")
     if can_freeze(snapshot["eventDate"],verified_at):
