@@ -1,0 +1,130 @@
+{
+  "schema": "JSA_ROLLING_2026_PUBLISHED_V1",
+  "eventDate": "2026-11-21",
+  "generatedFromRun": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44621080120",
+  "sourceArtifactSha256": "b01311b6796a50e0b8a55ff61c5ff0b7361c257cf5b3a8ed0eaba8b7d9f5a16e",
+  "internalSummarySha256": "73621c2f193d00674264ffdf821c3605d06e5e44d259e01f8234adf17c871eff",
+  "modelVersion": "Four fixed families; prior-quarter Brier selection, lagged recalibration; historical 2026 development replay",
+  "notUnseen2026": true,
+  "prospectiveVerified": false,
+  "verifiedProfit": false,
+  "cost": "R0 standard public GitHub Actions",
+  "fightCount": 266,
+  "eventDays": 40,
+  "confidenceGate": 0.75,
+  "cohort": {
+    "rolling": {
+      "correct": 167,
+      "n": 266,
+      "accuracy": 0.6278195488721805,
+      "brier": 0.2332943736168915,
+      "logloss": 0.6627257354360122,
+      "ece10": 0.04155816413104238,
+      "lower95": 0.5682961683354232
+    },
+    "staticFrozen": {
+      "correct": 167,
+      "n": 266,
+      "accuracy": 0.6278195488721805,
+      "brier": 0.23957913485150178,
+      "logloss": 0.6758498147410912,
+      "ece10": 0.09845260478538997
+    },
+    "elo32": {
+      "correct": 146,
+      "n": 266,
+      "accuracy": 0.5488721804511278,
+      "brier": 0.24592159145644543,
+      "logloss": 0.6849141709865654,
+      "ece10": 0.02835248971947753
+    },
+    "rollingSelected75": {
+      "correct": 20,
+      "n": 30,
+      "accuracy": 0.6666666666666666,
+      "coverage": 0.11278195488721804,
+      "brier": 0.2411275300914753,
+      "lower95": 0.4878005164454384
+    },
+    "staticSelected75": {
+      "correct": 41,
+      "n": 64,
+      "accuracy": 0.640625,
+      "coverage": 0.24060150375939848,
+      "brier": 0.25184190367553333,
+      "lower95": 0.5182085060977909
+    },
+    "rollingMinusStaticAccuracyPP": 0,
+    "pairedEventBootstrap95CIpp": [
+      -5.556,
+      5.285
+    ]
+  },
+  "quarters": [
+    {
+      "from": "2026-01-01",
+      "to": "2026-04-01",
+      "family": "xgboost",
+      "n": 57,
+      "rollingCorrect": 41,
+      "staticCorrect": 35,
+      "rollingSelected": 1,
+      "rollingSelectedCorrect": 1
+    },
+    {
+      "from": "2026-04-01",
+      "to": "2026-07-01",
+      "family": "hist_boost",
+      "n": 82,
+      "rollingCorrect": 48,
+      "staticCorrect": 53,
+      "rollingSelected": 28,
+      "rollingSelectedCorrect": 18
+    },
+    {
+      "from": "2026-07-01",
+      "to": "2026-10-01",
+      "family": "logistic_weak",
+      "n": 79,
+      "rollingCorrect": 49,
+      "staticCorrect": 49,
+      "rollingSelected": 0,
+      "rollingSelectedCorrect": 0
+    },
+    {
+      "from": "2026-10-01",
+      "to": "2026-11-19",
+      "family": "catboost",
+      "n": 48,
+      "rollingCorrect": 29,
+      "staticCorrect": 30,
+      "rollingSelected": 1,
+      "rollingSelectedCorrect": 1
+    }
+  ],
+  "diagnosticsOnly": {
+    "logistic_weak": {
+      "correct": 167,
+      "n": 266
+    },
+    "hist_boost": {
+      "correct": 170,
+      "n": 266
+    },
+    "xgboost": {
+      "correct": 168,
+      "n": 266
+    },
+    "catboost": {
+      "correct": 169,
+      "n": 266
+    }
+  },
+  "historicalPolicyDecision": "NO PROMOTION for winner accuracy; test prospective, calibration improved but full fight winner hit-rate unchanged.",
+  "footnotes": [
+    "2026 was previously examined; cannot claim untouched holdout",
+    "High-confidence sample 30 fights is too small for strong claim",
+    "No executable bookmaker odds, no valid ROI",
+    "Candidate family retrospective results are diagnostic, not a fair rationale to select best based on 2026"
+  ]
+}
