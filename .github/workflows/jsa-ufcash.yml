@@ -131,7 +131,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python scripts/rolling_2026.py
+          python -m scripts.rolling_2026
           test -s results/rolling_2026_summary.json
           test -s results/rolling_2026_predictions.json
 
@@ -139,7 +139,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python scripts/prospective_journal.py
+          python -m scripts.prospective_journal
           test -s results/prospective_journal.json
 
       - name: Validate predictions and generate provenance report
