@@ -1,0 +1,83 @@
+{
+  "schema": "JSA_ELO_CHALLENGER_V1",
+  "eventDate": "2026-11-21",
+  "sourceRepo": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker",
+  "runUrl": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44612306520",
+  "generatedAt": "2026-11-19T20:49:48.826276+00:00",
+  "k": 24,
+  "scale": 400,
+  "metrics": {
+    "eligible": 853,
+    "correct": 466,
+    "accuracy": 0.5463071512309496,
+    "brier": 0.24579091051947982,
+    "holdoutStart": "2024-01-01",
+    "fightResultsBeforeEvent": 8844,
+    "trainingMethod": "online Elo: only earlier completed outcomes; same-day batch updates"
+  },
+  "predictions": [
+    {
+      "fighterA": "Jiri Prochazka",
+      "fighterB": "Navajo Stirling",
+      "ufcPriorFightsA": 9,
+      "ufcPriorFightsB": 6,
+      "eloProbabilityA": 0.469105,
+      "coverage": "COMPARABLE"
+    },
+    {
+      "fighterA": "Aljamain Sterling",
+      "fighterB": "Kevin Vallejos",
+      "ufcPriorFightsA": 23,
+      "ufcPriorFightsB": 4,
+      "eloProbabilityA": 0.62792,
+      "coverage": "COMPARABLE"
+    },
+    {
+      "fighterA": "Dan Hooker",
+      "fighterB": "Brian Ortega",
+      "ufcPriorFightsA": 25,
+      "ufcPriorFightsB": 13,
+      "eloProbabilityA": 0.489135,
+      "coverage": "COMPARABLE"
+    },
+    {
+      "fighterA": "Kyoji Horiguchi",
+      "fighterB": "Asu Almabayev",
+      "ufcPriorFightsA": 11,
+      "ufcPriorFightsB": 8,
+      "eloProbabilityA": 0.510214,
+      "coverage": "COMPARABLE"
+    },
+    {
+      "fighterA": "Jared Cannonier",
+      "fighterB": "Ikram Aliskerov",
+      "ufcPriorFightsA": 21,
+      "ufcPriorFightsB": 6,
+      "eloProbabilityA": 0.465356,
+      "coverage": "COMPARABLE"
+    },
+    {
+      "fighterA": "Aleksandre Topuria",
+      "fighterB": "Santiago Luna",
+      "ufcPriorFightsA": 2,
+      "ufcPriorFightsB": 3,
+      "eloProbabilityA": null,
+      "coverage": "INSUFFICIENT HISTORY"
+    },
+    {
+      "fighterA": "Shamil Gaziev",
+      "fighterB": "Tallison Teixeira",
+      "ufcPriorFightsA": 7,
+      "ufcPriorFightsB": 4,
+      "eloProbabilityA": 0.516657,
+      "coverage": "COMPARABLE"
+    }
+  ],
+  "notes": [
+    "Elo uses only pre-event fight outcomes from already processed UFCStats data",
+    "Same-day results are updated after scoring all same-day bouts",
+    "2024-2026 retrospective sample differs from UFCash's published historical sample",
+    "Elo is not calibrated or proven profitable",
+    "Personal public research; no financial data or bookmaker integration"
+  ]
+}
