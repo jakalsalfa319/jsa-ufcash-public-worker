@@ -108,6 +108,13 @@ jobs:
           python ufcash.py card
           test -s results/upcoming_predictions.csv
 
+      - name: Build independently implemented Elo challenger and historical holdout
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/elo_challenger.py
+          test -s results/elo_challenger.json
+
       - name: Validate predictions and generate provenance report
         shell: bash
         run: |
@@ -156,4 +163,5 @@ jobs:
             card/upcoming.csv
             reference.json
             results/provenance.json
+            results/elo_challenger.json
             results/summary.txt
