@@ -1,0 +1,90 @@
+{
+  "schema": "JSA_EVENT_JOURNAL_V1",
+  "eventDate": "2026-11-21",
+  "generatedAtUTC": "2026-11-19T21:44:30.023146+00:00",
+  "status": "PRE_EVENT_RESEARCH_ONLY",
+  "sourceSha256": {
+    "card/upcoming.csv": "92bed5161ae0a65aebf0c06f64ac03868bbd111bc606a097239b82c1c500ec99",
+    "ufcash/results/upcoming_predictions.csv": "740536335ceb7cfce62823f3288dce5e1bc7dcbc98237e73e5b82ea10b877136",
+    "results/precision_lab.json": "c77728870991fdd2e141327129d539b76e99eddf1412734b6c03d905fbb7a80f",
+    "reference.json": "b35a9be43cd26263022c8ee04f59790a7ef07d7eb21bd8ca7676e8bcf6488bfb"
+  },
+  "study": "Prior-sourced UFCash and odds-free model predictions before event date",
+  "sourceFreezeScope": "This report seals *model outputs and file checksums*, not underlying third-party historical data",
+  "predictionCount": 7,
+  "predictions": [
+    {
+      "red": "Jiri Prochazka",
+      "blue": "Navajo Stirling",
+      "ufcashProbabilityRed": 0.338,
+      "oddsFreeProbabilityRed": 0.253944,
+      "oddsFreeFrozenGatePassed": false,
+      "outcome": null,
+      "betPlaced": false,
+      "noBettingRecommendation": true
+    },
+    {
+      "red": "Aljamain Sterling",
+      "blue": "Kevin Vallejos",
+      "ufcashProbabilityRed": 0.438,
+      "oddsFreeProbabilityRed": 0.598431,
+      "oddsFreeFrozenGatePassed": false,
+      "outcome": null,
+      "betPlaced": false,
+      "noBettingRecommendation": true
+    },
+    {
+      "red": "Dan Hooker",
+      "blue": "Brian Ortega",
+      "ufcashProbabilityRed": 0.613,
+      "oddsFreeProbabilityRed": 0.394072,
+      "oddsFreeFrozenGatePassed": false,
+      "outcome": null,
+      "betPlaced": false,
+      "noBettingRecommendation": true
+    },
+    {
+      "red": "Kyoji Horiguchi",
+      "blue": "Asu Almabayev",
+      "ufcashProbabilityRed": 0.65,
+      "oddsFreeProbabilityRed": 0.555111,
+      "oddsFreeFrozenGatePassed": false,
+      "outcome": null,
+      "betPlaced": false,
+      "noBettingRecommendation": true
+    },
+    {
+      "red": "Jared Cannonier",
+      "blue": "Ikram Aliskerov",
+      "ufcashProbabilityRed": 0.226,
+      "oddsFreeProbabilityRed": 0.295392,
+      "oddsFreeFrozenGatePassed": false,
+      "outcome": null,
+      "betPlaced": false,
+      "noBettingRecommendation": true
+    },
+    {
+      "red": "Aleksandre Topuria",
+      "blue": "Santiago Luna",
+      "ufcashProbabilityRed": 0.658,
+      "oddsFreeProbabilityRed": null,
+      "oddsFreeFrozenGatePassed": false,
+      "outcome": null,
+      "betPlaced": false,
+      "noBettingRecommendation": true
+    },
+    {
+      "red": "Shamil Gaziev",
+      "blue": "Tallison Teixeira",
+      "ufcashProbabilityRed": 0.578,
+      "oddsFreeProbabilityRed": 0.59038,
+      "oddsFreeFrozenGatePassed": false,
+      "outcome": null,
+      "betPlaced": false,
+      "noBettingRecommendation": true
+    }
+  ],
+  "modelProbabilitiesNotBettingEdges": true,
+  "outcomeIndependentVerificationPending": true,
+  "snapshotSha256": "2b4c1b9b23e18adfebb4181c3b0f7ff6d4906581cb8cb478072ada380aaa47de"
+}
