@@ -1,0 +1,117 @@
+{
+  "schema": "JSA_SOURCE_AUDIT_V1",
+  "auditedAt": "2026-11-19",
+  "purpose": "Independent fighter history, Elo challengers, calendar reconciliation, pre-fight odds and safe benchmark selection. No indiscriminate source merging.",
+  "goals": {
+    "aspirationWinnerPrecision": 0.999,
+    "notGuaranteed": true,
+    "primaryValidation": [
+      "locked chronological holdout",
+      "coverage & abstention",
+      "winner accuracy & Wilson CI",
+      "Brier",
+      "log loss",
+      "calibration",
+      "ROI using timestamped executable odds"
+    ],
+    "commercialDataLicenseReview": true
+  },
+  "sources": [
+    {
+      "repo": "Greco1899/scrape_ufc_stats",
+      "license": "GPL-3.0",
+      "role": "historical UFCStats scraper and independently regenerated data",
+      "action": "consider data freshness checks only; do not copy GPL code into differently licensed core",
+      "risk": "UFCStats site access, rate limits, stale post-fight stats leakage",
+      "priority": "high"
+    },
+    {
+      "repo": "WarrierRajeev/UFC-Predictions",
+      "license": "not detected in GitHub repository metadata",
+      "role": "independent RandomForest/XGBoost challenger reference",
+      "action": "study feature engineering; independently reimplement after license review",
+      "risk": "README validation accuracy 72.18% is author-reported and not a matched 2024-2026 lockbox",
+      "priority": "medium"
+    },
+    {
+      "repo": "jasonchanhku/UFC-MMA-Predictor",
+      "license": "not detected in GitHub repository metadata",
+      "role": "older predictor and market-aware features reference",
+      "action": "review ideas only",
+      "risk": "README 70.4% claim is not a verified recent holdout; dated 2022",
+      "priority": "low"
+    },
+    {
+      "repo": "shortlikeafox/tiger-millionaire",
+      "license": "MIT",
+      "role": "historical odds integration reference",
+      "action": "optional independent historical quote ingestion with timestamps",
+      "risk": "dated 2022, bookmaker sources may have different rights or odds stages",
+      "priority": "medium"
+    },
+    {
+      "repo": "NBAtrev/UFC-Elo-Engine",
+      "license": "not detected in GitHub repository metadata",
+      "role": "independent Elo conceptual challenger",
+      "action": "benchmark documented equations with clean-room implementation",
+      "risk": "check duplicate bouts, chronological update and prior-only stats",
+      "priority": "high"
+    },
+    {
+      "repo": "clarencechaan/ufc-cal",
+      "license": "not detected in GitHub repository metadata",
+      "role": "public UFC event/fight schedule cross-check",
+      "action": "link to public ICS feed and compare event IDs/dates, no code incorporation",
+      "risk": "feed errors/cancellations, independent non-official feed",
+      "priority": "high"
+    },
+    {
+      "repo": "FritzCapuyan/ufc-api",
+      "license": "MIT",
+      "role": "public UFC fighter/event fallback parser",
+      "action": "test isolated fallback only, with rate limits and source attribution",
+      "risk": "unmaintained since Jan 2024; markup changes",
+      "priority": "medium"
+    },
+    {
+      "repo": "valish/ufc-api",
+      "license": "MIT",
+      "role": "legacy UFC.com crawler",
+      "action": "exclude from execution",
+      "risk": "2015-era endpoints are obsolete",
+      "priority": "low"
+    },
+    {
+      "repo": "andrew-couch/UFC-Sports-Betting-Model",
+      "license": "not detected in GitHub repository metadata",
+      "role": "multi-target expected strike/takedown/submission modeling ideas",
+      "action": "independent pre-fight feature experiment; license review before reuse",
+      "risk": "past fight full statistics leakage and unavailable historical data version",
+      "priority": "medium"
+    },
+    {
+      "repo": "m4heshd/ufc-ripper",
+      "license": "MIT",
+      "role": "UFC Fight Pass video downloading",
+      "action": "exclude from R0 stack",
+      "risk": "project explicitly requires a paid UFC Fight Pass subscription",
+      "priority": "excluded"
+    },
+    {
+      "repo": "cdpierse/ufc_fight_predictor",
+      "license": "not detected in GitHub repository metadata",
+      "role": "neural network challenger reference",
+      "action": "benchmark architecture ideas independently",
+      "risk": "old 2022 app and lack of author-verified modern holdout",
+      "priority": "low"
+    },
+    {
+      "repo": "jansen88/ufc-data",
+      "license": "not detected in GitHub repository metadata",
+      "role": "historical results and odds dataset",
+      "action": "use as independent schema/data-quality reference only pending license and timestamps",
+      "risk": "README warns fighter1 is often winner; direct fighter order can leak outcome; statistics may be later snapshots",
+      "priority": "high"
+    }
+  ]
+}
