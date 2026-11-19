@@ -21,6 +21,18 @@ A dedicated **R0-infrastructure**, open-source-only UFC research, quality-contro
 
 The 12 user-supplied candidate repositories were individually reviewed for license, role, freshness and data-leakage risk in [sources/audit.json](sources/audit.json). Listing a repository is not a license to copy its code or redistribute its datasets.
 
+## Precision Lab: time-separated third challenger
+
+**Actual source:** [scripts/precision_lab.py](scripts/precision_lab.py), with [independent tests](tests/test_precision_lab.py). The workflow executes this only after UFCash has built its public pre-fight feature table.
+
+- **Train** on eligible 2012–2023 UFC bouts using pre-fight fighter form, striking, grappling and rating evidence, never fight winners, future attributes, market odds or fighter identity as predictive features.
+- **Model selection and Platt calibration:** 2024 data **only**, with predefined candidate logistic and constrained histogram-gradient boosting models.
+- **Confidence / abstention policy:** threshold selected on 2024 alone to maximize the lower confidence bound subject to at least 25 accepted cases and 8% coverage.
+- **Locked test:** 2025 through 18 November 2026. No parameters or thresholds chosen from this result. Report full-coverage and selected-bout accuracies, confidence interval, Brier, log loss and acceptance coverage.
+- **Prospective-event research:** snapshot predicts the seven verified Qatar bouts with the model frozen at the 2023 training cutoff and 2024 calibration, not with secretly re-trained post-test parameters.
+
+A high selected-bout hit rate alongside tiny coverage **does not** demonstrate 99.9% ability across UFC fights; never claim independently validated betting profitability without recorded executable prices and authentic settlements. Inference may improve prediction research without improving expected betting return.
+
 ## The 99.9% ambition
 
 **99.9% is an aspiration, not an achieved or promised fight-winner accuracy.** The system must disclose: accuracy, lower 95% Wilson confidence bound, abstention/coverage, Brier, log loss, expected calibration error, sample size, drawdowns and net ROI if independently verified executable prices exist. A threshold tuned on the same test set is invalid. Claiming 99.9% only becomes defensible after independent, locked, prospective evaluation on enough fights to support the precision claim.
