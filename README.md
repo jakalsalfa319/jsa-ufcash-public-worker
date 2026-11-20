@@ -21,6 +21,24 @@ A dedicated **R0-infrastructure**, open-source-only UFC research, quality-contro
 
 The 12 user-supplied candidate repositories were individually reviewed for license, role, freshness and data-leakage risk in [sources/audit.json](sources/audit.json). Listing a repository is not a license to copy its code or redistribute its datasets.
 
+## Final Event Evidence workflow (20 November 2026)
+
+**Live evidence viewer:** https://jsa-ai-trading-hq.vercel.app/event-evidence.html
+
+The v2.1 UFC source gate and new result-audit scripts use the two immutable pre-event forecasts at `public/prospective/2026-11-21.json` and `public/prospective/2026-11-21-frontier-v2.json`. These originals are not overwritten. The archived [20 November card verification](public/card-integrity-2026-11-20.json) found **7/7 exact same-bout UFC listings**, with recorded page SHA-256 and timestamp.
+
+**Operational checks (UTC, +2 hours for South Africa):**
+
+- **21 Nov 09:30 UTC / 11:30 SAST:** [Official card identity recheck](.github/workflows/card-integrity.yml), which verifies the listed matchups but does not assign winners.
+- **22 Nov 12:00 UTC / 14:00 SAST:** [Official UFCStats post-event audit](.github/workflows/post-event-evidence.yml).
+- **23 Nov 12:00 UTC / 14:00 SAST:** Second audit for late/incomplete official results.
+
+The [new evidence collector](scripts/verify_official_results.py) requires the exact event in UFCStats completed-event listings, then opens individual fight-details pages and checks **both exact fighter identities and their W/L/D/NC statuses** before scoring any frozen model probability. Missing sources, altered fighters, unclear status and inaccessible records remain **PENDING**. Completed fights are reconciled with all frozen models using [settle_event_v2.py](scripts/settle_event_v2.py). These findings remain **GitHub Actions artifacts only**, not automatically published as verified results or bankroll entries.
+
+[Initial 20 November post-event workflow test](https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44764891931) completed with **34 passing tests**; the pre-event date gate correctly skipped real results collection. The repo uses free public GitHub Actions and a static-only website viewer because the Vercel Hobby site already uses 12 serverless functions. No new paid infrastructure or wagering execution was added.
+
+**Known limitations:** UFCStats availability, post-event structure changes, delayed/corrected results, and source provenance can all block settlement. This is intentionally fail-closed. No 99.9% winner accuracy, genuine betting profit, or final 21 November event result has yet been established.
+
 ## 21 November UFC Qatar: verified source and scoring pipeline
 
 **Pre-event UFC same-bout check passed 7/7** at 2026-11-20 15:20 UTC. Unlike fighter-name mentions, the [official card gate](scripts/card_integrity.py) requires both original opponents within the same UFC event bout listing. [Source record](public/card-integrity-2026-11-20.json) includes the official URL, UTC observation and raw HTML SHA-256. [Successful independent GitHub run](https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44763158863) runs **23 tests** plus card verification. The [lightweight scheduled recheck](.github/workflows/card-integrity.yml) is configured for 21 November at 09:30 UTC, without altering the historical models.
