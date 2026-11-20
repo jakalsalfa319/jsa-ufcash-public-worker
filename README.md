@@ -21,6 +21,21 @@ A dedicated **R0-infrastructure**, open-source-only UFC research, quality-contro
 
 The 12 user-supplied candidate repositories were individually reviewed for license, role, freshness and data-leakage risk in [sources/audit.json](sources/audit.json). Listing a repository is not a license to copy its code or redistribute its datasets.
 
+## Frontier Resilience v2.1: real Q4 drift audit (20 November 2026)
+
+**Live public viewer:** https://jsa-ai-trading-hq.vercel.app/resilience.html
+
+The reproducible [GitHub Actions run](https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44758648862) passed the model and risk-audit steps, including 2025-only selection of five predefined risk filters. **The 65% baseline rule remains selected. No new policy was promoted.**
+
+- Unchanged all-fight 2026 model: **176/266 = 66.17%**.
+- Preselected research-confidence rule: **103/156 = 66.03%**, **58.65% coverage**.
+- Alternative stricter 70%-confidence/≥5-previous-fights rule: **52/74 = 70.27%**, only **27.8% coverage**. This was NOT selected on 2025 evidence and cannot be treated as a verified improvement.
+- Q4 2026: **29/48 = 60.42%**. The subset with fewer than five recorded prior UFC fights for either fighter was **10/18 = 55.56%**. These small, overlapping groups are descriptive research, not validated risk causes.
+
+[Complete public release summary](public/frontier-resilience-v21.json), [precommitted protocol](docs/FRONTIER_RESILIENCE_V21.md) and source code in `scripts/frontier_resilience.py`. The complete historical audit records are in the run artifact for 30 days; file hashes are published in the public summary.
+
+**Evidence warning:** This 2026 data was already examined during project development. A 99.9% winner-accuracy claim or betting profitability remains unsupported; no actual wagers or money movement were made.
+
 ## Current verified research release: Accuracy Frontier v2 (20 November 2026)
 
 **Live read-only dashboard:** https://jsa-ai-trading-hq.vercel.app/frontier.html
