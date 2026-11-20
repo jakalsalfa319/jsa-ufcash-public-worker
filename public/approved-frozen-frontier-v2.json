@@ -32,9 +32,17 @@
   "selected2025H2": true,
   "sourceHashesVerifiedCount": 9,
   "restoredFixtureVectorsVerified": 24,
-  "independentFreshRunnerStatus": "in_progress_corner_invariance_check",
+  "independentFreshRunnerStatus": "PASS",
   "modelUsePolicy": "Only checksum-pinned public research; new UPCOMING events with reviewed card identities; no automatic betting",
   "noCurrentProspectiveAccuracyGuarantee": true,
   "noProfitClaim": true,
-  "nowagersPlaced": true
+  "nowagersPlaced": true,
+  "independentFreshRunnerRun": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44775978800",
+  "independentFreshRunnerTestCount": 6,
+  "independentFreshRunnerFixtureCount": 24,
+  "maxAbsoluteCornerComplementDeviation": 2.7483559872365504e-8,
+  "cornerComplementTolerance": 0.000001,
+  "checkpointArchiveReusedWithoutRetraining": true,
+  "independentFreshRunnerDependenciesPinned": true,
+  "validationScope": "Fitted-model repeatability, SHA-256 integrity, tested feature rows and numerical near-complementarity only; NOT prospective accuracy"
 }
