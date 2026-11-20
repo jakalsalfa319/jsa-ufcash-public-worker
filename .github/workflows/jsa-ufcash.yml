@@ -7,6 +7,7 @@ on:
       - ".github/workflows/jsa-ufcash.yml"
       - "scripts/evaluate_predictions.py"
       - "scripts/precision_lab.py"
+      - "scripts/accuracy_frontier.py"
       - "scripts/rolling_2026.py"
       - "scripts/prospective_journal.py"
       - "scripts/elo_challenger.py"
@@ -102,6 +103,9 @@ jobs:
       - name: Install upstream pinned Python packages
         run: python -m pip install --no-input -r ufcash/requirements.txt
 
+      - name: Verify NumPy/Pandas research invariants with pinned ML dependencies
+        run: python -m unittest discover -s tests -v
+
       - name: Download public data and build UFCash pre-fight feature history
         run: |
           cd ufcash
@@ -141,6 +145,13 @@ jobs:
           set -euo pipefail
           python -m scripts.prospective_journal
           test -s results/prospective_journal.json
+
+      - name: Run accuracy frontier with 2025-only selection and 2026 full-cohort comparison
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m scripts.accuracy_frontier
+          test -s results/accuracy_frontier_2026.json
 
       - name: Validate predictions and generate provenance report
         shell: bash
@@ -193,6 +204,7 @@ jobs:
             results/elo_challenger.json
             results/precision_lab.json
             results/rolling_2026_summary.json
+            results/accuracy_frontier_2026.json
             results/rolling_2026_predictions.json
             results/prospective_journal.json
             results/summary.txt
