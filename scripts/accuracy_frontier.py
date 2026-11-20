@@ -338,6 +338,12 @@ def calculate():
               "probabilities":probs,
               "fights":[int(row.r_n_fights),int(row.b_n_fights)],
               "daysSince":[finite_or_none(row.r_days_since),finite_or_none(row.b_days_since)],
+              "preFightStyle":{
+                "strikeDiff":[finite_or_none(row.r_c_sdiff),finite_or_none(row.b_c_sdiff)],
+                "takedowns15":[finite_or_none(row.r_c_td15),finite_or_none(row.b_c_td15)],
+                "takedownDefense":[finite_or_none(row.r_c_tddef),finite_or_none(row.b_c_tddef)],
+                "control":[finite_or_none(row.r_c_ctrl),finite_or_none(row.b_c_ctrl)]
+              },
               "elo32":round(float(row.p_elo32),9),
             })
     if len(cases["selection2025"])!=sizes["dev"] or len(cases["development2026"])!=sizes["test"]:
