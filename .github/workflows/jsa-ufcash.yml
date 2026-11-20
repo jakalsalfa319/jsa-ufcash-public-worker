@@ -154,6 +154,20 @@ jobs:
           set -euo pipefail
           python -m scripts.accuracy_frontier
           test -s results/accuracy_frontier_2026.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          v=json.loads(Path("results/accuracy_frontier_2026.json").read_text())
+          audit=v["reproducibility"]
+          assert audit["threadPolicy"]=="single-thread tree models and BLAS/OpenMP"
+          hashes=audit["probabilityHashesSha256"]
+          assert "chosen_ensemble" in hashes and all(len(h)==64 for h in hashes.values())
+          with Path("/tmp/jsa-fingerprints.txt").open("w") as f:
+              f.write("## Fixed-precision model probability hashes\n\n")
+              f.write("\n".join(key+": "+value for key,value in sorted(hashes.items()))+"\n")
+          print("Frontier model exact probability fingerprints verified.")
+          PY
+          cat /tmp/jsa-fingerprints.txt >> "$GITHUB_STEP_SUMMARY"
 
       - name: Audit historical 2026 model disagreement, experience and layoff risk
         shell: bash
@@ -207,7 +221,7 @@ jobs:
           PY
           cat results/summary.txt >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Upload public research only (1-day retention)
+      - name: Upload public research only (30-day retention)
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: jsa-ufcash-public-research
