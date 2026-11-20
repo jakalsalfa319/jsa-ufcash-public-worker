@@ -1,0 +1,89 @@
+{
+  "schema": "JSA_FRONTIER_PROSPECTIVE_V2",
+  "eventDate": "2026-11-21",
+  "recordedAtUTC": "2026-11-20T14:41:29.327Z",
+  "sourceRun": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44754660814",
+  "sourceCommit": "3337f43336d5820f4aaacf21e0a8657a6c9056d1",
+  "sourceReportSha256": "33c5dc2f4b395f0195871fcf1c890871a48f056416822ada22b56128ac207c11",
+  "trainingThrough": "2024-12-31",
+  "calibration": "2025-H1",
+  "familySelection": "2025-H2",
+  "model": "nonlinear_ensemble",
+  "confidenceThresholdLockedIn2025": 0.65,
+  "predictions": [
+    {
+      "fighterA": "Jiri Prochazka",
+      "fighterB": "Navajo Stirling",
+      "redProbability": 0.23997,
+      "sufficientHistory": true,
+      "passesValidationLockedGate": true,
+      "outcome": null,
+      "betPlaced": false,
+      "betRecommendation": false
+    },
+    {
+      "fighterA": "Aljamain Sterling",
+      "fighterB": "Kevin Vallejos",
+      "redProbability": 0.509246,
+      "sufficientHistory": true,
+      "passesValidationLockedGate": false,
+      "outcome": null,
+      "betPlaced": false,
+      "betRecommendation": false
+    },
+    {
+      "fighterA": "Dan Hooker",
+      "fighterB": "Brian Ortega",
+      "redProbability": 0.416257,
+      "sufficientHistory": true,
+      "passesValidationLockedGate": false,
+      "outcome": null,
+      "betPlaced": false,
+      "betRecommendation": false
+    },
+    {
+      "fighterA": "Kyoji Horiguchi",
+      "fighterB": "Asu Almabayev",
+      "redProbability": 0.523773,
+      "sufficientHistory": true,
+      "passesValidationLockedGate": false,
+      "outcome": null,
+      "betPlaced": false,
+      "betRecommendation": false
+    },
+    {
+      "fighterA": "Jared Cannonier",
+      "fighterB": "Ikram Aliskerov",
+      "redProbability": 0.198581,
+      "sufficientHistory": true,
+      "passesValidationLockedGate": true,
+      "outcome": null,
+      "betPlaced": false,
+      "betRecommendation": false
+    },
+    {
+      "fighterA": "Aleksandre Topuria",
+      "fighterB": "Santiago Luna",
+      "redProbability": null,
+      "sufficientHistory": false,
+      "passesValidationLockedGate": false,
+      "outcome": null,
+      "betPlaced": false,
+      "betRecommendation": false
+    },
+    {
+      "fighterA": "Shamil Gaziev",
+      "fighterB": "Tallison Teixeira",
+      "redProbability": 0.4988,
+      "sufficientHistory": true,
+      "passesValidationLockedGate": false,
+      "outcome": null,
+      "betPlaced": false,
+      "betRecommendation": false
+    }
+  ],
+  "knownOutcomes": false,
+  "researchOnly": true,
+  "verifiedProfitEdge": false,
+  "policy": "Immutable-by-convention source-controlled pre-event prediction. Independently verify outcomes after event, never overwrite original predictions."
+}
