@@ -21,6 +21,14 @@ A dedicated **R0-infrastructure**, open-source-only UFC research, quality-contro
 
 The 12 user-supplied candidate repositories were individually reviewed for license, role, freshness and data-leakage risk in [sources/audit.json](sources/audit.json). Listing a repository is not a license to copy its code or redistribute its datasets.
 
+## 21 November UFC Qatar: verified source and scoring pipeline
+
+**Pre-event UFC same-bout check passed 7/7** at 2026-11-20 15:20 UTC. Unlike fighter-name mentions, the [official card gate](scripts/card_integrity.py) requires both original opponents within the same UFC event bout listing. [Source record](public/card-integrity-2026-11-20.json) includes the official URL, UTC observation and raw HTML SHA-256. [Successful independent GitHub run](https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44763158863) runs **23 tests** plus card verification. The [lightweight scheduled recheck](.github/workflows/card-integrity.yml) is configured for 21 November at 09:30 UTC, without altering the historical models.
+
+The [status-safe multi-model settlement](scripts/settle_event_v2.py) accepts official-linked completed results **after** the event, scores the unchanged [first journal](public/prospective/2026-11-21.json) and [Frontier v2 journal](public/prospective/2026-11-21-frontier-v2.json), and excludes draws, no-contests, cancelled, replaced, postponed and pending bouts. Full instructions: [Card Integrity and Settlement](docs/CARD_INTEGRITY_AND_SETTLEMENT.md). [Results intake template](templates/ufc-qatar-2026-11-21-outcomes.csv) currently marks all seven bouts **PENDING**. No results have been scored or financially settled.
+
+**Quality principle:** An official card listing is not proof a bout ultimately happened; a provided official results URL is not proof the claimed outcome was checked against the page. Report all verification limits explicitly. Actual winner accuracy, 99.9% performance and profitability must be supported by independent prospective evidence.
+
 ## Frontier Resilience v2.1: real Q4 drift audit (20 November 2026)
 
 **Live public viewer:** https://jsa-ai-trading-hq.vercel.app/resilience.html
