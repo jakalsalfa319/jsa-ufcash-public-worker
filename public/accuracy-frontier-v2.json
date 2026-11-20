@@ -1,0 +1,161 @@
+{
+  "schema": "JSA_ACCURACY_FRONTIER_PUBLIC_V2",
+  "sourceRun": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44754660814",
+  "sourceCommit": "3337f43336d5820f4aaacf21e0a8657a6c9056d1",
+  "artifactName": "jsa-ufcash-public-research",
+  "artifactId": 14637436349,
+  "rawReportSha256": "33c5dc2f4b395f0195871fcf1c890871a48f056416822ada22b56128ac207c11",
+  "artifactZipSha256": "5997b79643d5bfe62dd92677eb091894c3a9f8d3509af228d68009fdb4c96a3a",
+  "generatedOn": "2026-11-20",
+  "evidenceClassification": "2026 retrospective development period already examined; not prospective lockbox",
+  "windows": {
+    "train": "2012-2024",
+    "calibration": "2025 H1",
+    "familySelection": "2025 H2",
+    "evaluation": "2026-01-01 to 2026-11-18"
+  },
+  "counts": {
+    "train": 2892,
+    "calibration": 139,
+    "selection": 146,
+    "evaluation": 266
+  },
+  "candidates": [
+    "frozen_v1",
+    "recent_logistic",
+    "time_decay_logistic",
+    "nonlinear_ensemble",
+    "elo_blend"
+  ],
+  "validationSelected": "nonlinear_ensemble",
+  "validationReason": "Minimum 2025 H2 Brier score",
+  "validation": {
+    "n": 146,
+    "correct": 92,
+    "accuracy": 0.6301369863013698,
+    "brier": 0.22412159930008999,
+    "gateThreshold": 0.65,
+    "gateCorrect": 54,
+    "gateN": 75,
+    "gateAccuracy": 0.72,
+    "gateCoverage": 0.5136986301369864
+  },
+  "full2026": {
+    "elo": {
+      "n": 266,
+      "correct": 146,
+      "accuracy": 0.5488721804511278,
+      "brier": 0.24592159145644543
+    },
+    "frozen": {
+      "n": 266,
+      "correct": 167,
+      "accuracy": 0.6278195488721805,
+      "brier": 0.24012380507190195,
+      "ece10": 0.1021634834796206
+    },
+    "challenger": {
+      "n": 266,
+      "correct": 176,
+      "accuracy": 0.6616541353383458,
+      "brier": 0.2306044564203491,
+      "ece10": 0.08010511954092127,
+      "logLoss": 0.6575640174374341,
+      "wilsonLower95": 0.6028525947459527
+    },
+    "improvementPercentagePoints": 3.3835,
+    "pairedEventBootstrap95IntervalPercentagePoints": [
+      -0.399,
+      7.2
+    ],
+    "uncertaintyNote": "Confidence interval crosses zero; not statistically established stable gain"
+  },
+  "selective2026": {
+    "selectedFrom266": 156,
+    "correct": 103,
+    "accuracy": 0.6602564102564102,
+    "coverage": 0.5864661654135338,
+    "gateThreshold": 0.65,
+    "wilsonLower95": 0.5828804944100052,
+    "frozenAt75": {
+      "selected": 69,
+      "correct": 44,
+      "accuracy": 0.6376811594202898,
+      "coverage": 0.2593984962406015
+    },
+    "notDirectlyMatchedCoverage": true
+  },
+  "quarters": [
+    {
+      "quarter": "Q1",
+      "n": 57,
+      "correct": 44,
+      "accuracy": 0.7719298245614035,
+      "selected": 29,
+      "selectedCorrect": 23
+    },
+    {
+      "quarter": "Q2",
+      "n": 82,
+      "correct": 52,
+      "accuracy": 0.6341463414634146,
+      "selected": 45,
+      "selectedCorrect": 27
+    },
+    {
+      "quarter": "Q3",
+      "n": 79,
+      "correct": 51,
+      "accuracy": 0.6455696202531646,
+      "selected": 50,
+      "selectedCorrect": 33
+    },
+    {
+      "quarter": "Q4 through Nov 18",
+      "n": 48,
+      "correct": 29,
+      "accuracy": 0.6041666666666666,
+      "selected": 32,
+      "selectedCorrect": 20
+    }
+  ],
+  "familyDiagnostics2026_notForSelection": [
+    {
+      "family": "frozen_v1",
+      "correct": 167,
+      "n": 266
+    },
+    {
+      "family": "recent_logistic",
+      "correct": 163,
+      "n": 266
+    },
+    {
+      "family": "time_decay_logistic",
+      "correct": 167,
+      "n": 266
+    },
+    {
+      "family": "nonlinear_ensemble",
+      "correct": 176,
+      "n": 266
+    },
+    {
+      "family": "elo_blend",
+      "correct": 164,
+      "n": 266
+    }
+  ],
+  "candidateMakeup": "40% logistic, 20% hist-gradient boost, 20% XGBoost, 20% CatBoost; 2025 H1 symmetric calibration",
+  "optionalConfidencePolicy": "Do not promote to automatic betting. Pre-2026 65% probability threshold is a historical selection rule only.",
+  "evidenceStillNeeded": [
+    "independently audited point-in-time historical features",
+    "prospective held-out future fights",
+    "correct outcomes and calibration",
+    "source-attributed executable bookmaker pricing before ROI"
+  ],
+  "profitClaim": false,
+  "accuracy99_9Claim": false,
+  "noRealBetsPlaced": true,
+  "disclaimer": "Retrospective classification improvement only, not a verified betting edge. 2026 was examined before this experiment; no independent guarantee of generalization."
+}
