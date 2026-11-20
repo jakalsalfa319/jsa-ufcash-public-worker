@@ -7,6 +7,8 @@ on:
       - ".github/workflows/card-integrity.yml"
       - "scripts/card_integrity.py"
       - "checks/test_card_integrity.py"
+      - "scripts/settle_event_v2.py"
+      - "checks/test_settle_event_v2.py"
   workflow_dispatch:
   schedule:
     # One-time event morning source check; guarded against subsequent years.
