@@ -62,6 +62,25 @@ The reproducible [GitHub Actions run](https://github.com/jakalsalfa319/jsa-ufcas
 
 **Evidence warning:** This 2026 data was already examined during project development. A 99.9% winner-accuracy claim or betting profitability remains unsupported; no actual wagers or money movement were made.
 
+## Model reliability audit: Specialist v3 and Stable v4 (20 November 2026)
+
+The next two independently tested accuracy challengers were **rejected instead of deployed**, because neither passed the validation criteria fixed before scoring the 2026 data.
+
+| Historical experiment | 2025 evidence | Historical 2026 diagnostic | Decision |
+|---|---|---|---|
+| **Specialist v3** (pre-fight styles, experience, inactivity) | 2025 Q4: 47/78 vs v2 50/78; worse Brier | No model promotion; original v2 retained | **Rejected** |
+| **Stable v4** (40% logistic / 30% XGBoost / 30% CatBoost) | 2025 H2 Brier 0.22450 vs v2 0.22412; fails fixed gain requirement | 172/266 (64.66%) vs same-run v2 176/266 (66.17%) | **Rejected** |
+
+**A separate reproducibility issue was discovered:** even with identical raw source hashes and fight IDs, consecutive original v2 re-trainings yielded **175/266 and 176/266**. Exact model fingerprints isolated meaningful output variation to the histogram-boosting component; XGBoost and CatBoost output hashes matched, with only negligible logistic floating-point differences. Single-threading alone was not sufficient. A one-fight accuracy fluctuation is not a verified performance improvement.
+
+- [Complete versioned reliability audit](public/accuracy-v3-v4-reliability-audit.json)
+- [Specialist v3 historical validation and rejection](public/specialist-lab-v3-rejection.json)
+- [v3 method](docs/SPECIALIST_ACCURACY_V3_PROTOCOL.md)
+- [v4 reproducibility method](docs/STABLE_FRONTIER_V4_PROTOCOL.md)
+- [Successful v4 worker run with reproducibility evidence](https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44770722895)
+
+**Research policy:** retain the archived v2 release as an explicitly run-specific result, preserve the two immutable pre-event forecasts, and fix model reproducibility before making new claims. Future fitted models should be versioned and frozen; truly new fights must supply prospective verification. None of this demonstrates 99.9% accuracy, bookmaker profitability or authorizes betting execution.
+
 ## Current verified research release: Accuracy Frontier v2 (20 November 2026)
 
 **Live read-only dashboard:** https://jsa-ai-trading-hq.vercel.app/frontier.html
