@@ -24,6 +24,8 @@ def card():
       "eventDate":"2031-05-20",
       "startsAtUTC":"2031-05-20T18:00:00Z",
       "featuresCapturedAtUTC":"2031-05-08T09:00:00Z",
+      "reviewStatus":"REVIEWED",
+      "reviewedAtUTC":"2031-05-08T10:00:00Z",
       "officialEventUrl":OFFICIAL,
       "featureSource":{"date":"2031-05-08T08:00:00Z",
            "description":"Synthetic prior-fight model features solely for regression tests"},
