@@ -1,0 +1,115 @@
+name: JSA Publish Verified Fitted Frontier Checkpoint (one-time, R0)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-fitted-checkpoint.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: jsa-one-time-fitted-frontier-release-2026
+  cancel-in-progress: false
+
+jobs:
+  archive-first-verified-checkpoint:
+    if: github.repository == 'jakalsalfa319/jsa-ufcash-public-worker' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    permissions:
+      actions: read
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      TAG: jsa-frontier-v2-fitted-2026-11-20
+      MODEL_RUN_ID: "44774744415"
+      MODEL_SHA256: "727b4a535927157257de84f6a7cc3fd5988aba9cabb98ba6bf84e726dc1a3a97"
+    steps:
+      - name: Verify no existing public frozen model release is replaced
+        id: release_gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          if gh release view "$TAG" --repo "$GH_REPO" >/dev/null 2>&1; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "Existing frozen fitted model already preserved. Never overwrite." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Download precisely the first approved fitted model artifact
+        if: steps.release_gate.outputs.publish == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/jsa-approved-frozen
+          gh run download "$MODEL_RUN_ID" --repo "$GH_REPO" \
+            --name jsa-ufcash-public-research --dir /tmp/jsa-approved-frozen
+          test -s /tmp/jsa-approved-frozen/results/frozen_frontier_v2_checkpoint.tar.gz
+          test -s /tmp/jsa-approved-frozen/results/frozen_frontier_v2_receipt.json
+
+      - name: Verify exact SHA-256, contents and run-specific historical performance
+        if: steps.release_gate.outputs.publish == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os,hashlib,json,tarfile
+          from pathlib import Path
+          p=Path("/tmp/jsa-approved-frozen/results/frozen_frontier_v2_checkpoint.tar.gz")
+          receipt=json.loads(Path("/tmp/jsa-approved-frozen/results/frozen_frontier_v2_receipt.json").read_text())
+          sha=hashlib.sha256(p.read_bytes()).hexdigest()
+          assert sha==receipt["archiveSha256"]==os.environ["MODEL_SHA256"]
+          assert receipt["schema"]=="JSA_FRONTIER_FROZEN_RECEIPT_V1"
+          assert receipt["historic2026Correct"]==176 and receipt["historic2026Eligible"]==266
+          assert receipt["fixtureReplayed"]==24 and receipt["inputSourcesCount"]==9
+          assert receipt["prospectiveAccuracyVerified"] is False
+          with tarfile.open(p,"r:gz") as tar:
+              expected={"manifest.json","models/recent_logistic.joblib",
+                        "models/hist_boost.joblib","models/xgboost.joblib","models/catboost.joblib"}
+              assert set(tar.getnames())==expected
+              raw=tar.extractfile("manifest.json").read()
+              manifest=json.loads(raw)
+              assert hashlib.sha256(raw).hexdigest()==receipt["manifestSha256"]
+              assert manifest["schema"]=="JSA_FRONTIER_FITTED_CHECKPOINT_V1"
+              assert manifest["trainingSourceSha256"]["data/raw/canon/canon.db"]=="8185a2163b5f97071dbc4ec68667cceb43f5e321fadc38c26b5069303af4d949"
+              assert manifest["selectionMadeWithout2026Outcomes"] is True
+          print("FROZEN MODEL APPROVED",sha,"176 of 266 retrospective, original fitted objects verified")
+          PY
+
+      - name: Create permanent GitHub Release once; do not mutate earlier predictions
+        if: steps.release_gate.outputs.publish == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > /tmp/jsa-frozen-notes.md <<'EOF'
+          J$A FRONTIER V2 - FITTED MODELS FROZEN 20 NOVEMBER 2026
+
+          This release permanently preserves the fitted 40/20/20/20 ensemble
+          from approved research run 44774744415, including its historical
+          sources, 2025 H1 calibration, 2025 H2 model selection, feature schema,
+          pinned dependency versions, replay fixtures and SHA-256 receipt.
+
+          It recorded 176/266 (66.17%) correct on an ALREADY EXAMINED 2026
+          retrospective development cohort. This is not a clean prospective
+          holdout. Future real-world betting accuracy and profitability are
+          NOT verified. No real wagers were placed.
+
+          The fitted model archive uses joblib pickle objects. Loading an
+          untrusted pickle may execute code. Check the archive SHA-256 against
+          the separately versioned receipt from this exact release.
+
+          The frozen November 21 forecasts and all Finance records are unchanged.
+          This research publication does not promote a real-money model.
+          EOF
+          gh release create "$TAG" \
+            /tmp/jsa-approved-frozen/results/frozen_frontier_v2_checkpoint.tar.gz \
+            /tmp/jsa-approved-frozen/results/frozen_frontier_v2_receipt.json \
+            --repo "$GH_REPO" --target "$GITHUB_SHA" \
+            --title 'J$A Frontier v2 - fitted frozen model, research only' \
+            --notes-file /tmp/jsa-frozen-notes.md --latest=false
+          echo "Permanent fitted model published. Historical forecasts preserved." >> "$GITHUB_STEP_SUMMARY"
