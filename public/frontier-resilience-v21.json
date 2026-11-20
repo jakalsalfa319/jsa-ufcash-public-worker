@@ -1,0 +1,127 @@
+{
+  "schema": "JSA_FRONTIER_RESILIENCE_PUBLIC_V21",
+  "generatedFrom": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44758648862",
+  "sourceScript": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/blob/main/scripts/frontier_resilience.py",
+  "rawReportSha256": "8ead154e7041a3125597c6e20e13448e8c7e29d0b1e4d69502e76253839c046f",
+  "rawCasesSha256": "0c048338086b12cc83ddf9326283f31f655ebc2ae2c21e2e280730268d9da4da",
+  "artifactZipSha256": "17f6781e5507afc20048f092a73b9cc422bdda474b38aee39aa81ed9867627fc",
+  "artifactId": 14639268781,
+  "sourceModel": "2025-selected nonlinear_ensemble, frozen before 2026 retrospective scoring",
+  "modelUnchanged": true,
+  "riskPolicyChosenUsing": "2025 H2 only",
+  "developmentPeriodAlreadyExamined": true,
+  "selectionPolicy": "baseline_65",
+  "selectionReason": "Highest eligible 2025 H2 Wilson lower bound subject to >=30 accepted, >=20% coverage",
+  "validation2025": {
+    "eligible": 146,
+    "selected": 75,
+    "correct": 54,
+    "accuracy": 0.72,
+    "coverage": 0.5136986301369864,
+    "wilsonLower95": 0.6095930981193548
+  },
+  "full2026": {
+    "eligible": 266,
+    "correct": 176,
+    "accuracy": 0.6616541353383458
+  },
+  "selected2026": {
+    "eligible": 266,
+    "selected": 156,
+    "correct": 103,
+    "accuracy": 0.6602564102564102,
+    "coverage": 0.5864661654135338,
+    "wilsonLower95": 0.5828804944100052
+  },
+  "otherPredeclaredRules2026": [
+    {
+      "name": "stronger_70_min5",
+      "selected": 74,
+      "correct": 52,
+      "accuracy": 0.7027027027027027,
+      "coverage": 0.2781954887218045
+    },
+    {
+      "name": "consensus_65_spread15",
+      "selected": 154,
+      "correct": 101,
+      "accuracy": 0.6558441558441559,
+      "coverage": 0.5789473684210527
+    },
+    {
+      "name": "experience_65_spread18",
+      "selected": 102,
+      "correct": 66,
+      "accuracy": 0.6470588235294118,
+      "coverage": 0.38345864661654133
+    },
+    {
+      "name": "fresh_70_540days",
+      "selected": 107,
+      "correct": 74,
+      "accuracy": 0.6915887850467289,
+      "coverage": 0.40225563909774437
+    }
+  ],
+  "quarterly": [
+    {
+      "quarter": "Q1",
+      "eligible": 57,
+      "correct": 44,
+      "selected": 29,
+      "selectedCorrect": 23
+    },
+    {
+      "quarter": "Q2",
+      "eligible": 82,
+      "correct": 52,
+      "selected": 45,
+      "selectedCorrect": 27
+    },
+    {
+      "quarter": "Q3",
+      "eligible": 79,
+      "correct": 51,
+      "selected": 50,
+      "selectedCorrect": 33
+    },
+    {
+      "quarter": "Q4",
+      "eligible": 48,
+      "correct": 29,
+      "selected": 32,
+      "selectedCorrect": 20
+    }
+  ],
+  "late2026Flags": [
+    {
+      "name": "Fewer than 5 previous UFC bouts for at least one fighter",
+      "count": 18,
+      "correct": 10,
+      "accuracy": 0.5555555555555556
+    },
+    {
+      "name": "Frontier and frozen model favor different fighters",
+      "count": 3,
+      "correct": 1,
+      "accuracy": 0.3333333333333333
+    },
+    {
+      "name": "Below 65% confidence",
+      "count": 16,
+      "correct": 9,
+      "accuracy": 0.5625
+    },
+    {
+      "name": "Long layoff over 540 days",
+      "count": 5,
+      "correct": 5,
+      "accuracy": 1
+    }
+  ],
+  "approval": "NO PROMOTION. Baseline 65% rule remains selected by 2025 evidence.",
+  "prospective99_9Claim": false,
+  "independentlyVerifiedBettingEdge": false,
+  "automatedWagers": false,
+  "note": "All 2026 data were already inspected during model development. Alternative filters are diagnostics, and different coverage prohibits naïve precision comparisons. Q4 group counts overlap and are too small for causal conclusions."
+}
