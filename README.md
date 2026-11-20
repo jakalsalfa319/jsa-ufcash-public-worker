@@ -62,6 +62,20 @@ The reproducible [GitHub Actions run](https://github.com/jakalsalfa319/jsa-ufcas
 
 **Evidence warning:** This 2026 data was already examined during project development. A 99.9% winner-accuracy claim or betting profitability remains unsupported; no actual wagers or money movement were made.
 
+## Fitted Frontier v2 frozen for reuse (20 November 2026)
+
+**Permanent public GitHub Release:** [J$A Frontier v2 fitted models](https://github.com/jakalsalfa319/jsa-ufcash-public-worker/releases/tag/jsa-frontier-v2-fitted-2026-11-20).
+
+The verified [20 November source run](https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44774744415) saved the **actual four fitted research models** (logistic, histogram boosting, XGBoost, CatBoost), 2025-H1 calibration, 2025-H2 selected 65% research-confidence gate and 50 original plus six derived feature names. Its 24-fixture restore test passed. The original nine source SHA-256 hashes matched the original data. **This newly frozen fitted snapshot scored 176/266 (66.17%) retrospectively in its own completed run.** It does NOT reconstruct the exact fitted object from the earlier v2 archived run, even though the headline score agrees.
+
+The release permanently holds both:
+- `frozen_frontier_v2_checkpoint.tar.gz` (four serialized fitted models; **SHA-256 `727b4a535927157257de84f6a7cc3fd5988aba9cabb98ba6bf84e726dc1a3a97`**).
+- `frozen_frontier_v2_receipt.json` (independent hash, pinned package versions, input-source count, replay evidence).
+
+The independent [free verification workflow](.github/workflows/verify-fitted-checkpoint.yml) restores the published release in a separate runner with the exact original dependency versions, checks its SHA-256 and validates saved calibration vectors and fighter-corner symmetry, without training any new model.
+
+**Operational usage:** [Fitted Frontier Model Checkpoint guide](docs/FITTED_FRONTIER_MODEL_CHECKPOINT.md). The `scripts/model_checkpoint.py` inference command requires an independently trusted SHA-256 and future genuinely `UPCOMING` pre-fight features, and refuses to overwrite a prediction journal. No private finances, wagers, brokerage/betting accounts, 99.9% claims, or unverified ROI are involved. This does **not** promote the model to automatic real-money betting.
+
 ## Model reliability audit: Specialist v3 and Stable v4 (20 November 2026)
 
 The next two independently tested accuracy challengers were **rejected instead of deployed**, because neither passed the validation criteria fixed before scoring the 2026 data.
