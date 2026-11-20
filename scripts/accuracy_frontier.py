@@ -58,7 +58,7 @@ def time_decay(dates, asof, half_life_years=4.0):
     import pandas as pd
     dates=pd.to_datetime(dates)
     t=pd.Timestamp(asof)
-    age=(t-dates).days.to_numpy(dtype=float)
+    age=(t-dates).dt.days.to_numpy(dtype=float)
     if (age<0).any():
         raise ValueError("Training rows include future dates")
     w=np.power(.5,age/(365.25*half_life_years))
