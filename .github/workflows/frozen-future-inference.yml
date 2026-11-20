@@ -76,7 +76,6 @@ jobs:
           PY
 
       - name: Install pinned frozen-model inference dependencies
-        if: github.event_name == 'workflow_dispatch'
         shell: bash
         run: |
           set -euo pipefail
@@ -85,7 +84,6 @@ jobs:
             xgboost==3.4.1 catboost==1.2.10 joblib==1.6.0
 
       - name: Recheck source contract with complete model dependencies
-        if: github.event_name == 'workflow_dispatch'
         run: python -m unittest discover -s tests -p 'test_future_card_inference.py' -v
 
       - name: Obtain only approved SHA-pinned frozen fitted-model release
