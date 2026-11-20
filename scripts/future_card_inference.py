@@ -110,6 +110,12 @@ def valid_card(card,now,feature_names):
     captured=utc_timestamp(card["featuresCapturedAtUTC"])
     if starts<=now or captured>now or captured>=starts:
         raise ValueError("Future event and pre-event feature timestamps required")
+    if card.get("reviewStatus")!="REVIEWED":
+        raise ValueError("Only manually reviewed card snapshots may be inferred")
+    reviewed=utc_timestamp(card.get("reviewedAtUTC"))
+    if not (captured<=reviewed<=now and reviewed<starts):
+        raise ValueError("Card review must follow source capture and precede event")
+
     if abs((starts.date()-event).days)>1:
         raise ValueError("UTC start too far from declared local event date")
     if captured<now-dt.timedelta(days=45):
