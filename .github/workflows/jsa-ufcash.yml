@@ -8,6 +8,7 @@ on:
       - "scripts/evaluate_predictions.py"
       - "scripts/precision_lab.py"
       - "scripts/accuracy_frontier.py"
+      - "scripts/frontier_resilience.py"
       - "scripts/rolling_2026.py"
       - "scripts/prospective_journal.py"
       - "scripts/elo_challenger.py"
@@ -153,6 +154,14 @@ jobs:
           python -m scripts.accuracy_frontier
           test -s results/accuracy_frontier_2026.json
 
+      - name: Audit historical 2026 model disagreement, experience and layoff risk
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m scripts.frontier_resilience
+          test -s results/frontier_cases.json
+          test -s results/frontier_resilience.json
+
       - name: Validate predictions and generate provenance report
         shell: bash
         run: |
@@ -205,6 +214,8 @@ jobs:
             results/precision_lab.json
             results/rolling_2026_summary.json
             results/accuracy_frontier_2026.json
+            results/frontier_cases.json
+            results/frontier_resilience.json
             results/rolling_2026_predictions.json
             results/prospective_journal.json
             results/summary.txt
