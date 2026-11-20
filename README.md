@@ -72,7 +72,7 @@ The release permanently holds both:
 - `frozen_frontier_v2_checkpoint.tar.gz` (four serialized fitted models; **SHA-256 `727b4a535927157257de84f6a7cc3fd5988aba9cabb98ba6bf84e726dc1a3a97`**).
 - `frozen_frontier_v2_receipt.json` (independent hash, pinned package versions, input-source count, replay evidence).
 
-The independent [free verification workflow](.github/workflows/verify-fitted-checkpoint.yml) restores the published release in a separate runner with the exact original dependency versions, checks its SHA-256 and validates saved calibration vectors and fighter-corner symmetry, without training any new model.
+The independent [free verification workflow](.github/workflows/verify-fitted-checkpoint.yml) **[passed on a fresh runner](https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44775978800)**. It downloaded the published release, used pinned dependencies, verified SHA-256, reloaded the actual fitted objects and reproduced all 24 validation probabilities **without retraining**. Six further checkpoint tests passed. The maximum fighter-order complementarity deviation was 2.75×10⁻⁸, inside the documented 10⁻⁶ numerical tolerance. The independently anchored [approved model manifest](public/approved-frozen-frontier-v2.json) contains the exact SHA and tests.
 
 **Operational usage:** [Fitted Frontier Model Checkpoint guide](docs/FITTED_FRONTIER_MODEL_CHECKPOINT.md). The `scripts/model_checkpoint.py` inference command requires an independently trusted SHA-256 and future genuinely `UPCOMING` pre-fight features, and refuses to overwrite a prediction journal. No private finances, wagers, brokerage/betting accounts, 99.9% claims, or unverified ROI are involved. This does **not** promote the model to automatic real-money betting.
 
