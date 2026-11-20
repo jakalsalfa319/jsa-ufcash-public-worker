@@ -322,6 +322,31 @@ def calculate():
       "prospectiveWinningEdgeVerified":False,"accuracy99_9Verified":False,"realBetsPlaced":False,
       "risk":"2026 already viewed; hypotheses/data source can have revisions; no independent historic as-of audit. No verified executable odds or profit.",
     }
+    # Export the original 2012-2024 trained learner outputs for an additive
+    # reproducibility challenger. The new model CANNOT alter Frontier v2.
+    components={
+      "schema":"JSA_FRONTIER_COMPONENTS_V1",
+      "reproducibilityPolicy":"Exclude unstable HistGradientBoosting from proposed stable challenger",
+      "sourceModel":"2025 H2 selected Frontier v2 from 2012-2024 prior-fight data",
+      "periods":{},
+    }
+    for _split in ("cal","dev","test"):
+        _table=frames[_split]
+        components["periods"][_split]={
+          "fightIds":[str(v) for v in _table.fight_id],
+          "dates":[str(v.date()) for v in _table.date],
+          "outcomeA":[int(v) for v in yi[_split]],
+          "raw":{
+             _name:[round(float(p),12) for p in raw[_name][_split]]
+             for _name in ("recent_logistic","xgboost","catboost","hist_boost")
+          },
+        }
+        if len(components["periods"][_split]["fightIds"])!=len(yi[_split]):
+            raise ValueError("Raw component cohort mismatch")
+    (Path(__file__).resolve().parents[1]/"results/frontier_components.json").write_text(
+        json.dumps(components,indent=2,ensure_ascii=False,allow_nan=False)+"\n",
+        encoding="utf-8")
+
     # Additional audit-only per-fight evidence. Historical scores and choice are
     # unchanged. Source fighter information is public; no betting/bankroll data.
     cases = {
