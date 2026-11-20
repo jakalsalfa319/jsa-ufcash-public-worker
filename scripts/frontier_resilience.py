@@ -173,8 +173,8 @@ def diagnostic(rows):
 
 
 def run(cases):
-    if cases.get("schema")!="JSA_FRONTIER_CASES_V1" or
-       cases.get("model")!="nonlinear_ensemble":
+    if (cases.get("schema")!="JSA_FRONTIER_CASES_V1" or
+        cases.get("model")!="nonlinear_ensemble"):
         raise ValueError("Unexpected model case source")
     valid=validate(cases["selection2025"],"2025",want=146)
     hold=validate(cases["development2026"],"2026",want=266)
