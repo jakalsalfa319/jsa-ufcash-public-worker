@@ -1,21 +1,9 @@
 name: JSA UFCash dedicated public worker
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/jsa-ufcash.yml"
-      - "scripts/evaluate_predictions.py"
-      - "scripts/precision_lab.py"
-      - "scripts/accuracy_frontier.py"
-      - "scripts/model_checkpoint.py"
-      - "scripts/frontier_specialists.py"
-      - "scripts/stable_frontier_v4.py"
-      - "scripts/frontier_resilience.py"
-      - "scripts/rolling_2026.py"
-      - "scripts/prospective_journal.py"
-      - "scripts/elo_challenger.py"
-      - "tests/*.py"
+  # Archived 21 November 2026 research replay. Deliberately NOT triggered by
+  # future-card tests or code edits: upstream UFCash source hashes have changed.
+  # It remains manually inspectable and fails closed on source mismatch.
   workflow_dispatch:
 
 permissions:
