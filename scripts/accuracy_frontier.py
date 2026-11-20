@@ -392,6 +392,25 @@ def calculate():
     case_path.parent.mkdir(parents=True,exist_ok=True)
     case_path.write_text(json.dumps(cases,indent=2,ensure_ascii=False,allow_nan=False)+"\n",encoding="utf-8")
 
+    # Freeze this FITTED model exactly once per research run. This is a
+    # newly versioned snapshot, NOT an attempt to recreate the original 176
+    # correct v2 archive or overwrite the 21 Nov pre-event predictions.
+    if chosen!="nonlinear_ensemble" or abs(threshold-.65)>1e-12 or sizes["test"]!=266:
+        raise ValueError("Approved Frontier v2 model selection/coverage changed; refusing model freeze")
+    from scripts.model_checkpoint import COMPONENTS,export_checkpoint
+    frozen_receipt=export_checkpoint(
+        base,{name:f[name] for name in COMPONENTS},
+        schema,xi["dev"],predictions["dev"][chosen],
+        slopes[chosen],threshold,out[chosen]["correct"]
+    )
+    report["frozenFittedCheckpoint"]={
+      "archiveSha256":frozen_receipt["archiveSha256"],
+      "fittedModelRestoredAndReplayed":True,
+      "historicCorrectInThisRun":out[chosen]["correct"],
+      "historicalArchiveNotReplaced":True,
+      "liveModelAutoPromoted":False
+    }
+
     path=Path(__file__).resolve().parents[1]/"results"/"accuracy_frontier_2026.json"
     path.parent.mkdir(exist_ok=True)
     path.write_text(json.dumps(report,indent=2,ensure_ascii=False,allow_nan=False)+"\n",encoding="utf-8")
