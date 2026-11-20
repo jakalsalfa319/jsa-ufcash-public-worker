@@ -13,6 +13,11 @@ as model inputs. No wagers or ROI.
 """
 from __future__ import annotations
 import datetime as dt
+import hashlib
+import os
+# Set thread caps before importing NumPy, sklearn or GPU/CPU tree backends.
+for _name in ("OMP_NUM_THREADS","OPENBLAS_NUM_THREADS","MKL_NUM_THREADS","NUMEXPR_NUM_THREADS","VECLIB_MAXIMUM_THREADS"):
+    os.environ[_name]="1"
 import json
 import math
 from pathlib import Path
@@ -176,8 +181,8 @@ def calculate():
     f["recent_logistic"]=mirrored_fit(algorithm("logistic_weak"),xi["train"],yi["train"])
     f["time_decay_logistic"]=mirrored_fit(algorithm("logistic_weak"),xi["train"],yi["train"],weights)
     f["hist_boost"]=mirrored_fit(algorithm("hist_boost"),xi["train"],yi["train"])
-    f["xgboost"]=mirrored_fit(make_candidate("xgboost"),xi["train"],yi["train"])
-    f["catboost"]=mirrored_fit(make_candidate("catboost"),xi["train"],yi["train"])
+    f["xgboost"]=mirrored_fit(make_candidate("xgboost").set_params(n_jobs=1),xi["train"],yi["train"])
+    f["catboost"]=mirrored_fit(make_candidate("catboost").set_params(thread_count=1),xi["train"],yi["train"])
     raw={}
     for name,model in f.items():
         raw[name]={key:symmetric_prediction(model,xi[key])
@@ -281,8 +286,16 @@ def calculate():
           "sufficientPriorHistory":eligibility,
           "outcome":None,"betPlaced":False,
         })
+    def digest_prob(arr):
+        # Endianness and precision are fixed for run-to-run audit comparisons.
+        return hashlib.sha256(np.round(np.asarray(arr,dtype=float),12).astype("<f8").tobytes()).hexdigest()
+    signatures={name:digest_prob(raw[name]["test"]) for name in sorted(raw)}
+    signatures["chosen_ensemble"]=digest_prob(selected)
     report={
       "schema":"JSA_ACCURACY_FRONTIER_2026_V1",
+      "reproducibility":{"threadPolicy":"single-thread tree models and BLAS/OpenMP",
+           "probabilityHashesSha256":signatures,
+           "numpy":np.__version__},
       "timestampPolicy":"Source study; date-scoped and frozen before event",
       "evaluationClass":"2026 ALREADY EXAMINED retrospective development, not untouched",
       "windows":{"train":"2012-2024","calibration":"2025-H1",
