@@ -1,0 +1,40 @@
+{
+  "schema": "JSA_FROZEN_FRONTIER_APPROVAL_V1",
+  "frozenAtUTC": "2026-11-20",
+  "releaseTag": "jsa-frontier-v2-fitted-2026-11-20",
+  "releasePage": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/releases/tag/jsa-frontier-v2-fitted-2026-11-20",
+  "modelArchiveName": "frozen_frontier_v2_checkpoint.tar.gz",
+  "modelArchiveSha256": "727b4a535927157257de84f6a7cc3fd5988aba9cabb98ba6bf84e726dc1a3a97",
+  "receiptName": "frozen_frontier_v2_receipt.json",
+  "receiptAssetSha256": "fa55b97ff4c376383a325ca91761c6fd43b3ee549b3fc93bf364bed34d56b606",
+  "verifiedTrainingRun": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44774744415",
+  "releasePublicationRun": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44775373802",
+  "originalArchivedModelIsSameObject": false,
+  "fittedModelComponents": [
+    "recent_logistic",
+    "hist_boost",
+    "xgboost",
+    "catboost"
+  ],
+  "weights": [
+    0.4,
+    0.2,
+    0.2,
+    0.2
+  ],
+  "retrospective2026": {
+    "n": 266,
+    "correct": 176,
+    "accuracy": 0.6616541353383458
+  },
+  "original2026AlreadyExamined": true,
+  "calibrated2025H1": true,
+  "selected2025H2": true,
+  "sourceHashesVerifiedCount": 9,
+  "restoredFixtureVectorsVerified": 24,
+  "independentFreshRunnerStatus": "in_progress_corner_invariance_check",
+  "modelUsePolicy": "Only checksum-pinned public research; new UPCOMING events with reviewed card identities; no automatic betting",
+  "noCurrentProspectiveAccuracyGuarantee": true,
+  "noProfitClaim": true,
+  "nowagersPlaced": true
+}
