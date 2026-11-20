@@ -67,7 +67,8 @@ def draft(table,event_date,starts_at,url,asof,feature_sha):
         raise ValueError("Duplicate future bout positions")
     rows=[];gaps=[];seen=set()
     for i,(_,row) in enumerate(selected.iterrows()):
-        if row["outcome"]!="UPCOMING" or as_numeric(row["winner"]) in (0.,1.):
+        winning=as_numeric(row["winner"])
+        if row["outcome"]!="UPCOMING" or (winning is not None and winning!=-1.):
             raise ValueError("Future card contains a known/recorded result")
         red=str(row["r_name"]).strip()
         blue=str(row["b_name"]).strip()
