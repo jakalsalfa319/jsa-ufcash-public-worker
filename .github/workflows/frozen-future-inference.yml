@@ -84,10 +84,9 @@ jobs:
             xgboost==3.4.1 catboost==1.2.10 joblib==1.6.0
 
       - name: Recheck source contract with complete model dependencies
-        run: python -m unittest discover -s tests -p 'test_future_card_inference.py' -v
+        run: python -m unittest discover -s tests -p 'test_future_*.py' -v
 
       - name: Obtain only approved SHA-pinned frozen fitted-model release
-        if: github.event_name == 'workflow_dispatch'
         shell: bash
         run: |
           set -euo pipefail
@@ -102,6 +101,53 @@ jobs:
           if hashlib.sha256(path.read_bytes()).hexdigest()!=os.environ["APPROVED_SHA256"]:
               raise SystemExit("Archive corrupted or unknown; refusing pickle deserialization")
           print("Approved model archive SHA-256 verified")
+          PY
+
+      - name: Replay complete feature-to-frozen-model path using SYNTHETIC in-memory fighters only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import datetime as dt,hashlib
+          from pathlib import Path
+          from scripts.precision_lab import FEATURES,RATINGS
+          from scripts.future_card_inference import forecast,TRUSTED_SHA
+          from scripts.model_checkpoint import load_checkpoint
+          now=dt.datetime.now(dt.timezone.utc)
+          starts=now+dt.timedelta(days=10)
+          capture=now-dt.timedelta(hours=2)
+          review=now-dt.timedelta(hours=1)
+          base={name:2.0 for name in FEATURES}
+          base["n_fights"]=8.0
+          pair={"red":"SYNTHETIC Red Athlete","blue":"SYNTHETIC Blue Athlete",
+                "status":"UPCOMING","winner":None,
+                "redFeatures":base.copy(),"blueFeatures":base.copy(),
+                "ratings":{k:.5 for k in RATINGS}}
+          card={"schema":"JSA_REVIEWED_FUTURE_CARD_V1",
+                "reviewStatus":"REVIEWED","reviewedAtUTC":review.isoformat(),
+                "eventDate":starts.date().isoformat(),
+                "startsAtUTC":starts.isoformat(),
+                "featuresCapturedAtUTC":capture.isoformat(),
+                "officialEventUrl":"https://www.ufc.com/event/SYNTHETIC-NOT-A-REAL-EVENT",
+                "featureSource":{"date":capture.isoformat(),
+                    "description":"Synthetic test vectors, no real athlete data"},
+                "bouts":[pair]}
+          html="<ul><li>SYNTHETIC Red Athlete versus SYNTHETIC Blue Athlete</li></ul>"
+          loaded=load_checkpoint(
+            Path("/tmp/jsa-frozen-inference/frozen_frontier_v2_checkpoint.tar.gz"),
+            TRUSTED_SHA)
+          report=forecast(card,loaded,TRUSTED_SHA,now,html,
+                         hashlib.sha256(html.encode()).hexdigest())
+          p=report["predictions"]
+          assert len(p)==1 and p[0]["eligible"] is True
+          assert 0<p[0]["probabilityRed"]<1
+          assert report["modelReleaseTag"]=="jsa-frontier-v2-fitted-2026-11-20"
+          assert report["featureContentsIndependentlyAudited"] is False
+          assert report["fightResultsVerified"] is False
+          assert report["moneyWagered"] is False
+          assert p[0]["winner"] is None and p[0]["betPlaced"] is False
+          print("SYNTHETIC E2E SMOKE PASS: approved checkpoint loaded, 50 raw fields + 6 interactions inferred.")
+          print("No real card, fighter, outcome, forecast file or wagering claim was created.")
           PY
 
       - name: Verify official UFC pairings and run FROZEN checkpoint once
