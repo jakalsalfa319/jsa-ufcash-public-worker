@@ -309,6 +309,44 @@ def calculate():
       "prospectiveWinningEdgeVerified":False,"accuracy99_9Verified":False,"realBetsPlaced":False,
       "risk":"2026 already viewed; hypotheses/data source can have revisions; no independent historic as-of audit. No verified executable odds or profit.",
     }
+    # Additional audit-only per-fight evidence. Historical scores and choice are
+    # unchanged. Source fighter information is public; no betting/bankroll data.
+    cases = {
+      "schema":"JSA_FRONTIER_CASES_V1",
+      "modelSelectedUsing":"2025 H2 only",
+      "model":chosen,
+      "scope":"2025 H2 selection and already-inspected 2026 DEVELOPMENT",
+      "fighterVariables":"Prior-to-fight features from UFCash, potentially retrospectively revised",
+      "selection2025":[],
+      "development2026":[],
+    }
+    for split, key in (("dev","selection2025"),("test","development2026")):
+        table=frames[split]
+        for i, row in enumerate(table.itertuples(index=False)):
+            def finite_or_none(v):
+                try:
+                    n=float(v)
+                    return n if math.isfinite(n) else None
+                except (TypeError,ValueError):
+                    return None
+            probs={name:round(float(predictions[split][name][i]),9) for name in CANDIDATES}
+            cases[key].append({
+              "id":str(row.fight_id),
+              "date":str(row.date.date()),
+              "winnerA":int(row.winner),
+              "fighters":[str(row.r_name),str(row.b_name)],
+              "probabilities":probs,
+              "fights":[int(row.r_n_fights),int(row.b_n_fights)],
+              "daysSince":[finite_or_none(row.r_days_since),finite_or_none(row.b_days_since)],
+              "elo32":round(float(row.p_elo32),9),
+            })
+    if len(cases["selection2025"])!=sizes["dev"] or len(cases["development2026"])!=sizes["test"]:
+        raise ValueError("Frontier audit case count mismatch")
+    if len({x["id"] for x in cases["development2026"]})!=sizes["test"]:
+        raise ValueError("Duplicate frontier case identifier")
+    case_path=Path(__file__).resolve().parents[1]/"results"/"frontier_cases.json"
+    case_path.write_text(json.dumps(cases,indent=2,ensure_ascii=False,allow_nan=False)+"\n",encoding="utf-8")
+
     path=Path(__file__).resolve().parents[1]/"results"/"accuracy_frontier_2026.json"
     path.parent.mkdir(exist_ok=True)
     path.write_text(json.dumps(report,indent=2,ensure_ascii=False,allow_nan=False)+"\n",encoding="utf-8")
