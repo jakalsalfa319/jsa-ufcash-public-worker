@@ -21,6 +21,27 @@ A dedicated **R0-infrastructure**, open-source-only UFC research, quality-contro
 
 The 12 user-supplied candidate repositories were individually reviewed for license, role, freshness and data-leakage risk in [sources/audit.json](sources/audit.json). Listing a repository is not a license to copy its code or redistribute its datasets.
 
+## Current verified research release: Accuracy Frontier v2 (20 November 2026)
+
+**Live read-only dashboard:** https://jsa-ai-trading-hq.vercel.app/frontier.html
+
+The 2025-selected **nonlinear ensemble** (40% logistic, 20% histogram boosting, 20% XGBoost and 20% CatBoost), trained on pre-fight statistics with symmetric matchup features, produced the following results on **exactly the same 266 completed 2026 fights**:
+
+| 2026 winner model | Correct / eligible | Accuracy | Brier |
+|---|---:|---:|---:|
+| Historical Elo32 | 146 / 266 | 54.89% | 0.2459 |
+| Frozen first-generation logistic | 167 / 266 | 62.78% | 0.2401 |
+| **Accuracy Frontier v2** | **176 / 266** | **66.17%** | **0.2306** |
+
+**Nine additional correct outcomes**, an improvement of **3.38 percentage points**. A 2025-selected 65%-model-confidence rule scored 103/156 selected fights (66.03%) with 58.65% coverage; this is not a universal 66%-accuracy guarantee. Its validation-only accuracy was 54/75 (72%) and the 2026 accuracy was lower. The event-clustered 95% interval for the overall accuracy change was **−0.399 to +7.20 percentage points**; it crosses zero.
+
+**Important evidence boundary:** 2026 was already examined during this project's development, so this is retrospective development evidence, **not an independent prospective test**, verified betting edge, or support for a 99.9% win claim. A weakening in Q4 2026 further warrants drift monitoring. We have **not** switched on automatic wagering or made actual bets.
+
+- [Successful GitHub model run](https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44754660814)
+- [Versioned research results](public/accuracy-frontier-v2.json) with hashes and cohort counts
+- [Model code](scripts/accuracy_frontier.py) and [predeclared research protocol](docs/ACCURACY_FRONTIER_V2.md)
+- [Pre-event 21 November version-2 research forecasts](public/prospective/2026-11-21-frontier-v2.json). These were recorded on 20 November; outcomes are left unknown.
+
 ## Verified November 19, 2026 benchmark
 
 The third odds-free model [ran successfully](https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44616691072) using fixed training (2012-2023), 2024 validation and **untouched 2025-2026 retrospective holdout**.
