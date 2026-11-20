@@ -1,0 +1,48 @@
+{
+  "schema": "JSA_SPECIALIST_LAB_V3_HISTORICAL_RESEARCH",
+  "sourceRun": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44767731076",
+  "artifactId": 14644419659,
+  "artifactZipSha256": "6dca2c5f23db9f52edb3ba6e843b6a416c38532bc59428ef9b2ce48413797d96",
+  "rawSpecialistReportSha256": "19767e36469ee4c65e9c33c24e2e7900528377a0b4d30bbf7c0bebf6e6544376",
+  "sourceDataFingerprint": "All nine primary public UFC data file SHA-256 values match prior v2 archive; see source ZIP provenance.json",
+  "researchQuestion": "Can strongly regularized pre-fight fighter style and history adjust Frontier v2 probabilities in a way that generalizes past 2025?",
+  "training2025Q3": 68,
+  "validation2025Q4": 78,
+  "comparison2025Q4": {
+    "specialist": {
+      "correct": 47,
+      "eligible": 78,
+      "accuracy": 0.6025641025641025,
+      "brier": 0.2378782736047365
+    },
+    "baseline": {
+      "correct": 50,
+      "eligible": 78,
+      "accuracy": 0.6410256410256411,
+      "brier": 0.2293960291764599
+    }
+  },
+  "validationPassed": false,
+  "promotionApproved": false,
+  "actionTaken": "REJECT specialist residuals; retain old Frontier v2 baseline probability model",
+  "reconstructed2026": {
+    "correct": 175,
+    "eligible": 266,
+    "accuracy": 0.6578947368421053,
+    "brier": 0.23065570786365663
+  },
+  "priorArchived2026": {
+    "correct": 176,
+    "eligible": 266,
+    "accuracy": 0.6616541353383458,
+    "brier": 0.2306044564203491
+  },
+  "discrepancy": "Same UFC raw source SHA-256 and cohort IDs; nonlinear ensemble predictions shifted slightly across CPU runs, including one 0.5-threshold flip. Investigation and deterministic reruns in progress.",
+  "thresholds": "Frozen 2025 Q4 improvement >=0.001 Brier with <=2 percentage point winner-accuracy loss",
+  "artifactDownload": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44767731076/artifacts/14644419659",
+  "previouslyExamined2026": true,
+  "prospectiveVerified": false,
+  "profitableBettingEdgeEstablished": false,
+  "betsPlaced": false,
+  "target99_9Achieved": false
+}
