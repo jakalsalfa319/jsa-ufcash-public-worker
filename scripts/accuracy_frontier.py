@@ -345,6 +345,7 @@ def calculate():
     if len({x["id"] for x in cases["development2026"]})!=sizes["test"]:
         raise ValueError("Duplicate frontier case identifier")
     case_path=Path(__file__).resolve().parents[1]/"results"/"frontier_cases.json"
+    case_path.parent.mkdir(parents=True,exist_ok=True)
     case_path.write_text(json.dumps(cases,indent=2,ensure_ascii=False,allow_nan=False)+"\n",encoding="utf-8")
 
     path=Path(__file__).resolve().parents[1]/"results"/"accuracy_frontier_2026.json"
