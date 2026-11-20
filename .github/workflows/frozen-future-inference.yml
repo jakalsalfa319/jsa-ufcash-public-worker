@@ -6,7 +6,9 @@ on:
     paths:
       - ".github/workflows/frozen-future-inference.yml"
       - "scripts/future_card_inference.py"
+      - "scripts/prepare_future_card.py"
       - "tests/test_future_card_inference.py"
+      - "tests/test_future_card_builder.py"
   workflow_dispatch:
     inputs:
       card_file:
@@ -48,7 +50,7 @@ jobs:
           python-version: "3.12"
 
       - name: Run dependency-free future event source-security checks
-        run: python -m unittest discover -s tests -p 'test_future_card_inference.py' -v
+        run: python -m unittest discover -s tests -p 'test_future_*.py' -v
 
       - name: Validate exactly one reviewed card path and UTC chronology
         if: github.event_name == 'workflow_dispatch'
