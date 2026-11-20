@@ -1,0 +1,107 @@
+{
+  "schema": "JSA_FRONTIER_MODEL_RELIABILITY_AUDIT_2026_V1",
+  "evaluatedAtUTC": "2026-11-20",
+  "benchmarkContext": "Historical 2026 cohort already inspected; not prospective, and source data may have retrospective revisions",
+  "frozenReference": {
+    "priorRun": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44754660814",
+    "eligible": 266,
+    "correct": 176,
+    "accuracy": 0.6616541353383458
+  },
+  "independentRerunVariability": {
+    "runs": [
+      "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44769119970",
+      "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44769274401"
+    ],
+    "sourceRawHashesIdentical": true,
+    "pairedFightsIdentical": true,
+    "observedCorrectTotals": [
+      175,
+      176
+    ],
+    "explanation": "HistGradientBoosting probabilities changed despite fixed seed and single-thread enforcement. XGBoost/CatBoost hashes were identical; logistic differences were below practical displayed precision. One near-50/50 prediction flipped.",
+    "risk": "Do not conflate the observed one-fight run variance with genuine predictive improvement."
+  },
+  "specialistV3": {
+    "sourceRun": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44767731076",
+    "train2025Q3": 68,
+    "validate2025Q4": 78,
+    "candidateQ4": {
+      "correct": 47,
+      "eligible": 78,
+      "accuracy": 0.6025641025641025,
+      "brier": 0.2378782736047365
+    },
+    "originalQ4": {
+      "correct": 50,
+      "eligible": 78,
+      "accuracy": 0.6410256410256411,
+      "brier": 0.2293960291764599
+    },
+    "validationPassed": false,
+    "promoted": false
+  },
+  "stableFrontierV4": {
+    "sourceRun": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44770722895",
+    "artifactId": 14647846509,
+    "weights": {
+      "logistic": 0.4,
+      "xgboost": 0.3,
+      "catboost": 0.3,
+      "histGradientBoosting": 0
+    },
+    "calibration": "2025 H1, n=139",
+    "selection": "2025 H2, n=146",
+    "sourceReportSha256": "af6819b76276cb6c61684cbecf541cff9589c980dc85d9997ede476034faedee",
+    "baselineValidation": {
+      "correct": 92,
+      "eligible": 146,
+      "accuracy": 0.6301369863013698,
+      "brier": 0.22412159933426812
+    },
+    "challengerValidation": {
+      "correct": 93,
+      "eligible": 146,
+      "accuracy": 0.636986301369863,
+      "brier": 0.22450153008514576
+    },
+    "validationPassed": false,
+    "diagnostic2026Baseline": {
+      "correct": 176,
+      "eligible": 266,
+      "accuracy": 0.6616541353383458,
+      "brier": 0.23060445642146846
+    },
+    "diagnostic2026Challenger": {
+      "correct": 172,
+      "eligible": 266,
+      "accuracy": 0.6466165413533834,
+      "brier": 0.2308034195984996
+    },
+    "accuracyChangePercentagePoints": -1.5038,
+    "eventClusterBootstrap95PctPoints": [
+      -3.077,
+      -0.36
+    ],
+    "frozen65Selected": {
+      "correct": 107,
+      "selected": 161,
+      "eligible": 266,
+      "accuracy": 0.6645962732919255,
+      "coverage": 0.6052631578947368
+    },
+    "selectiveCaution": "The v4 selected subset differs from v2 subset, so their selective percentages are not a fair winner-accuracy comparison.",
+    "promoted": false
+  },
+  "finalDecision": "Neither v3 nor v4 passed 2025 validation. Keep the existing historical Frontier v2 research output and immutable pre-event forecasts. Do not use run-to-run randomness or inspected 2026 diagnostics to promote a new model.",
+  "prioritizedNextSteps": [
+    "Freeze one trusted fitted model version and training-data hashes; do not retrain opportunistically before every event.",
+    "Score previously frozen 21 November fight predictions only against individually verified completed results.",
+    "Collect fresh truly prospective event cohorts; investigate stronger new predictive features and calibration after enough independent observations.",
+    "Keep actual executable odds and wagering returns in separate verified private records if desired."
+  ],
+  "achieved99_9": false,
+  "verifiedPositiveBettingROI": false,
+  "actualWagersPlaced": false,
+  "additionalPaidInfraCost": "R0"
+}
