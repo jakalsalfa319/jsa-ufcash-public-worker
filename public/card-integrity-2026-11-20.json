@@ -1,0 +1,67 @@
+{
+  "schema": "JSA_CARD_INTEGRITY_V1",
+  "eventDate": "2026-11-21",
+  "checkedAtUTC": "2026-11-20T15:20:35.500179+00:00",
+  "officialEventUrl": "https://www.ufc.com/event/ufc-fight-night-november-21-2026",
+  "sourceHtmlSha256": "b68b1e828401885bd6a2a6e22c7f5ec85b7f2539b9ed21ae72264c49005259cf",
+  "journalSourcePaths": [
+    "public/prospective/2026-11-21.json",
+    "public/prospective/2026-11-21-frontier-v2.json"
+  ],
+  "expected": 7,
+  "listedSameBoutCount": 7,
+  "allSevenCurrentlyListed": true,
+  "eventStartedAtCheck": false,
+  "status": "LISTED_AT_SOURCE_CHECK",
+  "bouts": [
+    {
+      "fighterA": "Jiri Prochazka",
+      "fighterB": "Navajo Stirling",
+      "officialBoutPresent": true,
+      "matchingSections": 1
+    },
+    {
+      "fighterA": "Aljamain Sterling",
+      "fighterB": "Kevin Vallejos",
+      "officialBoutPresent": true,
+      "matchingSections": 1
+    },
+    {
+      "fighterA": "Dan Hooker",
+      "fighterB": "Brian Ortega",
+      "officialBoutPresent": true,
+      "matchingSections": 1
+    },
+    {
+      "fighterA": "Kyoji Horiguchi",
+      "fighterB": "Asu Almabayev",
+      "officialBoutPresent": true,
+      "matchingSections": 1
+    },
+    {
+      "fighterA": "Jared Cannonier",
+      "fighterB": "Ikram Aliskerov",
+      "officialBoutPresent": true,
+      "matchingSections": 1
+    },
+    {
+      "fighterA": "Aleksandre Topuria",
+      "fighterB": "Santiago Luna",
+      "officialBoutPresent": true,
+      "matchingSections": 1
+    },
+    {
+      "fighterA": "Shamil Gaziev",
+      "fighterB": "Tallison Teixeira",
+      "officialBoutPresent": true,
+      "matchingSections": 1
+    }
+  ],
+  "resultsSettled": false,
+  "actualBoutsCompletedVerified": false,
+  "oddsExecutableVerified": false,
+  "betsPlaced": false,
+  "sourceRun": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44762273907",
+  "sourceArtifactId": 14641089688,
+  "warning": "Listed on the UFC page at retrieval time only. This is NOT proof that the bout later took place or that betting prices were executable."
+}
