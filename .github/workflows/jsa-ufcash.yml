@@ -9,6 +9,7 @@ on:
       - "scripts/precision_lab.py"
       - "scripts/accuracy_frontier.py"
       - "scripts/frontier_specialists.py"
+      - "scripts/stable_frontier_v4.py"
       - "scripts/frontier_resilience.py"
       - "scripts/rolling_2026.py"
       - "scripts/prospective_journal.py"
@@ -184,6 +185,14 @@ jobs:
           python -m scripts.frontier_specialists
           test -s results/specialist_lab_v3.json
 
+      - name: Evaluate deterministic 40-30-30 model excluding unstable hist booster
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m scripts.stable_frontier_v4
+          test -s results/frontier_components.json
+          test -s results/stable_frontier_v4.json
+
       - name: Validate predictions and generate provenance report
         shell: bash
         run: |
@@ -239,6 +248,8 @@ jobs:
             results/frontier_cases.json
             results/frontier_resilience.json
             results/specialist_lab_v3.json
+            results/frontier_components.json
+            results/stable_frontier_v4.json
             results/rolling_2026_predictions.json
             results/prospective_journal.json
             results/summary.txt
