@@ -76,6 +76,20 @@ The independent [free verification workflow](.github/workflows/verify-fitted-che
 
 **Operational usage:** [Fitted Frontier Model Checkpoint guide](docs/FITTED_FRONTIER_MODEL_CHECKPOINT.md). The `scripts/model_checkpoint.py` inference command requires an independently trusted SHA-256 and future genuinely `UPCOMING` pre-fight features, and refuses to overwrite a prediction journal. No private finances, wagers, brokerage/betting accounts, 99.9% claims, or unverified ROI are involved. This does **not** promote the model to automatic real-money betting.
 
+## Frozen future-event research pipeline
+
+**Approved fitted model:** [Frontier v2 permanent release](https://github.com/jakalsalfa319/jsa-ufcash-public-worker/releases/tag/jsa-frontier-v2-fitted-2026-11-20) with SHA-256 727b4a535927157257de84f6a7cc3fd5988aba9cabb98ba6bf84e726dc1a3a97. It is loaded unchanged for future predictions. No re-training or automatic bet execution is needed.
+
+- [Draft generator](scripts/prepare_future_card.py) prepares cards/drafts/YYYY-MM-DD.json from real pre-event UFCash feature parquet, keeping missing statistics as null and preventing known-outcome leakage.
+- [Reviewed card folder](cards/reviewed/README.md) separates real owner-reviewed evidence from drafts. The future inference command rejects unreviewed, stale, duplicate, past, incomplete or outcome-bearing cards.
+- [SHA-pinned future inference](scripts/future_card_inference.py) enforces the 50 original features + 6 model interactions, correct UTC chronology, actual current UFC same-bout listings and the exact approved frozen release. Generated predictions contain no wins/results/bets and explicitly say the feature source has not been independently audited.
+- [Free GitHub Actions workflow](.github/workflows/frozen-future-inference.yml) runs regression checks on code changes. When a verified future card is committed, use its path as the Run workflow manual input. Only the user-directed dispatch produces an expiring read-only model-report artifact.
+- [Step-by-step review and run instructions](docs/FROZEN_FUTURE_INFERENCE_V1.md).
+
+**Archived historic worker:** The older 21 November Qatar training workflow is now manual-only because the mutable upstream UFC historical database no longer matches its approved raw-data fingerprints. Existing model artifacts and both pre-event November 21 journals are preserved; the older job must not rerun automatically and silently redefine their probabilities.
+
+**Evidence boundary:** No new actual future event has been supplied, so this system has not published a new prospective prediction. Synthetic test fighters are used only in-memory for unit testing and will never be represented as real source-verified UFC bouts. 66.17% is a historical already-examined benchmark, not a prospective guarantee or proven betting profitability.
+
 ## Model reliability audit: Specialist v3 and Stable v4 (20 November 2026)
 
 The next two independently tested accuracy challengers were **rejected instead of deployed**, because neither passed the validation criteria fixed before scoring the 2026 data.
