@@ -57,7 +57,7 @@ def find_event_link(index_html):
         name=a.get_text(" ",strip=True)
         text=row.get_text(" ",strip=True).lower()
         n=canonical(name)
-        if "prochazka" in n and "stirling" in n and "november 21, 2026" in text:
+        if "prochazka" in n and "stirling" in n and ("november 21, 2026" in text or "nov. 21, 2026" in text or "nov 21, 2026" in text):
             hits.append(safe_url(a.get("href",""),"/event-details/"))
     if len(hits)!=1:
         return None
