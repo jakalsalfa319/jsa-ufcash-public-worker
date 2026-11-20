@@ -8,6 +8,7 @@ on:
       - "scripts/evaluate_predictions.py"
       - "scripts/precision_lab.py"
       - "scripts/accuracy_frontier.py"
+      - "scripts/model_checkpoint.py"
       - "scripts/frontier_specialists.py"
       - "scripts/stable_frontier_v4.py"
       - "scripts/frontier_resilience.py"
@@ -155,6 +156,8 @@ jobs:
           set -euo pipefail
           python -m scripts.accuracy_frontier
           test -s results/accuracy_frontier_2026.json
+          test -s results/frozen_frontier_v2_checkpoint.tar.gz
+          test -s results/frozen_frontier_v2_receipt.json
           python - <<'PY'
           import json
           from pathlib import Path
@@ -245,6 +248,8 @@ jobs:
             results/precision_lab.json
             results/rolling_2026_summary.json
             results/accuracy_frontier_2026.json
+            results/frozen_frontier_v2_checkpoint.tar.gz
+            results/frozen_frontier_v2_receipt.json
             results/frontier_cases.json
             results/frontier_resilience.json
             results/specialist_lab_v3.json
@@ -253,3 +258,97 @@ jobs:
             results/rolling_2026_predictions.json
             results/prospective_journal.json
             results/summary.txt
+
+
+  publish-frozen-model:
+    name: Preserve one fitted Frontier checkpoint as a versioned GitHub Release
+    needs: predict
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      actions: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      TAG: jsa-frontier-v2-fitted-2026-11-20
+    steps:
+      - name: Read-only checkout for release documentation
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Download finished same-run model archive from public research job
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/jsa-signed-model
+          gh run download "$GITHUB_RUN_ID" --repo "$GH_REPO" \
+            --name jsa-ufcash-public-research --dir /tmp/jsa-signed-model
+          test -s /tmp/jsa-signed-model/results/frozen_frontier_v2_checkpoint.tar.gz
+          test -s /tmp/jsa-signed-model/results/frozen_frontier_v2_receipt.json
+
+      - name: Verify archive checksum and refuse nonapproved model release
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib,json,tarfile
+          from pathlib import Path
+          root=Path("/tmp/jsa-signed-model/results")
+          path=root/"frozen_frontier_v2_checkpoint.tar.gz"
+          receipt=json.loads((root/"frozen_frontier_v2_receipt.json").read_text())
+          actual=hashlib.sha256(path.read_bytes()).hexdigest()
+          assert receipt["schema"]=="JSA_FRONTIER_FROZEN_RECEIPT_V1"
+          assert actual==receipt["archiveSha256"], "Archive checksum mismatch"
+          assert receipt["inputSourcesCount"]==9 and receipt["fixtureReplayed"]>=20
+          assert receipt["model"]=="Frontier v2 selected 2025 H2"
+          assert receipt["prospectiveAccuracyVerified"] is False
+          with tarfile.open(path,"r:gz") as tar:
+              names=set(tar.getnames())
+              expected={"manifest.json","models/recent_logistic.joblib",
+                        "models/hist_boost.joblib","models/xgboost.joblib",
+                        "models/catboost.joblib"}
+              assert names==expected
+              manifest_bytes=tar.extractfile("manifest.json").read()
+              manifest=json.loads(manifest_bytes)
+              assert hashlib.sha256(manifest_bytes).hexdigest()==receipt["manifestSha256"]
+              assert manifest["schema"]=="JSA_FRONTIER_FITTED_CHECKPOINT_V1"
+              assert manifest["selectionMadeWithout2026Outcomes"] is True
+              assert manifest["trainingSourceSha256"]["data/raw/canon/canon.db"]=="8185a2163b5f97071dbc4ec68667cceb43f5e321fadc38c26b5069303af4d949"
+          print("APPROVED FITTED CHECKPOINT",actual,"historical correct",receipt["historic2026Correct"])
+          PY
+
+      - name: Publish first-success frozen model once or preserve existing tag
+        shell: bash
+        run: |
+          set -euo pipefail
+          if gh release view "$TAG" --repo "$GH_REPO" >/dev/null 2>&1; then
+            echo "Existing frozen model release retained unchanged." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          cat > /tmp/jsa-frozen-release-notes.md <<'EOF'
+          FRONTIER V2 - ONE FITTED CHECKPOINT (20 NOVEMBER 2026)
+
+          The assets contain fitted research objects, model feature schema,
+          pre-fight source hashes, 2025 calibration and selected confidence
+          gate, plus a separate archive SHA-256 receipt.
+
+          This is a newly fitted model. It does NOT recreate the historical
+          176/266 archived backtest model. This snapshot's own historical 2026
+          result is recorded in the receipt.
+
+          Loading an untrusted joblib/pickle can execute code. Check the
+          SHA-256 from the external release receipt before model deserialization.
+
+          Retrospective model performance is not proof of profitable betting,
+          99.9% accuracy or prospective predictive power. No bets placed.
+          EOF
+          gh release create "$TAG" \
+            /tmp/jsa-signed-model/results/frozen_frontier_v2_checkpoint.tar.gz \
+            /tmp/jsa-signed-model/results/frozen_frontier_v2_receipt.json \
+            --repo "$GH_REPO" --target "$GITHUB_SHA" \
+            --title "J$A Frontier v2 - frozen fitted ensemble (research)" \
+            --notes-file /tmp/jsa-frozen-release-notes.md --latest=false
+          echo "Frozen model release created without modifying historic forecasts." >> "$GITHUB_STEP_SUMMARY"
