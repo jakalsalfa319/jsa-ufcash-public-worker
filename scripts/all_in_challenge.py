@@ -79,6 +79,20 @@ def odds_to_decimal(american):
     return Decimal("1") + (d(american)/100 if american > 0 else 100/-d(american))
 
 
+def quoted_decimal(quote):
+    """Accept exactly one odds representation, without lossy decimal-to-American conversion."""
+    has_a = "americanOdds" in quote
+    has_d = "decimalOdds" in quote
+    if has_a == has_d:
+        raise ValueError("Provide exactly one of americanOdds and decimalOdds")
+    if has_a:
+        return odds_to_decimal(quote["americanOdds"])
+    value = d(quote["decimalOdds"])
+    if not Decimal("1") < value <= Decimal("10000"):
+        raise ValueError("Invalid fixed decimal odds")
+    return value
+
+
 def fingerprint(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, ensure_ascii=False,
                          separators=(",", ":"), allow_nan=False).encode()).hexdigest()
@@ -160,7 +174,7 @@ def plan_round(data, now=None):
         if not url_good(quote.get("sourceUrl")) or not quote.get("sourceName"):
             skipped.append({"eventId":eid,"reason":"UNATTRIBUTED_QUOTE"})
             continue
-        odds = odds_to_decimal(quote["americanOdds"])
+        odds = quoted_decimal(quote)
         if candidate.get("modelPSelection") is None:
             skipped.append({"eventId":eid,"reason":"NO_MODEL_PROBABILITY"})
             continue
@@ -175,7 +189,7 @@ def plan_round(data, now=None):
                           "market":candidate.get("market","winner"),
                           "selection":candidate["selection"],
                           "eventStartsUTC":date_text(start),
-                          "modelPSelection":str(p), "oddsAmerican":quote["americanOdds"],
+                          "modelPSelection":str(p), "oddsAmerican":quote.get("americanOdds"),
                           "decimalOdds":str(odds),"modelEstimatedEV":str(ev),
                           "quoteSource":quote["sourceName"],"quoteUrl":quote["sourceUrl"],
                           "quoteCapturedUTC":date_text(captured),
