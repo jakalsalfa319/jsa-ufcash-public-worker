@@ -11,6 +11,7 @@ from scripts.all_in_challenge import d, quoted_decimal, timestamp, url_good
 
 RUGBY_SCHEMA = "UFCASH_RUGBY_UNION_1X2_BOARD_V1"
 HORSE_SCHEMA = "UFCASH_HORSE_FIXED_WIN_BOARD_V1"
+CRICKET_SCHEMA = "UF1CASH_CRICKET_T20_MATCH_WINNER_BOARD_V1"
 
 
 def _text(value, name):
@@ -130,9 +131,42 @@ def horse_win_candidate(board):
     return _select(eid, start, board, source, sides, "HORSE_RACING", "FIXED_WIN")
 
 
+
+
+def cricket_t20_candidate(board):
+    """Two-team prematch T20/T20I winner market INCLUDING any Super Over.
+
+    Void, DLS, tie and abandonment settlement depend on bookmaker rules.
+    Returns one candidate; does not generate a model or odds.
+    """
+    eid, start, q, source = _eligible_board(
+        board, CRICKET_SCHEMA, "T20_MATCH_WINNER_INCLUDING_SUPER_OVER")
+    if board.get("matchStatus") != "CONFIRMED_PREMATCH":
+        raise ValueError("Cricket match not confirmed pre-match")
+    if board.get("matchFormat") not in ("T20", "T20I"):
+        raise ValueError("Only T20 and T20I are supported")
+    team_a = _text(board.get("teamA"), "Team A")
+    team_b = _text(board.get("teamB"), "Team B")
+    if team_a.casefold() == team_b.casefold():
+        raise ValueError("Duplicate cricket team")
+    probs = board.get("modelProbabilities")
+    prices = q.get("pricesDecimal")
+    keys = ("team_a", "team_b")
+    if not isinstance(probs, dict) or set(probs) != set(keys):
+        raise ValueError("Both teams require model probabilities")
+    if not isinstance(prices, dict) or set(prices) != set(keys):
+        raise ValueError("Both teams require fixed win odds")
+    values = _probabilities([probs[k] for k in keys])
+    sides = [("team_a", team_a, values[0], prices["team_a"]),
+             ("team_b", team_b, values[1], prices["team_b"])]
+    return _select(eid, start, board, source, sides, "CRICKET",
+                   "T20_MATCH_WINNER_INCLUDING_SUPER_OVER")
+
 def market_candidate(board):
     if board.get("schema") == RUGBY_SCHEMA:
         return rugby_union_candidate(board)
     if board.get("schema") == HORSE_SCHEMA:
         return horse_win_candidate(board)
+    if board.get("schema") == CRICKET_SCHEMA:
+        return cricket_t20_candidate(board)
     raise ValueError("Unsupported or unknown market; do not infer outcomes")
