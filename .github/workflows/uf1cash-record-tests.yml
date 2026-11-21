@@ -5,7 +5,9 @@ on:
     paths:
       - '.github/workflows/uf1cash-record-tests.yml'
       - 'scripts/uf1cash_status.py'
+      - 'scripts/uf1cash_partial_settlement.py'
       - 'tests/test_uf1cash_status.py'
+      - 'tests/test_uf1cash_partial_settlement.py'
       - 'research/uf1cash-qatar-2026-11-21-evidence-v1.json'
       - 'public/uf1cash-status.json'
       - 'records/uf1cash/status-snapshot-v1.json'
@@ -18,7 +20,9 @@ on:
     paths:
       - '.github/workflows/uf1cash-record-tests.yml'
       - 'scripts/uf1cash_status.py'
+      - 'scripts/uf1cash_partial_settlement.py'
       - 'tests/test_uf1cash_status.py'
+      - 'tests/test_uf1cash_partial_settlement.py'
       - 'research/uf1cash-qatar-2026-11-21-evidence-v1.json'
       - 'public/uf1cash-status.json'
       - 'records/uf1cash/status-snapshot-v1.json'
@@ -57,5 +61,7 @@ jobs:
           right=json.loads(Path('public/uf1cash-status.json').read_text())
           assert left == right, 'UF1Cash wallet status out of sync with generator'
           PY
+      - name: Test partial virtual settlement (pending stake remains locked)
+        run: python -m unittest discover -s tests -p 'test_uf1cash_partial_settlement.py' -v
       - name: Confirm original all-in controls still pass
         run: python -m unittest discover -s tests -p 'test_all_in_challenge.py' -v
