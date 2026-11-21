@@ -1,0 +1,148 @@
+{
+  "schema": "UF1CASH_VIRTUAL_LEDGER_V1",
+  "brand": "UF1Cash",
+  "operationalName": "J$A UF1Cash / UFCash legacy",
+  "asOfUTC": "2026-11-21T22:32:50Z",
+  "currency": "ZAR",
+  "developmentFocusPercent": {
+    "UFC": 75,
+    "F1": 25
+  },
+  "developmentFocusIsNotStakeSplit": true,
+  "eligibleForwardSports": [
+    "UFC",
+    "F1"
+  ],
+  "researchBench": {
+    "rugby_union": "ON_HOLD_NO_ACTIVE_MODEL_OR_PAPER_SELECTION",
+    "horse_racing": "ON_HOLD_NO_ACTIVE_MODEL_OR_PAPER_SELECTION",
+    "cricket": "ON_HOLD_NO_ACTIVE_MODEL_OR_PAPER_SELECTION",
+    "tennis": "ON_HOLD_NO_ACTIVE_MODEL_OR_PAPER_SELECTION",
+    "basketball": "ON_HOLD_NO_ACTIVE_MODEL_OR_PAPER_SELECTION",
+    "football": "ON_HOLD_NO_ACTIVE_MODEL_OR_PAPER_SELECTION",
+    "other_motorsport": "ON_HOLD_NO_ACTIVE_MODEL_OR_PAPER_SELECTION"
+  },
+  "operatingMode": "RESEARCH_AND_IMAGINARY_MONEY_ONLY",
+  "prospectiveWallet": {
+    "genesisId": "JSA-UFCASH-R2000-ALLIN-20261121",
+    "balanceAvailableZAR": "2000.00",
+    "committedZAR": "0.00",
+    "realFundsZAR": "0.00",
+    "completedRounds": 0,
+    "validPreEventPaperSelections": 0,
+    "topUpsAllowed": false,
+    "allInRule": "EVERY_ELIGIBLE_ACTIVE_ROUND_COMMITS_100_PERCENT_OR_ABSTAINS",
+    "retrospectiveResultsChangeBalance": false,
+    "status": "OPEN_AWAITING_FIRST_AUTHENTICATED_PRE_EVENT_ROUND"
+  },
+  "pastCardRecord": {
+    "eventId": "ufc-qatar-2026-11-21",
+    "eventDate": "2026-11-21",
+    "classification": "RETROSPECTIVE_RECONSTRUCTION_NOT_PRE_EVENT_PAPER_BETS",
+    "referencePricesNotExecutable": true,
+    "separateMutuallyExclusiveHypotheses": true,
+    "originalFrozenPredictionsUrl": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/blob/main/public/prospective/2026-11-21.json",
+    "reportedPriceSourceUrl": "https://www.thegarciareport.com/posts/ufc-qatar-prochazka-stirling-betonline-moneylines/",
+    "reportedFightSourceUrl": "https://www.mmafighting.com/ufc/522605/ufc-qatar-results-prochazka-vs-stirling",
+    "conflictingUfcHostedSourceUrl": "https://us.ufcespanol.com/news/ufc-qatar-official-scorecards-prochazka-vs-stirling",
+    "recordedPaperBetsBeforeEvent": 0,
+    "realBets": 0,
+    "reportedFightModelWinnerScore": {
+      "correct": 5,
+      "eligible": 6,
+      "percent": "83.33",
+      "disputedExcluded": 1
+    },
+    "disputedBout": "Shamil Gaziev vs Tallison Teixeira",
+    "disputeStatus": "OFFICIAL_UFCSTATS_DETAIL_NOT_YET_VERIFIED_AND_SOURCES_CONFLICT",
+    "basket": {
+      "classification": "POST_EVENT_WHAT_IF_NOT_PROSPECTIVE",
+      "strategy": "BASKET",
+      "openingZAR": "2000.00",
+      "totalSimulatedStakesZAR": "2000.00",
+      "uncommittedZAR": "0.00",
+      "selectionCount": 4,
+      "reportedKnownGrossPayoutZAR": "3071.74",
+      "ifDisputedLosesFinalZAR": "3071.74",
+      "ifDisputedWinsFinalZAR": "4396.74",
+      "ifDisputedLosesNetZAR": "1071.74",
+      "ifDisputedWinsNetZAR": "2396.74",
+      "selections": [
+        {
+          "event": "Shamil Gaziev vs Tallison Teixeira",
+          "selection": "Tallison Teixeira",
+          "americanOdds": 165,
+          "virtualStakeZAR": "500.00",
+          "reportedStatus": "DISPUTED",
+          "scenarioResult": "UNRESOLVED_DISPUTED",
+          "scenarioReturnZAR": null
+        },
+        {
+          "event": "Aleksandre Topuria vs Santiago Luna",
+          "selection": "Santiago Luna",
+          "americanOdds": 224,
+          "virtualStakeZAR": "500.00",
+          "reportedStatus": "REPORTED",
+          "scenarioResult": "WIN",
+          "scenarioReturnZAR": "1620.00"
+        },
+        {
+          "event": "Jared Cannonier vs Ikram Aliskerov",
+          "selection": "Ikram Aliskerov",
+          "americanOdds": -290,
+          "virtualStakeZAR": "500.00",
+          "reportedStatus": "REPORTED",
+          "scenarioResult": "WIN",
+          "scenarioReturnZAR": "672.41"
+        },
+        {
+          "event": "Jiri Prochazka vs Navajo Stirling",
+          "selection": "Navajo Stirling",
+          "americanOdds": -179,
+          "virtualStakeZAR": "500.00",
+          "reportedStatus": "REPORTED",
+          "scenarioResult": "WIN",
+          "scenarioReturnZAR": "779.33"
+        }
+      ]
+    },
+    "singleAlternative": {
+      "classification": "POST_EVENT_WHAT_IF_NOT_PROSPECTIVE",
+      "strategy": "SINGLE",
+      "openingZAR": "2000.00",
+      "totalSimulatedStakesZAR": "2000.00",
+      "uncommittedZAR": "0.00",
+      "selectionCount": 1,
+      "reportedKnownGrossPayoutZAR": "0.00",
+      "ifDisputedLosesFinalZAR": "0.00",
+      "ifDisputedWinsFinalZAR": "5300.00",
+      "ifDisputedLosesNetZAR": "-2000.00",
+      "ifDisputedWinsNetZAR": "3300.00",
+      "selections": [
+        {
+          "event": "Shamil Gaziev vs Tallison Teixeira",
+          "selection": "Tallison Teixeira",
+          "americanOdds": 165,
+          "virtualStakeZAR": "2000.00",
+          "reportedStatus": "DISPUTED",
+          "scenarioResult": "UNRESOLVED_DISPUTED",
+          "scenarioReturnZAR": null
+        }
+      ]
+    },
+    "liveChallengeBankrollAffected": false
+  },
+  "nextResearch": {
+    "UFC": "Capture new pre-fight model probabilities, verified quotes, and public receipt before each future bout",
+    "F1": "Validate historical F1 winner-market predictions; Qatar GP 27-29 November 2026 is calendar watch only",
+    "noUnverifiedMarkets": "No paper selection until genuine forward probabilities and source prices exist"
+  },
+  "evidence": {
+    "readme": "See docs/UF1CASH_OPERATING_RECORD.md",
+    "reviewFile": "research/uf1cash-qatar-2026-11-21-evidence-v1.json",
+    "independentOfficialUfcstatsResultDetailVerified": false,
+    "sourceDisagreementPreserved": true
+  },
+  "profitabilityClaim": null,
+  "note": "Retrospective win scenarios are NOT prospective profit. The UFCash model matched 5/6 reported, non-disputed bouts; a tiny sample does not prove outperformance."
+}

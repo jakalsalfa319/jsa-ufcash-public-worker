@@ -1,0 +1,51 @@
+name: UF1Cash ledger integrity and scope (R0)
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/uf1cash-record-tests.yml'
+      - 'scripts/uf1cash_status.py'
+      - 'tests/test_uf1cash_status.py'
+      - 'research/uf1cash-qatar-2026-11-21-evidence-v1.json'
+      - 'public/uf1cash-status.json'
+      - 'records/uf1cash/2026-11-21-qatar-whatif-v1.json'
+      - 'public/uf1cash.html'
+      - 'docs/UF1CASH_OPERATING_RECORD.md'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/uf1cash-record-tests.yml'
+      - 'scripts/uf1cash_status.py'
+      - 'tests/test_uf1cash_status.py'
+      - 'research/uf1cash-qatar-2026-11-21-evidence-v1.json'
+      - 'public/uf1cash-status.json'
+      - 'records/uf1cash/2026-11-21-qatar-whatif-v1.json'
+      - 'public/uf1cash.html'
+      - 'docs/UF1CASH_OPERATING_RECORD.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  research-ledger-audit:
+    if: github.repository == 'jakalsalfa319/jsa-ufcash-public-worker'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Python 3.12
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+      - name: Test immutable-wallet and retrospective separation
+        run: python -m unittest discover -s tests -p 'test_uf1cash_status.py' -v
+      - name: Recompute and exactly compare source-controlled status
+        run: |
+          python -m scripts.uf1cash_status --output /tmp/uf1cash-status-rebuilt.json
+          cmp /tmp/uf1cash-status-rebuilt.json public/uf1cash-status.json
+      - name: Confirm original all-in controls still pass
+        run: python -m unittest discover -s tests -p 'test_all_in_challenge.py' -v
