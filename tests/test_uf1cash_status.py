@@ -38,9 +38,9 @@ class Uf1CashStatusTests(unittest.TestCase):
         self.assertEqual(x['realBets'],0)
     def test_stake_vs_work_allocation(self):
         x=summary(*fixture())
-        self.assertEqual(x['developmentFocusPercent'],{'UFC':75,'F1':25})
+        self.assertEqual(x['developmentFocusPercent'],{'UFC':50,'F1':12.5,'RUGBY_UNION':12.5,'HORSE_RACING':12.5,'CRICKET':12.5})
         self.assertTrue(x['developmentFocusIsNotStakeSplit'])
-        self.assertEqual(x['eligibleForwardSports'],['UFC','F1'])
+        self.assertEqual(x['eligibleForwardSports'],['UFC','F1','RUGBY_UNION','HORSE_RACING','CRICKET'])
         self.assertTrue(all(v.startswith('ON_HOLD') for v in x['researchBench'].values()))
     def test_changed_fighter_or_winner_rejected(self):
         a,b,c=fixture(); c=copy.deepcopy(c)

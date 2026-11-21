@@ -10,7 +10,7 @@ from scripts.all_in_challenge import cents, zar, plan_round
 
 SCHEMA = "UF1CASH_GOAL_STATUS_V1"
 POLICY = "UF1CASH_LOCKED_25K_CHALLENGE_V1"
-ACTIVE = ("UFC", "F1")
+ACTIVE = ("UFC", "F1", "RUGBY_UNION", "HORSE_RACING", "CRICKET")
 TWO_PLACES = Decimal("0.01")
 
 
@@ -21,8 +21,8 @@ def status(wallet: dict, policy: dict) -> dict:
         raise ValueError("All-in percentage must remain 100%")
     if policy.get("topUpsAllowed") is not False or policy.get("realBettingAllowed") is not False:
         raise ValueError("Only imaginary funds; no top-ups")
-    if policy.get("allowedSports") != list(ACTIVE) or policy.get("developmentFocusPercent") != {"UFC":75, "F1":25}:
-        raise ValueError("UFC and F1 only until goal")
+    if policy.get("allowedSports") != list(ACTIVE) or policy.get("developmentFocusPercent") != {"UFC":50, "F1":12.5, "RUGBY_UNION":12.5, "HORSE_RACING":12.5, "CRICKET":12.5}:
+        raise ValueError("Only the five approved sports are permitted")
     if policy.get("maySuggestChallengeReplacementBeforeGoal") is not False or policy.get("automaticStrategyChangeAtGoal") is not False:
         raise ValueError("No strategy replacement before reaching R25k")
     if policy.get("postGoalChangeRequiresUserApproval") is not True:
@@ -37,7 +37,7 @@ def status(wallet: dict, policy: dict) -> dict:
     if active.get("originIncludesRetrospectiveScenario") is not True:
         raise ValueError("Historical credit must remain explicitly labelled")
     if wallet.get("developmentFocusPercent") != {"UFC":75, "F1":25} or wallet.get("eligibleForwardSports") != list(ACTIVE):
-        raise ValueError("Unexpected sport allocation")
+        raise ValueError("Unexpected active-sport focus")
     if any(not str(v).startswith("ON_HOLD") for v in wallet.get("researchBench", {}).values()):
         raise ValueError("Bench sports must remain on hold")
     balance = cents(active["balanceAvailableZAR"])
@@ -59,7 +59,7 @@ def status(wallet: dict, policy: dict) -> dict:
         "goalReached":reached,"challengePhase":phase,
         "nextQualifiedRoundStakeZAR":zar(balance),
         "allInAllocationPercent":100,"uncommittedAfterQualifyingRoundZAR":"0.00",
-        "allowedSports":list(ACTIVE),"developmentFocusPercent":{"UFC":75,"F1":25},
+        "allowedSports":list(ACTIVE),"developmentFocusPercent":{"UFC":50,"F1":12.5,"RUGBY_UNION":12.5,"HORSE_RACING":12.5,"CRICKET":12.5},
         "researchFocusIsNotStakeSplit":True,
         "skipUnqualifiedMarkets":True,"noTopUps":True,
         "strategyReplacementSuggestionAllowed":reached,"strategyChangeRequiresApproval":True,
@@ -83,7 +83,7 @@ def prepare(wallet: dict, policy: dict, input_data: dict, now=None) -> dict:
         raise ValueError("Quote freshness gate may not be relaxed")
     for item in input_data.get("candidates",[]):
         if item.get("sport") not in ACTIVE:
-            raise ValueError("Only UFC and F1 are permitted before the R25k goal")
+            raise ValueError("Only UFC, F1, rugby union, horse racing and cricket are permitted")
     receipt=plan_round(copy.deepcopy(input_data),now=now)
     available=cents(s["availableBalanceZAR"])
     if receipt["status"]=="ALL_IN_FROZEN":

@@ -5,18 +5,21 @@
   "asOfUTC": "2026-11-21T22:32:50Z",
   "currency": "ZAR",
   "developmentFocusPercent": {
-    "UFC": 75,
-    "F1": 25
+    "UFC": 50,
+    "F1": 12.5,
+    "RUGBY_UNION": 12.5,
+    "HORSE_RACING": 12.5,
+    "CRICKET": 12.5
   },
   "developmentFocusIsNotStakeSplit": true,
   "eligibleForwardSports": [
     "UFC",
-    "F1"
+    "F1",
+    "RUGBY_UNION",
+    "HORSE_RACING",
+    "CRICKET"
   ],
   "researchBench": {
-    "rugby_union": "ON_HOLD_NO_ACTIVE_MODEL_OR_PAPER_SELECTION",
-    "horse_racing": "ON_HOLD_NO_ACTIVE_MODEL_OR_PAPER_SELECTION",
-    "cricket": "ON_HOLD_NO_ACTIVE_MODEL_OR_PAPER_SELECTION",
     "tennis": "ON_HOLD_NO_ACTIVE_MODEL_OR_PAPER_SELECTION",
     "basketball": "ON_HOLD_NO_ACTIVE_MODEL_OR_PAPER_SELECTION",
     "football": "ON_HOLD_NO_ACTIVE_MODEL_OR_PAPER_SELECTION",
@@ -140,8 +143,11 @@
   },
   "nextResearch": {
     "UFC": "Capture new pre-fight model probabilities, verified quotes, and public receipt before each future bout",
-    "F1": "Validate historical F1 winner-market predictions; Qatar GP 27-29 November 2026 is calendar watch only",
-    "noUnverifiedMarkets": "No paper selection until genuine forward probabilities and source prices exist"
+    "F1": "Validate historical F1 winner-market predictions; calendar and non-executable sources only",
+    "noUnverifiedMarkets": "No paper selection until genuine forward probabilities and source prices exist",
+    "RUGBY_UNION": "Three-way win/draw/loss predictions with confirmed match fixtures and fresh public fixed-odds board",
+    "HORSE_RACING": "Complete declared field, fixed WIN quotes and scratchings checks before any paper decision",
+    "CRICKET": "T20 winner incl. Super Over probabilities using permitted historical data and fresh odds"
   },
   "evidence": {
     "readme": "See docs/UF1CASH_OPERATING_RECORD.md",

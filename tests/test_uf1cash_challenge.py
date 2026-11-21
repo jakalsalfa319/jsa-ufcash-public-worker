@@ -35,6 +35,7 @@ class GoalRulesTests(unittest.TestCase):
         self.assertEqual(r["toGoZAR"],"21928.26")
         self.assertEqual(r["progressPercent"],"12.29")
         self.assertFalse(r["strategyReplacementSuggestionAllowed"])
+        self.assertEqual(r["developmentFocusPercent"], {"UFC":50,"F1":12.5,"RUGBY_UNION":12.5,"HORSE_RACING":12.5,"CRICKET":12.5})
     def test_one_selection_all_in(self):
         w,p=fixture()
         x=prepare(w,p,round_input(),NOW)["receipt"]
@@ -60,10 +61,22 @@ class GoalRulesTests(unittest.TestCase):
     def test_locked_stake_cannot_be_reused(self):
         w,p=fixture();x=round_input();x["availableBankrollZAR"]="3571.74"
         with self.assertRaisesRegex(ValueError,"current wallet"):prepare(w,p,x,NOW)
-    def test_no_bench_sports(self):
+    def test_other_sports_stay_on_bench(self):
         w,p=fixture()
-        with self.assertRaisesRegex(ValueError,"Only UFC and F1"):
-            prepare(w,p,round_input(candidates=[candidate("rugby","rugby_union")]),NOW)
+        with self.assertRaisesRegex(ValueError,"Only UFC, F1, rugby union"):
+            prepare(w,p,round_input(candidates=[candidate("tennis","TENNIS")]),NOW)
+    def test_all_five_sports_eligible_together(self):
+        w,p=fixture()
+        sports=["UFC","F1","RUGBY_UNION","HORSE_RACING","CRICKET"]
+        a=[candidate("test-"+str(i),sport=s) for i,s in enumerate(sports)]
+        receipt=prepare(w,p,round_input("BASKET",a),NOW)["receipt"]
+        self.assertEqual(len(receipt["selections"]),5)
+        self.assertEqual(sum(cents(row["stakeZAR"]) for row in receipt["selections"]),307174)
+        self.assertEqual(receipt["uncommittedZAR"],"0.00")
+    def test_development_percent_is_not_forced_staking_percent(self):
+        w,p=fixture()
+        one=prepare(w,p,round_input(candidates=[candidate("horse","HORSE_RACING")]),NOW)["receipt"]
+        self.assertEqual(one["selections"][0]["stakeZAR"],"3071.74")
     def test_value_gate_cannot_be_relaxed(self):
         w,p=fixture();x=round_input();x["minEstimatedEV"]="0.0"
         with self.assertRaisesRegex(ValueError,"lowered"):prepare(w,p,x,NOW)
@@ -87,8 +100,8 @@ class GoalRulesTests(unittest.TestCase):
         self.assertEqual(status(w,p)["challengePhase"],"NO_AVAILABLE_CASH_RESULTS_PENDING")
         with self.assertRaisesRegex(ValueError,"No available"):prepare(w,p,round_input(),NOW)
     def test_policy_scope_lock(self):
-        w,p=fixture();p["allowedSports"].append("horse_racing")
-        with self.assertRaisesRegex(ValueError,"UFC and F1 only"):status(w,p)
+        w,p=fixture();p["allowedSports"].append("BASKETBALL")
+        with self.assertRaisesRegex(ValueError,"five approved sports"):status(w,p)
     def test_no_real_money(self):
         w,p=fixture();w=copy.deepcopy(w);w["prospectiveWallet"]["realFundsZAR"]="1.00"
         with self.assertRaisesRegex(ValueError,"top-ups"):status(w,p)

@@ -6,7 +6,7 @@ The virtual challenge began with R2,000. The user explicitly adopted the retrosp
 
 **Every qualifying round, without exception before the R25,000 milestone, must stake precisely the entire current available ZAR balance.** One selection or a basket may be used, and its combined stakes must equal the available balance down to the last cent. The previous R2,000 is never reused as the stake amount. Pending stakes do not count as available. No deposits, top-ups, real money, debt, bookmaker accounts or automated real bets.
 
-A round with no verified pre-event model forecast and fresh attributable market quote is an ABSTAIN, leaving the virtual balance untouched. Do not manufacture bets just to satisfy the full-staking rule. Only UFC and Formula 1 are active. UFC 75% / F1 25% is a research-time split, not a forced cash-stake split.
+A round with no verified pre-event model forecast and fresh attributable market quote is an ABSTAIN, leaving the virtual balance untouched. Do not manufacture bets just to satisfy the full-staking rule. As authorized on 22 November 2026, five sports are active: UFC 50%, F1 12.5%, rugby union 12.5%, horse racing 12.5%, and cricket 12.5% **of research time**, not mandated stake allocations. The R25,000 target and 100%-of-current-available-balance rule have not changed. A qualifying round may consist entirely of one sport.
 
 **Do not suggest a replacement or different overall challenge strategy until the available virtual balance reaches at least R25,000.** Meeting that threshold only permits a user discussion. Nothing switches automatically, and the user must approve any subsequent changes. Bankruptcy at R0 and no outstanding possible refunds ends the challenge; do not replenish virtual funds.
 
@@ -20,4 +20,4 @@ python -m scripts.uf1cash_challenge state --wallet public/uf1cash-status.json --
 Eligible pre-event input:
 python -m scripts.uf1cash_challenge prepare --wallet public/uf1cash-status.json --policy records/uf1cash/challenge-policy-v3.json --input /path/to/verified-future-input.json --output /path/to/new-paper-receipt.json
 
-The program refuses to overwrite a saved status/receipt, blocks stale balances and non-UFC/F1 picks, and uses the existing strict all-in paper engine. This alone cannot authenticate bookmaker quotes or source timestamps.
+The program refuses to overwrite a saved status/receipt, blocks stale balances and unapproved sports, and uses the existing strict all-in paper engine. This alone cannot authenticate bookmaker quotes or source timestamps.
