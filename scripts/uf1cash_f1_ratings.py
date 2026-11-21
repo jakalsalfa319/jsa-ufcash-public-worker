@@ -108,17 +108,26 @@ def evaluate(payloads,asof):
                         "logLoss":-math.log(p)})
         update(ratings,r["entrants"])
     N=len(results)
+    latest=results[-1]["dateUTC"] if N else None
+    lag_days=(utc(asof)-utc(latest)).total_seconds()/86400 if latest else None
+    freshness="NO_HISTORICAL_RESULTS" if lag_days is None else ("STALE_OVER_30_DAYS" if lag_days>30 else "RECENT_WITHIN_30_DAYS")
+    adequate_sample=N>=30
     return {
       "schema":SCHEMA,"asOfUTC":utc(asof).isoformat().replace("+00:00","Z"),
       "provider":"Jolpica F1","sourceUrl":SOURCE,
       "license":"CC BY-NC-SA 4.0, non-commercial use only",
       "historicalRacesProcessed":N,
+      "sourceFreshnessStatus":freshness,
+      "latestSourceResultLagDays":round(lag_days,1) if lag_days is not None else None,
+      "historicalSampleAtLeast30Races":adequate_sample,
+      "marketModelValidatedForNewBet":False,
+      "recentDataAndSampleGatePassed":freshness=="RECENT_WITHIN_30_DAYS" and adequate_sample,
       "walkforwardTopOneAccuracy":round(sum(r["correct"] for r in results)/N,4) if N else None,
       "poleSitterWinnerBaseline":round(sum(r["poleWon"] for r in results)/N,4) if N else None,
       "walkforwardMeanMulticlassLogLoss":round(sum(r["logLoss"] for r in results)/N,4) if N else None,
       "eloRatingLeaders":[{"driverId":did,"rating":round(value,3)} for did,value in
           sorted(ratings.items(),key=lambda pair:(-pair[1],pair[0]))[:15]],
-      "latestHistoricalRaceDate":results[-1]["dateUTC"] if N else None,
+      "latestHistoricalRaceDate":latest,
       "futureRaceModelProbability":None,
       "qualifyingFieldVerified":False,"oddsFeed":None,"paperBetEligible":False,
       "newPaperBets":0,"realBets":0,

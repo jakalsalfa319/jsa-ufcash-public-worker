@@ -56,11 +56,21 @@ class F1ModelTests(unittest.TestCase):
                   race(2025,2,"2025-01-12",who="driver_b"))
         r=evaluate([a],"2026-11-22T12:00:00Z")
         self.assertEqual(r["historicalRacesProcessed"],2)
+        self.assertEqual(r["sourceFreshnessStatus"],"STALE_OVER_30_DAYS")
+        self.assertFalse(r["historicalSampleAtLeast30Races"])
+        self.assertFalse(r["recentDataAndSampleGatePassed"])
         self.assertEqual(r["poleSitterWinnerBaseline"],0.5)
         self.assertIsNone(r["futureRaceModelProbability"])
         self.assertFalse(r["paperBetEligible"])
         self.assertEqual(r["newPaperBets"],0)
         self.assertEqual(r["realBets"],0)
+    def test_stale_provider_results_are_not_model_ready(self):
+        a=package(race(2026,1,"2026-05-24"))
+        r=evaluate([a],"2026-11-22T00:00:00Z")
+        self.assertGreater(r["latestSourceResultLagDays"],180)
+        self.assertFalse(r["marketModelValidatedForNewBet"])
+        self.assertFalse(r["paperBetEligible"])
+
     def test_invalid_tz_refused(self):
         with self.assertRaisesRegex(ValueError,"Timezone"):
             evaluate([],"2026-11-22T12:00:00")
@@ -68,6 +78,7 @@ class F1ModelTests(unittest.TestCase):
         a=evaluate([package()],"2026-11-22T12:00:00Z")
         self.assertIsNone(a["walkforwardTopOneAccuracy"])
         self.assertIsNone(a["latestHistoricalRaceDate"])
+        self.assertEqual(a["sourceFreshnessStatus"],"NO_HISTORICAL_RESULTS")
     def test_zero_grid_is_allowed_in_historical_data(self):
         a=package(race(2025,1,"2025-01-05"))
         a["MRData"]["RaceTable"]["Races"][0]["Results"][0]["grid"]="0"
