@@ -5,6 +5,10 @@ on:
     paths:
       - '.github/workflows/uf1cash-record-tests.yml'
       - 'scripts/uf1cash_status.py'
+      - 'scripts/multisport_markets.py'
+      - 'scripts/cricsheet_history.py'
+      - 'tests/test_cricket_market.py'
+      - 'docs/UF1CASH_FIVE_SPORT_SCOPE.md'
       - 'scripts/uf1cash_challenge.py'
       - 'tests/test_uf1cash_challenge.py'
       - 'records/uf1cash/challenge-policy-v3.json'
@@ -25,6 +29,10 @@ on:
     paths:
       - '.github/workflows/uf1cash-record-tests.yml'
       - 'scripts/uf1cash_status.py'
+      - 'scripts/multisport_markets.py'
+      - 'scripts/cricsheet_history.py'
+      - 'tests/test_cricket_market.py'
+      - 'docs/UF1CASH_FIVE_SPORT_SCOPE.md'
       - 'scripts/uf1cash_challenge.py'
       - 'tests/test_uf1cash_challenge.py'
       - 'records/uf1cash/challenge-policy-v3.json'
@@ -82,5 +90,7 @@ jobs:
           PY
       - name: Test partial virtual settlement (pending stake remains locked)
         run: python -m unittest discover -s tests -p 'test_uf1cash_partial_settlement.py' -v
+      - name: Test five-sport cross-market validation and history cutoff
+        run: python -m unittest discover -s tests -p 'test_cricket_market.py' -v
       - name: Confirm original all-in controls still pass
         run: python -m unittest discover -s tests -p 'test_all_in_challenge.py' -v
