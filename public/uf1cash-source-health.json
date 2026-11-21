@@ -1,0 +1,46 @@
+{
+  "schema": "UF1CASH_PUBLIC_SOURCE_HEALTH_V1",
+  "observedAtUTC": "2026-11-21T23:25:09Z",
+  "provenance": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44961687736",
+  "status": "RESEARCH_RUNNING_NO_ELIGIBLE_FORWARD_WAGERS",
+  "sourceStatus": {
+    "F1": {
+      "historicalData": "STALE_OVER_30_DAYS",
+      "historicalRacesProcessed": 15,
+      "newestHistoricalRaceUTC": "2026-05-24T20:00:00Z",
+      "ageAtAuditDays": 181.1,
+      "illustrativeTopOneAccuracy": 0.4667,
+      "poleSitterBaseline": 0.8667,
+      "finding": "Only 15 observed races; rating model lagged behind simple pole-sitter baseline in this limited sample; no calibrated forward prediction or verified bookmaker quote.",
+      "paperBetEligible": false
+    },
+    "UFC": {
+      "model": "EXISTING_FITTED_FRONTIER_V2_REQUIRES_REVIEWED_FUTURE_CARD_AND_QUOTE",
+      "paperBetEligible": false
+    },
+    "RUGBY_UNION": {
+      "model": "MARKET_VALIDATOR_ONLY_NOT_TRAINED",
+      "paperBetEligible": false
+    },
+    "HORSE_RACING": {
+      "model": "MARKET_VALIDATOR_ONLY_NOT_TRAINED",
+      "paperBetEligible": false
+    },
+    "CRICKET": {
+      "model": "T20_MARKET_VALIDATOR_AND_HISTORICAL_PARSER_ONLY",
+      "paperBetEligible": false
+    }
+  },
+  "oddsFeed": {
+    "provider": "The Odds API v4",
+    "status": "NOT_CONNECTED_KEY_REQUIRED",
+    "keyInPublicRepo": false,
+    "quotaPaidRequestsUsed": 0
+  },
+  "virtualWalletAvailableZAR": "3071.74",
+  "goalZAR": "25000.00",
+  "historicDisputedStakeLockedZAR": "500.00",
+  "forwardPaperBetsCreated": 0,
+  "realMoneyBets": 0,
+  "nextRequired": "Set private provider key and independently verify model/market contract before any forward paper selection; do not invent events or price fills."
+}
