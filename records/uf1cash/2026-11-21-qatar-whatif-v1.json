@@ -1,0 +1,105 @@
+{
+  "schema": "UF1CASH_HISTORICAL_EVENT_RECORD_V1",
+  "recordVersion": 1,
+  "eventId": "ufc-qatar-2026-11-21",
+  "recordedAsOfUTC": "2026-11-21T22:32:50Z",
+  "classification": "RETROSPECTIVE_ONLY_NOT_RECORDED_BEFORE_EVENT",
+  "virtualZAR": {
+    "eventId": "ufc-qatar-2026-11-21",
+    "eventDate": "2026-11-21",
+    "classification": "RETROSPECTIVE_RECONSTRUCTION_NOT_PRE_EVENT_PAPER_BETS",
+    "referencePricesNotExecutable": true,
+    "separateMutuallyExclusiveHypotheses": true,
+    "originalFrozenPredictionsUrl": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/blob/main/public/prospective/2026-11-21.json",
+    "reportedPriceSourceUrl": "https://www.thegarciareport.com/posts/ufc-qatar-prochazka-stirling-betonline-moneylines/",
+    "reportedFightSourceUrl": "https://www.mmafighting.com/ufc/522605/ufc-qatar-results-prochazka-vs-stirling",
+    "conflictingUfcHostedSourceUrl": "https://us.ufcespanol.com/news/ufc-qatar-official-scorecards-prochazka-vs-stirling",
+    "recordedPaperBetsBeforeEvent": 0,
+    "realBets": 0,
+    "reportedFightModelWinnerScore": {
+      "correct": 5,
+      "eligible": 6,
+      "percent": "83.33",
+      "disputedExcluded": 1
+    },
+    "disputedBout": "Shamil Gaziev vs Tallison Teixeira",
+    "disputeStatus": "OFFICIAL_UFCSTATS_DETAIL_NOT_YET_VERIFIED_AND_SOURCES_CONFLICT",
+    "basket": {
+      "classification": "POST_EVENT_WHAT_IF_NOT_PROSPECTIVE",
+      "strategy": "BASKET",
+      "openingZAR": "2000.00",
+      "totalSimulatedStakesZAR": "2000.00",
+      "uncommittedZAR": "0.00",
+      "selectionCount": 4,
+      "reportedKnownGrossPayoutZAR": "3071.74",
+      "ifDisputedLosesFinalZAR": "3071.74",
+      "ifDisputedWinsFinalZAR": "4396.74",
+      "ifDisputedLosesNetZAR": "1071.74",
+      "ifDisputedWinsNetZAR": "2396.74",
+      "selections": [
+        {
+          "event": "Shamil Gaziev vs Tallison Teixeira",
+          "selection": "Tallison Teixeira",
+          "americanOdds": 165,
+          "virtualStakeZAR": "500.00",
+          "reportedStatus": "DISPUTED",
+          "scenarioResult": "UNRESOLVED_DISPUTED",
+          "scenarioReturnZAR": null
+        },
+        {
+          "event": "Aleksandre Topuria vs Santiago Luna",
+          "selection": "Santiago Luna",
+          "americanOdds": 224,
+          "virtualStakeZAR": "500.00",
+          "reportedStatus": "REPORTED",
+          "scenarioResult": "WIN",
+          "scenarioReturnZAR": "1620.00"
+        },
+        {
+          "event": "Jared Cannonier vs Ikram Aliskerov",
+          "selection": "Ikram Aliskerov",
+          "americanOdds": -290,
+          "virtualStakeZAR": "500.00",
+          "reportedStatus": "REPORTED",
+          "scenarioResult": "WIN",
+          "scenarioReturnZAR": "672.41"
+        },
+        {
+          "event": "Jiri Prochazka vs Navajo Stirling",
+          "selection": "Navajo Stirling",
+          "americanOdds": -179,
+          "virtualStakeZAR": "500.00",
+          "reportedStatus": "REPORTED",
+          "scenarioResult": "WIN",
+          "scenarioReturnZAR": "779.33"
+        }
+      ]
+    },
+    "singleAlternative": {
+      "classification": "POST_EVENT_WHAT_IF_NOT_PROSPECTIVE",
+      "strategy": "SINGLE",
+      "openingZAR": "2000.00",
+      "totalSimulatedStakesZAR": "2000.00",
+      "uncommittedZAR": "0.00",
+      "selectionCount": 1,
+      "reportedKnownGrossPayoutZAR": "0.00",
+      "ifDisputedLosesFinalZAR": "0.00",
+      "ifDisputedWinsFinalZAR": "5300.00",
+      "ifDisputedLosesNetZAR": "-2000.00",
+      "ifDisputedWinsNetZAR": "3300.00",
+      "selections": [
+        {
+          "event": "Shamil Gaziev vs Tallison Teixeira",
+          "selection": "Tallison Teixeira",
+          "americanOdds": 165,
+          "virtualStakeZAR": "2000.00",
+          "reportedStatus": "DISPUTED",
+          "scenarioResult": "UNRESOLVED_DISPUTED",
+          "scenarioReturnZAR": null
+        }
+      ]
+    },
+    "liveChallengeBankrollAffected": false
+  },
+  "note": "Permanent separate historical record; append v2 for any subsequently independently verified correction; original snapshots and wallet genesis unchanged."
+}
