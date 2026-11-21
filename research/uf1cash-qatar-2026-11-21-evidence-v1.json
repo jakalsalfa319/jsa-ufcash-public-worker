@@ -1,0 +1,22 @@
+{
+  "schema":"UF1CASH_QATAR_EVIDENCE_REVIEW_V1",
+  "eventId":"ufc-qatar-2026-11-21",
+  "reviewAsOfUTC":"2026-11-21T22:32:50Z",
+  "classification":"SECONDARY_REPORTED_RESULTS_CONFLICT_REQUIRES_OFFICIAL_DETAIL",
+  "sources":[
+    {"id":"media","url":"https://www.mmafighting.com/ufc/522605/ufc-qatar-results-prochazka-vs-stirling","kind":"reputable_secondary_live_result","description":"Names all seven winners; reports Tallison Teixeira over Shamil Gaziev"},
+    {"id":"official_conflict","url":"https://us.ufcespanol.com/news/ufc-qatar-official-scorecards-prochazka-vs-stirling","kind":"UFC_hosted_article","description":"Names Shamil Gaziev over Tallison Teixeira; directly contradicts secondary live results"},
+    {"id":"price","url":"https://www.thegarciareport.com/posts/ufc-qatar-prochazka-stirling-betonline-moneylines/","kind":"third_party_quote_report","description":"Published 19 Nov; BetOnline board prices, not independently authenticated executable odds"}
+  ],
+  "outcomes":[
+    {"red":"Jiri Prochazka","blue":"Navajo Stirling","ledgerStatus":"REPORTED","reportedWinner":"Navajo Stirling","evidenceIds":["media"]},
+    {"red":"Aljamain Sterling","blue":"Kevin Vallejos","ledgerStatus":"REPORTED","reportedWinner":"Kevin Vallejos","evidenceIds":["media"]},
+    {"red":"Dan Hooker","blue":"Brian Ortega","ledgerStatus":"REPORTED","reportedWinner":"Dan Hooker","evidenceIds":["media"]},
+    {"red":"Kyoji Horiguchi","blue":"Asu Almabayev","ledgerStatus":"REPORTED","reportedWinner":"Kyoji Horiguchi","evidenceIds":["media"]},
+    {"red":"Jared Cannonier","blue":"Ikram Aliskerov","ledgerStatus":"REPORTED","reportedWinner":"Ikram Aliskerov","evidenceIds":["media"]},
+    {"red":"Aleksandre Topuria","blue":"Santiago Luna","ledgerStatus":"REPORTED","reportedWinner":"Santiago Luna","evidenceIds":["media"]},
+    {"red":"Shamil Gaziev","blue":"Tallison Teixeira","ledgerStatus":"DISPUTED","reportedWinner":null,"evidenceIds":["media","official_conflict"]}
+  ],
+  "independentOfficialUfcstatsResultDetailVerified":false,
+  "reportNote":"Do not infer a sportsbook payout or settle Gaziev-Teixeira from one report. This source review is retrospective, not a verified pre-event paper ticket."
+}
