@@ -13,8 +13,8 @@ from scripts.all_in_challenge import historical_qatar_allin, cents
 
 SCHEMA = 'UF1CASH_VIRTUAL_LEDGER_V1'
 REVIEW_SCHEMA = 'UF1CASH_QATAR_EVIDENCE_REVIEW_V1'
-FOCUS = {'UFC': 50, 'F1': 12.5, 'RUGBY_UNION': 12.5, 'HORSE_RACING': 12.5, 'CRICKET': 12.5}
-BENCH = ('tennis', 'basketball', 'football', 'other_motorsport')
+FOCUS = {'UFC': 75, 'F1': 25}
+BENCH = ('rugby_union', 'horse_racing', 'cricket', 'tennis', 'basketball', 'football', 'other_motorsport')
 
 def summary(genesis:dict, source:dict, review:dict)->dict:
     if genesis.get('schema') != 'UFCASH_VIRTUAL_ZAR_GENESIS_V1':
@@ -70,7 +70,7 @@ def summary(genesis:dict, source:dict, review:dict)->dict:
       'schema':SCHEMA, 'brand':'UF1Cash', 'operationalName':'J$A UF1Cash / UFCash legacy',
       'asOfUTC':review['reviewAsOfUTC'], 'currency':'ZAR',
       'developmentFocusPercent':FOCUS, 'developmentFocusIsNotStakeSplit':True,
-      'eligibleForwardSports':['UFC','F1','RUGBY_UNION','HORSE_RACING','CRICKET'],
+      'eligibleForwardSports':['UFC','F1'],
       'researchBench':{name:'ON_HOLD_NO_ACTIVE_MODEL_OR_PAPER_SELECTION' for name in BENCH},
       'operatingMode':'RESEARCH_AND_IMAGINARY_MONEY_ONLY',
       'prospectiveWallet':{
@@ -97,10 +97,7 @@ def summary(genesis:dict, source:dict, review:dict)->dict:
        },
       'nextResearch':{
         'UFC':'Capture new pre-fight model probabilities, verified quotes, and public receipt before each future bout',
-        'F1':'Validate historical F1 winner-market predictions; calendar and non-executable sources only',
-        'RUGBY_UNION':'Three-way win/draw/loss predictions with confirmed match fixtures and fresh public fixed-odds board',
-        'HORSE_RACING':'Complete declared field, fixed WIN quotes and scratchings checks before any paper decision',
-        'CRICKET':'T20 winner incl. Super Over probabilities using permitted historical data and fresh odds',
+        'F1':'Validate historical F1 winner-market predictions; Qatar GP 27-29 November 2026 is calendar watch only',
         'noUnverifiedMarkets':'No paper selection until genuine forward probabilities and source prices exist'},
       'evidence':{
         'readme':'See docs/UF1CASH_OPERATING_RECORD.md',
@@ -123,6 +120,24 @@ def active_summary(genesis:dict, source:dict, review:dict, authorization:dict)->
     if authorization.get('roundId')!='ufc-qatar-2026-11-21' or authorization.get('strategy')!='BASKET':
         raise ValueError('Wrong historical scenario selected')
     out=summary(genesis,source,review)
+    # Scope revision applies to the current user-adopted V2 wallet ONLY.
+    # Never rewrite the archived original V1 research snapshot or Qatar model provenance.
+    out["developmentFocusPercent"] = {
+        "UFC": 50, "F1": 12.5, "RUGBY_UNION": 12.5,
+        "HORSE_RACING": 12.5, "CRICKET": 12.5
+    }
+    out["eligibleForwardSports"] = ["UFC", "F1", "RUGBY_UNION", "HORSE_RACING", "CRICKET"]
+    out["researchBench"] = {
+        name: "ON_HOLD_NO_ACTIVE_MODEL_OR_PAPER_SELECTION"
+        for name in ("tennis", "basketball", "football", "other_motorsport")
+    }
+    out["nextResearch"].update({
+        "F1": "Validate historical F1 winner-market predictions; calendar and non-executable sources only",
+        "RUGBY_UNION": "Three-way win/draw/loss predictions with confirmed match fixtures and fresh public fixed-odds board",
+        "HORSE_RACING": "Complete declared field, fixed WIN quotes and scratchings checks before any paper decision",
+        "CRICKET": "T20 winner incl. Super Over probabilities using permitted historical data and fresh odds",
+    })
+
     p=out['pastCardRecord']['basket']
     bets=p['selections']
     if len(bets)!=4 or sum(cents(x['virtualStakeZAR']) for x in bets)!=200000:

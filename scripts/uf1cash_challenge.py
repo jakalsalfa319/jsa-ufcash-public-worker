@@ -36,7 +36,7 @@ def status(wallet: dict, policy: dict) -> dict:
         raise ValueError("Real funds or top-ups are not allowed")
     if active.get("originIncludesRetrospectiveScenario") is not True:
         raise ValueError("Historical credit must remain explicitly labelled")
-    if wallet.get("developmentFocusPercent") != {"UFC":75, "F1":25} or wallet.get("eligibleForwardSports") != list(ACTIVE):
+    if wallet.get("developmentFocusPercent") != {"UFC":50, "F1":12.5, "RUGBY_UNION":12.5, "HORSE_RACING":12.5, "CRICKET":12.5} or wallet.get("eligibleForwardSports") != list(ACTIVE):
         raise ValueError("Unexpected active-sport focus")
     if any(not str(v).startswith("ON_HOLD") for v in wallet.get("researchBench", {}).values()):
         raise ValueError("Bench sports must remain on hold")
