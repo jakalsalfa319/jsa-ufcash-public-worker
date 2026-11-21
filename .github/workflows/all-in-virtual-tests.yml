@@ -4,6 +4,9 @@ on:
   pull_request:
     paths:
       - 'scripts/all_in_challenge.py'
+      - 'scripts/uf1cash_challenge.py'
+      - 'records/uf1cash/challenge-policy-v3.json'
+      - 'public/uf1cash-status.json'
       - 'tests/test_all_in_challenge.py'
       - 'scripts/f1_public_feed.py'
       - 'scripts/multisport_markets.py'
@@ -16,6 +19,9 @@ on:
     branches: [main]
     paths:
       - 'scripts/all_in_challenge.py'
+      - 'scripts/uf1cash_challenge.py'
+      - 'records/uf1cash/challenge-policy-v3.json'
+      - 'public/uf1cash-status.json'
       - 'tests/test_all_in_challenge.py'
       - 'scripts/f1_public_feed.py'
       - 'scripts/multisport_markets.py'
@@ -64,9 +70,24 @@ jobs:
           python-version: '3.12'
       - name: Fetch read-only F1 source schedule without odds or bets
         run: python -m scripts.f1_public_feed --year $(date -u +%Y) --output results/virtual/f1-observation.json
+      - name: Re-evaluate the source-controlled UF1Cash R25k wallet without betting
+        run: |
+          python -m scripts.uf1cash_challenge state --wallet public/uf1cash-status.json --policy records/uf1cash/challenge-policy-v3.json --output results/virtual/uf1cash-goal-observation.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          goal=json.loads(Path('results/virtual/uf1cash-goal-observation.json').read_text())
+          assert goal['realBetsPlaced']==0
+          assert goal['allInAllocationPercent']==100
+          assert goal['targetBalanceZAR']=='25000.00'
+          assert goal['strategyReplacementSuggestionAllowed']==goal['goalReached']
+          print('Virtual balance',goal['availableBalanceZAR'],'goal remaining',goal['toGoZAR'])
+          PY
       - name: Publish F1 research observation as ephemeral artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: jsa-ufcash-public-f1-watchlist
+          name: jsa-uf1cash-f1-calendar-and-virtual-goal
           retention-days: 30
-          path: results/virtual/f1-observation.json
+          path: |
+            results/virtual/f1-observation.json
+            results/virtual/uf1cash-goal-observation.json
