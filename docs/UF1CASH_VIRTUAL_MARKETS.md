@@ -1,0 +1,13 @@
+# UF1Cash multi-market paper betting
+
+Virtual-only app; no real bets, bookmaker account access, deposits, or claimed sportsbook fills.
+
+The user authorizes UF1Cash to choose any type of market within UFC, Formula 1, rugby union, horse racing and cricket, subject to genuine pre-event data, market-specific published settlement rules, independent results and an immutable receipt. Development priorities 50/12.5/12.5/12.5/12.5 are not staking proportions. The pre-R25,000 challenge still uses 100% of whatever fictional ZAR is currently available in every QUALIFYING round, down to the cent; a round with no valid market abstains and preserves the balance. The unresolved historic R500 stake is locked.
+
+Automated standard fixed-odds binary payout templates: MONEYLINE, MATCH_RESULT_1X2, TOTALS_OVER_UNDER, HANDICAP_SPREAD, BINARY_PROP, METHOD_OF_VICTORY, ROUND_RESULT, OUTRIGHT_WINNER, F1_PODIUM, F1_TOP_N, HORSE_PLACE_FIXED, CRICKET_RUN_TOTAL, RUGBY_WINNING_MARGIN, YES_NO. They only support full win, full loss, and full void refund where the actual quoted market allows those results. No unsupported half-win, dead-heat or reduced payout is allowed.
+
+MANUAL_REVIEW only until separately implemented and verified: EACH_WAY, EXACTA, TRIFECTA, SUPERFECTA, ACCUMULATOR, SAME_EVENT_BUILDER, ASIAN_HANDICAP, DEAD_HEAT, PARTIAL_WIN, CASH_OUT, IN_PLAY, and any custom market. These types can be recorded with market contracts but cannot silently credit virtual winnings. Accumulators need a source-observed combined quote and a joint forecast probability, not a guessed product of uncorrelated odds.
+
+Input schema UF1CASH_MULTI_MARKET_INPUT_V1. Use the Python module scripts/uf1cash_virtual_markets.py: freeze(wallet,policy,data,now) produces a fingerprinted virtual receipt; reconcile(envelope,reported_results,now) produces a provisional reconciliation. One or more tickets carry ticketId, sourceEventId, sport, marketType, selection, eventStartsUTC, modelPSelection, quote, settlementContract and optional positive weight. The settlement contract needs grading, publishedRulesUrl, specificTerms and supportsVoidRefund true. Separate ticket IDs allow distinct markets on the same sporting event. Every qualified round splits exactly the current virtual wallet; no qualified markets = R0 staked.
+
+Neither a quote URL, source SHA nor a local model probability proves that betting odds were actually available. Winnings remain labelled provisional until independently verified and written to the authoritative ledger. Unit tests use synthetic fighters, teams, drivers and prices only. No real profitability has been established.
