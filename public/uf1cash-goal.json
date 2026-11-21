@@ -1,0 +1,35 @@
+{
+  "schema": "UF1CASH_GOAL_STATUS_V1",
+  "challengeId": "JSA-UF1CASH-R2000-ALLIN-TO-R25000",
+  "currency": "ZAR",
+  "originalVirtualCapitalZAR": "2000.00",
+  "availableBalanceZAR": "3071.74",
+  "lockedHistoricalPendingStakeZAR": "500.00",
+  "targetBalanceZAR": "25000.00",
+  "toGoZAR": "21928.26",
+  "progressPercent": "12.29",
+  "goalReached": false,
+  "challengePhase": "ACTIVE_UNDER_R25000",
+  "nextQualifiedRoundStakeZAR": "3071.74",
+  "allInAllocationPercent": 100,
+  "uncommittedAfterQualifyingRoundZAR": "0.00",
+  "allowedSports": [
+    "UFC",
+    "F1"
+  ],
+  "developmentFocusPercent": {
+    "UFC": 75,
+    "F1": 25
+  },
+  "researchFocusIsNotStakeSplit": true,
+  "skipUnqualifiedMarkets": true,
+  "noTopUps": true,
+  "strategyReplacementSuggestionAllowed": false,
+  "strategyChangeRequiresApproval": true,
+  "automaticStrategySwitch": false,
+  "realBetsPlaced": 0,
+  "genuineForwardBetsRecorded": 0,
+  "openingWalletIncludesUserAdoptedHistoricalHypotheticalCredit": true,
+  "historicReturnsAreNotAuthenticatedPreEventBets": true,
+  "disclosure": "All amounts are virtual ZAR. The Qatar balance is retrospectively adopted and does not establish pre-event profitability."
+}

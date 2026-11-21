@@ -1,0 +1,38 @@
+{
+  "schema": "UF1CASH_LOCKED_25K_CHALLENGE_V1",
+  "challengeId": "JSA-UF1CASH-R2000-ALLIN-TO-R25000",
+  "approvedInChat": "2026-11-22",
+  "originalVirtualCapitalZAR": "2000.00",
+  "virtualGoalZAR": "25000.00",
+  "walletSource": "public/uf1cash-status.json",
+  "allInShareOfAvailableBalance": "1.00",
+  "noQualifiedMarket": "ABSTAIN_WITH_WALLET_UNSPENT",
+  "topUpsAllowed": false,
+  "realBettingAllowed": false,
+  "allowedSports": [
+    "UFC",
+    "F1"
+  ],
+  "developmentFocusPercent": {
+    "UFC": 75,
+    "F1": 25
+  },
+  "developmentFocusIsNotStakeAllocation": true,
+  "minEstimatedEV": "0.03",
+  "maxQuoteAgeMinutes": 120,
+  "maySuggestChallengeReplacementBeforeGoal": false,
+  "automaticStrategyChangeAtGoal": false,
+  "postGoalChangeRequiresUserApproval": true,
+  "historicalWorkingBalanceClassification": "USER_ADOPTED_POST_EVENT_WHAT_IF_NOT_PROSPECTIVE",
+  "initialRetrospectiveUnresolvedStakeZAR": "500.00",
+  "historicalPredictionSnapshotsReadOnly": true,
+  "bench": [
+    "rugby_union",
+    "horse_racing",
+    "cricket",
+    "tennis",
+    "basketball",
+    "football",
+    "other_motorsport"
+  ]
+}

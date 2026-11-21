@@ -1,5 +1,8 @@
 # J$A // UF1Cash | Virtual ZAR challenge & research ledger
 
+**Current governing rule:** The R25,000 virtual challenge supersedes older examples below. Every qualifying round uses the full current available balance (currently R3,071.74), and only at R25,000 may a replacement challenge strategy be discussed, with approval required. See [locked milestone policy](UF1CASH_25K_CHALLENGE.md). The user adopted the Qatar retrospective basket into the working wallet, without claiming actual pre-event bet execution.
+
+
 **Brand:** UF1Cash 🥊🏎️. The existing `jsa-ufcash-public-worker` repository, original UFCash model, immutable event prediction journals, source model checkpoints and prior test workflows remain intact. This is a brand/policy and ledger extension, *not* a covert model change or repo rename.
 
 **As of the source review at 2026-11-21 22:32:50 UTC (00:32:50 SAST, 22 November 2026).** Recheck result sources before treating disputed outcomes as completed. Summary: [`public/uf1cash-status.json`](../public/uf1cash-status.json); evidence: [`research/uf1cash-qatar-2026-11-21-evidence-v1.json`](../research/uf1cash-qatar-2026-11-21-evidence-v1.json).
