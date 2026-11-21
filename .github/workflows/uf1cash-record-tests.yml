@@ -5,6 +5,11 @@ on:
     paths:
       - '.github/workflows/uf1cash-record-tests.yml'
       - 'scripts/uf1cash_status.py'
+      - 'scripts/uf1cash_challenge.py'
+      - 'tests/test_uf1cash_challenge.py'
+      - 'records/uf1cash/challenge-policy-v3.json'
+      - 'public/uf1cash-goal.json'
+      - 'docs/UF1CASH_25K_CHALLENGE.md'
       - 'scripts/uf1cash_partial_settlement.py'
       - 'tests/test_uf1cash_status.py'
       - 'tests/test_uf1cash_partial_settlement.py'
@@ -20,6 +25,11 @@ on:
     paths:
       - '.github/workflows/uf1cash-record-tests.yml'
       - 'scripts/uf1cash_status.py'
+      - 'scripts/uf1cash_challenge.py'
+      - 'tests/test_uf1cash_challenge.py'
+      - 'records/uf1cash/challenge-policy-v3.json'
+      - 'public/uf1cash-goal.json'
+      - 'docs/UF1CASH_25K_CHALLENGE.md'
       - 'scripts/uf1cash_partial_settlement.py'
       - 'tests/test_uf1cash_status.py'
       - 'tests/test_uf1cash_partial_settlement.py'
@@ -60,6 +70,15 @@ jobs:
           left=json.loads(Path('/tmp/uf1cash-status-rebuilt.json').read_text())
           right=json.loads(Path('public/uf1cash-status.json').read_text())
           assert left == right, 'UF1Cash wallet status out of sync with generator'
+          PY
+      - name: Verify R25k goal lock and full current wallet exposure
+        run: |
+          python -m unittest discover -s tests -p 'test_uf1cash_challenge.py' -v
+          python -m scripts.uf1cash_challenge state --wallet public/uf1cash-status.json --policy records/uf1cash/challenge-policy-v3.json --output /tmp/uf1cash-goal-ci.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          assert json.loads(Path('/tmp/uf1cash-goal-ci.json').read_text()) == json.loads(Path('public/uf1cash-goal.json').read_text())
           PY
       - name: Test partial virtual settlement (pending stake remains locked)
         run: python -m unittest discover -s tests -p 'test_uf1cash_partial_settlement.py' -v
