@@ -46,5 +46,42 @@
     "RUGBY_UNION": "THREE_WAY_MODEL_AND_ODDS_MISSING",
     "HORSE_RACING": "DECLARED_FIELD_FIXED_WIN_MODEL_AND_ODDS_MISSING",
     "CRICKET": "T20_TWO_WAY_MODEL_AND_ODDS_MISSING"
+  },
+  "marketTicketPolicy": {
+    "mode": "VIRTUAL_DISCRETIONARY_BET_TYPES_AND_WEIGHTS",
+    "allQualifiedRoundStakesMustTotalAvailablePercent": 100,
+    "simpleFixedBinaryMarkets": [
+      "MONEYLINE",
+      "MATCH_RESULT_1X2",
+      "TOTALS_OVER_UNDER",
+      "HANDICAP_SPREAD",
+      "BINARY_PROP",
+      "METHOD_OF_VICTORY",
+      "ROUND_RESULT",
+      "OUTRIGHT_WINNER",
+      "F1_PODIUM",
+      "F1_TOP_N",
+      "HORSE_PLACE_FIXED",
+      "CRICKET_RUN_TOTAL",
+      "RUGBY_WINNING_MARGIN",
+      "YES_NO"
+    ],
+    "complexMarketsNeverAutocredited": [
+      "EACH_WAY",
+      "EXACTA",
+      "TRIFECTA",
+      "SUPERFECTA",
+      "ACCUMULATOR",
+      "SAME_EVENT_BUILDER",
+      "ASIAN_HANDICAP",
+      "DEAD_HEAT",
+      "PARTIAL_WIN",
+      "CASH_OUT",
+      "IN_PLAY",
+      "CUSTOM"
+    ],
+    "minimumEvidence": "PRE_EVENT_MODEL_AND_QUOTES_AND_PUBLISHED_MARKET_RULES",
+    "realMoneyExecution": false,
+    "userAuthorization": "2026-11-22"
   }
 }
