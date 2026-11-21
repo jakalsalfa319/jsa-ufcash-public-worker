@@ -1,0 +1,37 @@
+{
+  "schema": "UFCASH_ALLIN_HISTORICAL_V1",
+  "classification": "POST_EVENT_WHAT_IF_NOT_PROSPECTIVE",
+  "eventId": "ufc-qatar-2026-11-21",
+  "strategy": "SINGLE",
+  "startingBalanceZAR": "2000.00",
+  "exposureZAR": "2000.00",
+  "uncommittedZAR": "0.00",
+  "selectionCount": 1,
+  "quotedOddsAuthenticityIndependent": false,
+  "minimumEVChosenRetrospectively": "0.03",
+  "reportedKnownPayoutZAR": "0.00",
+  "finalBankrollIfAllUnresolvedLoseZAR": "0.00",
+  "finalBankrollIfAllUnresolvedWinZAR": "5300.00",
+  "realFundsUsedZAR": "0.00",
+  "realBetsPlaced": 0,
+  "observedReturnsVerified": false,
+  "prospectiveROI": null,
+  "quoteSource": "https://www.thegarciareport.com/posts/ufc-qatar-prochazka-stirling-betonline-moneylines/",
+  "modelSource": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/blob/main/public/prospective/2026-11-21.json",
+  "selections": [
+    {
+      "event": "Shamil Gaziev vs Tallison Teixeira",
+      "selection": "Tallison Teixeira",
+      "modelProbability": "0.422",
+      "americanOdds": 165,
+      "decimalOdds": "2.65",
+      "modelEstimatedEV": "0.11830",
+      "reportedStatus": "DISPUTED",
+      "reportedWinner": null,
+      "virtualStakeZAR": "2000.00",
+      "scenarioReturnZAR": null,
+      "scenarioResult": "UNRESOLVED_DISPUTED"
+    }
+  ],
+  "note": "Selection threshold and all-in policy devised after results. Quotes are historical reported prices, not authenticated offers. Disputes remain unresolved."
+}
