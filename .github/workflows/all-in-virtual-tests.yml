@@ -88,7 +88,7 @@ jobs:
           python -m scripts.all_in_challenge historical --input research/2026-11-21-qatar-reference-input.json --output /tmp/basket.json --bankroll 2000 --strategy BASKET
           python -m scripts.all_in_challenge historical --input research/2026-11-21-qatar-reference-input.json --output /tmp/single.json --bankroll 2000 --strategy SINGLE
   five-sport-readonly-observation:
-    if: github.repository == 'jakalsalfa319/jsa-ufcash-public-worker' && (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
+    if: github.repository == 'jakalsalfa319/jsa-ufcash-public-worker' && (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event_name == 'push')
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
