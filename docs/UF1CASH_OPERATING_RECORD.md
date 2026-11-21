@@ -46,3 +46,14 @@ cmp /tmp/uf1cash-rebuilt.json public/uf1cash-status.json
 ```
 
 No real wagers, private credentials, payments, automatic bookmaker access, or betting advice execution is provided here.
+
+
+## 22 November 2026: user-directed retroactive virtual balance rollover (v2)
+
+The user explicitly instructed UF1Cash to use the **four virtual R500 Qatar bets as the working R2,000 challenge**, crediting the three reported winning returns to the live virtual balance. This is a CHANGE IN HYPOTHETICAL ACCOUNTING POLICY on 22 November, not evidence of an actual bet or an earlier frozen paper order.
+
+The current working virtual balance is **R3,071.74**: starting R2,000.00, less four R500 historical simulated stakes, plus R3,071.74 reported gross payouts. The final R500 simulated stake on Tallison Teixeira remains disputed and is **already deducted**, so no additional payout has been credited. A verified win under the historical reported price could add R1,325.00 gross (bringing the account to R4,396.74). A loss adds nothing. The displayed scenario profit is +R1,071.74 relative to original virtual opening capital, **not proven real or prospective profit**.
+
+The previous v1 summary is archived at [status-snapshot-v1.json](../records/uf1cash/status-snapshot-v1.json), the author's decision is recorded in [wallet-rollover-authorization-v2.json](../records/uf1cash/wallet-rollover-authorization-v2.json), and the generator now creates [v2 live status](../public/uf1cash-status.json). The original model forecasts, genesis record and v1 evidence review are untouched.
+
+**Future model-qualified round policy:** deploy all of the **currently available** R3,071.74 only to a genuine pre-event research decision. The unresolved old R500 stake is not available for reuse. No top-ups. Development remains 75% UFC / 25% F1; all other sports benched.

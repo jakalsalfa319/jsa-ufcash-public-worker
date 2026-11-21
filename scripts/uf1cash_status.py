@@ -109,16 +109,67 @@ def summary(genesis:dict, source:dict, review:dict)->dict:
     }
     return out
 
+
+
+def active_summary(genesis:dict, source:dict, review:dict, authorization:dict)->dict:
+    """Authorize the historical basket as the active virtual wallet; do not fake pre-event bet timing."""
+    if authorization.get('schema') != 'UF1CASH_USER_AUTHORIZED_RETROACTIVE_VIRTUAL_ROLLOVER_V2':
+        raise ValueError('Missing user rollover authorization')
+    if authorization.get('noPreEventBetReceipt') is not True or authorization.get('noRealWagers') is not True or authorization.get('noTopups') is not True:
+        raise ValueError('Historical source cannot be marked a real pre-event bet or top-up')
+    if authorization.get('roundId')!='ufc-qatar-2026-11-21' or authorization.get('strategy')!='BASKET':
+        raise ValueError('Wrong historical scenario selected')
+    out=summary(genesis,source,review)
+    p=out['pastCardRecord']['basket']
+    bets=p['selections']
+    if len(bets)!=4 or sum(cents(x['virtualStakeZAR']) for x in bets)!=200000:
+        raise ValueError('The four R500 stakes must consume entire R2000')
+    winners=[x for x in bets if x['scenarioResult']=='WIN' and x['reportedStatus']=='REPORTED']
+    pending=[x for x in bets if x['scenarioResult']=='UNRESOLVED_DISPUTED' and x['reportedStatus']=='DISPUTED']
+    if len(winners)!=3 or len(pending)!=1 or pending[0]['scenarioReturnZAR'] is not None:
+        raise ValueError('No disputed payout can be credited')
+    paid=sum(cents(x['scenarioReturnZAR']) for x in winners)
+    outstanding=sum(cents(x['virtualStakeZAR']) for x in pending)
+    if paid!=cents(p['reportedKnownGrossPayoutZAR']) or paid!=307174 or outstanding!=50000:
+        raise ValueError('Recomputed virtual balance inconsistent with source ledger')
+    if not authorization.get('forwardUseOnlyAvailableCreditedBalance'):
+        raise ValueError('Pending stake cannot be used again')
+    out['schema']='UF1CASH_VIRTUAL_LEDGER_V2'
+    out['ledgerRecordedOn']=authorization['recordedOnDate']
+    out['currentBalanceZAR']='3071.74'
+    out['currentVirtualPnLZAR']='1071.74'
+    out['currentBalanceClassification']='USER_ADOPTED_RETROSPECTIVE_SIMULATION_NOT_AUTHENTICATED_PRE_EVENT_BETS'
+    w=out['prospectiveWallet']
+    w.update({'balanceAvailableZAR':'3071.74','committedZAR':'500.00',
+              'retrospectiveResultsChangeBalance':True,'originIncludesRetrospectiveScenario':True,
+              'retrospectiveSimulatedSelections':4,'pendingOriginalStakeZAR':'500.00',
+              'possibleAdditionalDisputedPayoutZAR':'1325.00',
+              'availableForNextQualifyingFullDeploymentZAR':'3071.74',
+              'status':'USER_ADOPTED_RETROSPECTIVE_BALANCE_PENDING_DISPUTED_LEG'})
+    out['pastCardRecord']['liveChallengeBankrollAffected']=True
+    out['pastCardRecord']['rolloverTreatment']='USER_AUTHORIZED_RETROSPECTIVE_CREDIT_NOT_PROSPECTIVE'
+    out['evidence']['walletRolloverAuthority']='records/uf1cash/wallet-rollover-authorization-v2.json'
+    out['evidence']['legacyVersionedStatus']='records/uf1cash/status-snapshot-v1.json'
+    out['walletMovement']={'startingBalanceZAR':'2000.00','fourHypotheticalStakesZAR':'2000.00',
+      'creditedReportedGrossPayoutsZAR':'3071.74','unsettledStakePreviouslyDebitedZAR':'500.00',
+      'workingAvailableZAR':'3071.74','profitAgainstOpeningZAR':'1071.74',
+      'ifDisputedWinsExtraPayoutZAR':'1325.00','ifDisputedLosesExtraPayoutZAR':'0.00',
+      'sourceEventDate':'2026-11-21','rolloverAuthorizedOn':'2026-11-22',
+      'originallyFrozenPaperBets':0,'realWagers':0}
+    out['note']='Working virtual R3071.74 is user-adopted retrospective UFC Qatar basket arithmetic, not authenticated prospective betting profit. Three reported winners credited; disputed Teixeira hypothetical return not credited. Future valid paper trades start from current available balance.'
+    return out
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--repo-root',type=Path,default=Path(__file__).resolve().parents[1])
     p.add_argument('--output',type=Path,required=True)
     a=p.parse_args()
     root=a.repo_root
-    data=summary(*[json.loads((root/path).read_text(encoding='utf-8')) for path in
+    data=active_summary(*[json.loads((root/path).read_text(encoding='utf-8')) for path in
       ('public/ufcash-r2000-allin-genesis.json',
        'research/2026-11-21-qatar-reference-input.json',
-       'research/uf1cash-qatar-2026-11-21-evidence-v1.json')])
+       'research/uf1cash-qatar-2026-11-21-evidence-v1.json',
+       'records/uf1cash/wallet-rollover-authorization-v2.json')])
     a.output.parent.mkdir(parents=True,exist_ok=True)
     with a.output.open('x',encoding='utf-8') as f:
         json.dump(data,f,indent=2,ensure_ascii=False,allow_nan=False)
