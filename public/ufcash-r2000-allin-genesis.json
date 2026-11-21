@@ -1,0 +1,17 @@
+{
+  "schema": "UFCASH_VIRTUAL_ZAR_GENESIS_V1",
+  "challengeId": "JSA-UFCASH-R2000-ALLIN-20261121",
+  "createdAtUTC": "2026-11-21T21:55:23Z",
+  "currency": "ZAR",
+  "openingBankrollZAR": "2000.00",
+  "availableVirtualZAR": "2000.00",
+  "stakedVirtualZAR": "0.00",
+  "realMoneyZAR": "0.00",
+  "prospectiveRoundsCompleted": 0,
+  "prospectiveSelectionsPlaced": 0,
+  "topupsAllowed": false,
+  "allInOnEligibleRound": true,
+  "status": "AWAITING_GENUINE_PRE_EVENT_SELECTION",
+  "historicalWhatIfsCountAsBalanceChanges": false,
+  "notes": "Public fictional wallet genesis only. Neither historical retrospective case is a settled forward paper bet. This record is a versioned starting reference; future updates require independently timestamped qualifying source receipts and an audited chained ledger."
+}
