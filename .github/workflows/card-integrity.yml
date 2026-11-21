@@ -9,6 +9,8 @@ on:
       - "checks/test_card_integrity.py"
       - "scripts/settle_event_v2.py"
       - "checks/test_settle_event_v2.py"
+      - "scripts/verify_official_results.py"
+      - "checks/test_verify_official_results.py"
   workflow_dispatch:
   schedule:
     # One-time event morning source check; guarded against subsequent years.
@@ -37,6 +39,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install pinned HTML parser needed by result-check tests
+        run: python -m pip install --disable-pip-version-check beautifulsoup4==4.12.3
+
       - name: Check event year before scheduled run
         id: date_gate
         shell: bash
@@ -57,7 +62,7 @@ jobs:
         run: |
           set -euo pipefail
           python -m scripts.card_integrity --strict
-          python - <<'PY'
+          python - <<'PY2'
           import json
           from pathlib import Path
           x=json.loads(Path("results/card_integrity.json").read_text())
@@ -69,7 +74,7 @@ jobs:
               f.write("Same-bout listings: 7 of 7, as of "+x["checkedAtUTC"]+"\n\n")
               f.write("UFC page SHA-256: "+x["sourceHtmlSha256"]+"\n\n")
               f.write("Not proof a fight took place or a profitable bet existed.\n")
-          PY
+          PY2
           cat results/card_integrity_summary.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Save research artifact without editing frozen predictions
