@@ -6,6 +6,9 @@ on:
       - 'scripts/all_in_challenge.py'
       - 'tests/test_all_in_challenge.py'
       - 'scripts/f1_public_feed.py'
+      - 'scripts/multisport_markets.py'
+      - 'tests/test_multisport_markets.py'
+      - 'docs/RUGBY_HORSE_MARKETS.md'
       - 'tests/test_f1_public_feed.py'
       - '.github/workflows/all-in-virtual-tests.yml'
       - 'research/2026-11-21-qatar-reference-input.json'
@@ -15,6 +18,9 @@ on:
       - 'scripts/all_in_challenge.py'
       - 'tests/test_all_in_challenge.py'
       - 'scripts/f1_public_feed.py'
+      - 'scripts/multisport_markets.py'
+      - 'tests/test_multisport_markets.py'
+      - 'docs/RUGBY_HORSE_MARKETS.md'
       - 'tests/test_f1_public_feed.py'
       - '.github/workflows/all-in-virtual-tests.yml'
       - 'research/2026-11-21-qatar-reference-input.json'
@@ -40,7 +46,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Run all-in virtual ZAR and F1 source checks
-        run: python -m unittest discover -s tests -p 'test_*all_in_challenge.py' -v && python -m unittest discover -s tests -p 'test_f1_public_feed.py' -v
+        run: python -m unittest discover -s tests -p 'test_*all_in_challenge.py' -v && python -m unittest discover -s tests -p 'test_f1_public_feed.py' -v && python -m unittest discover -s tests -p 'test_multisport_markets.py' -v
       - name: Re-run historical scenario without altering frozen models
         run: |
           python -m scripts.all_in_challenge historical --input research/2026-11-21-qatar-reference-input.json --output /tmp/basket.json --bankroll 2000 --strategy BASKET
