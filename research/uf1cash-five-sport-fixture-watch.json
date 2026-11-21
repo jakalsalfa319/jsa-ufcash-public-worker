@@ -1,0 +1,103 @@
+{
+  "schema": "UF1CASH_PUBLIC_FIXTURE_WATCH_V1",
+  "sourceReviewedDateSAST": "2026-11-22",
+  "note": "Source-linked date-only research watchlist. Not continuously reverified, no odds, no model probabilities, and no bets. Refresh sources before making any pre-event decision.",
+  "fixtures": [
+    {
+      "sport": "UFC",
+      "eventId": "ufc-riyadh-2026-12-05",
+      "name": "UFC Fight Night: Adesanya vs Magomedov",
+      "date": "2026-12-05",
+      "sourceUrl": "https://www.ufc.com/event/ufc-fight-night-december-05-2026",
+      "kind": "official_card"
+    },
+    {
+      "sport": "F1",
+      "eventId": "f1-qatar-2026",
+      "name": "Formula 1 Qatar Grand Prix",
+      "date": "2026-11-29",
+      "sourceUrl": "https://www.formula1.com/en/latest/article/formula-1-reveals-calendar-for-2026-season.YctbMZWqBvrgyddrnauo8",
+      "kind": "official_schedule"
+    },
+    {
+      "sport": "F1",
+      "eventId": "f1-abu-dhabi-2026",
+      "name": "Formula 1 Abu Dhabi Grand Prix",
+      "date": "2026-12-06",
+      "sourceUrl": "https://www.formula1.com/en/latest/article/formula-1-reveals-calendar-for-2026-season.YctbMZWqBvrgyddrnauo8",
+      "kind": "official_schedule"
+    },
+    {
+      "sport": "RUGBY_UNION",
+      "eventId": "urc-lions-bulls-2026-12-05",
+      "name": "URC Lions vs Bulls",
+      "date": "2026-12-05",
+      "sourceUrl": "https://stats.unitedrugby.com/match-centre/2026-27/",
+      "kind": "official_schedule"
+    },
+    {
+      "sport": "RUGBY_UNION",
+      "eventId": "urc-sharks-stormers-2026-12-05",
+      "name": "URC Sharks vs Stormers",
+      "date": "2026-12-05",
+      "sourceUrl": "https://stats.unitedrugby.com/match-centre/2026-27/",
+      "kind": "official_schedule"
+    },
+    {
+      "sport": "HORSE_RACING",
+      "eventId": "scottsville-2026-11-22",
+      "name": "Scottsville horse racing meeting",
+      "date": "2026-11-22",
+      "sourceUrl": "https://www.racecoast.co.za/wp-content/uploads/2026/11/Gallop_Form_20-22_Nov.pdf",
+      "kind": "race_day_guide_not_runner_declarations"
+    },
+    {
+      "sport": "CRICKET",
+      "eventId": "sa-bangladesh-test-2-2026-11-23",
+      "name": "South Africa vs Bangladesh second Test (outside initial T20 validator)",
+      "date": "2026-11-23",
+      "sourceUrl": "https://www.cricket.co.za/upcoming/",
+      "kind": "official_schedule_outside_current_market"
+    },
+    {
+      "sport": "CRICKET",
+      "eventId": "sa-bangladesh-odi1-2026-12-01",
+      "name": "South Africa vs Bangladesh first ODI (outside initial T20 validator)",
+      "date": "2026-12-01",
+      "sourceUrl": "https://www.cricket.co.za/upcoming/",
+      "kind": "official_schedule_outside_current_market"
+    },
+    {
+      "sport": "CRICKET",
+      "eventId": "sa-bangladesh-odi2-2026-12-04",
+      "name": "South Africa vs Bangladesh second ODI (outside initial T20 validator)",
+      "date": "2026-12-04",
+      "sourceUrl": "https://www.cricket.co.za/upcoming/",
+      "kind": "official_schedule_outside_current_market"
+    },
+    {
+      "sport": "CRICKET",
+      "eventId": "sa-bangladesh-t20-1-2026-12-10",
+      "name": "South Africa vs Bangladesh first T20I",
+      "date": "2026-12-10",
+      "sourceUrl": "https://www.cricket.co.za/upcoming/",
+      "kind": "official_schedule"
+    },
+    {
+      "sport": "CRICKET",
+      "eventId": "sa-bangladesh-t20-2-2026-12-12",
+      "name": "South Africa vs Bangladesh second T20I",
+      "date": "2026-12-12",
+      "sourceUrl": "https://www.cricket.co.za/upcoming/",
+      "kind": "official_schedule"
+    },
+    {
+      "sport": "CRICKET",
+      "eventId": "sa-bangladesh-t20-3-2026-12-13",
+      "name": "South Africa vs Bangladesh third T20I",
+      "date": "2026-12-13",
+      "sourceUrl": "https://www.cricket.co.za/upcoming/",
+      "kind": "official_schedule"
+    }
+  ]
+}
