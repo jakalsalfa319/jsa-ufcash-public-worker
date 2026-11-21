@@ -1,0 +1,60 @@
+name: UFCash R0 Virtual ZAR What-If Audit
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/zar-whatif-tests.yml"
+      - "scripts/zar_whatif.py"
+      - "tests/test_zar_whatif.py"
+      - "research/2026-11-21-qatar-whatif-input.json"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/zar-whatif-tests.yml"
+      - "scripts/zar_whatif.py"
+      - "tests/test_zar_whatif.py"
+      - "research/2026-11-21-qatar-whatif-input.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-retrospective-demo:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Source-only checkout without credentials
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Python 3.12
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.12"
+      - name: Run independent ZAR scenario unit tests
+        run: python -m unittest discover -s tests -p 'test_zar_whatif.py' -v
+      - name: Rebuild explicitly post-hoc example without live bets
+        run: |
+          set -euo pipefail
+          python -m scripts.zar_whatif \
+            --input research/2026-11-21-qatar-whatif-input.json \
+            --output results/zar-whatif-qatar-2026-11-21.json
+          python - <<'PY'
+          import json
+          x=json.load(open("results/zar-whatif-qatar-2026-11-21.json",encoding="utf-8"))
+          assert x["classification"]=="POST_HOC_HYPOTHETICAL_NOT_FORWARD_PAPER_TRADING"
+          assert x["realBetsPlaced"]==0 and x["verifiedProspectiveROI"] is None
+          assert x["scenarioSelectionCount"]==4
+          assert x["finalBalanceIfAllUnsettledLoseZAR"]==1021.44
+          assert x["finalBalanceIfAllUnsettledWinZAR"]==1047.94
+          PY
+          echo "Post-hoc scenario only; no pre-event paper tickets, real funds, or ROI claims." >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload reproducible case report
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ufcash-zar-retrospective-not-a-real-bet
+          retention-days: 30
+          if-no-files-found: error
+          path: results/zar-whatif-qatar-2026-11-21.json
