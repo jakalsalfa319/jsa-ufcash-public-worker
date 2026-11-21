@@ -1,0 +1,17 @@
+{
+  "schema": "UFCASH_RETROSPECTIVE_INPUT_V1",
+  "eventId": "ufc-qatar-2026-11-21",
+  "frozenPredictionSource": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/blob/main/public/prospective/2026-11-21.json",
+  "reportedPreEventOddsSource": "https://www.thegarciareport.com/posts/ufc-qatar-prochazka-stirling-betonline-moneylines/",
+  "reportedResultSource": "https://www.mmafighting.com/ufc/522605/ufc-qatar-results-prochazka-vs-stirling",
+  "disputeSource": "https://us.ufcespanol.com/news/ufc-qatar-official-scorecards-prochazka-vs-stirling",
+  "fights": [
+    {"red":"Jiri Prochazka","blue":"Navajo Stirling","modelPRed":"0.338","redAmerican":152,"blueAmerican":-179,"outcomeStatus":"REPORTED","reportedWinner":"Navajo Stirling"},
+    {"red":"Aljamain Sterling","blue":"Kevin Vallejos","modelPRed":"0.438","redAmerican":113,"blueAmerican":-132,"outcomeStatus":"REPORTED","reportedWinner":"Kevin Vallejos"},
+    {"red":"Dan Hooker","blue":"Brian Ortega","modelPRed":"0.613","redAmerican":-187,"blueAmerican":158,"outcomeStatus":"REPORTED","reportedWinner":"Dan Hooker"},
+    {"red":"Kyoji Horiguchi","blue":"Asu Almabayev","modelPRed":"0.650","redAmerican":-195,"blueAmerican":165,"outcomeStatus":"REPORTED","reportedWinner":"Kyoji Horiguchi"},
+    {"red":"Jared Cannonier","blue":"Ikram Aliskerov","modelPRed":"0.226","redAmerican":239,"blueAmerican":-290,"outcomeStatus":"REPORTED","reportedWinner":"Ikram Aliskerov"},
+    {"red":"Aleksandre Topuria","blue":"Santiago Luna","modelPRed":"0.658","redAmerican":-270,"blueAmerican":224,"outcomeStatus":"REPORTED","reportedWinner":"Santiago Luna"},
+    {"red":"Shamil Gaziev","blue":"Tallison Teixeira","modelPRed":"0.578","redAmerican":-195,"blueAmerican":165,"outcomeStatus":"DISPUTED","reportedWinner":null}
+  ]
+}
