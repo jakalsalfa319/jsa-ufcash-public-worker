@@ -1,17 +1,17 @@
 {
   "schema": "UF1CASH_PUBLIC_SOURCE_HEALTH_V1",
-  "observedAtUTC": "2026-11-21T23:25:09Z",
+  "observedAtUTC": "2026-11-21T23:28:49Z",
   "provenance": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44961687736",
   "status": "RESEARCH_RUNNING_NO_ELIGIBLE_FORWARD_WAGERS",
   "sourceStatus": {
     "F1": {
-      "historicalData": "STALE_OVER_30_DAYS",
+      "historicalData": "JOLPICA_STALE_BUT_ALTERNATIVE_OPENF1_RECENT",
       "historicalRacesProcessed": 15,
       "newestHistoricalRaceUTC": "2026-05-24T20:00:00Z",
       "ageAtAuditDays": 181.1,
       "illustrativeTopOneAccuracy": 0.4667,
       "poleSitterBaseline": 0.8667,
-      "finding": "Only 15 observed races; rating model lagged behind simple pole-sitter baseline in this limited sample; no calibrated forward prediction or verified bookmaker quote.",
+      "finding": "Jolpica historic input covers only 15 parsed races and stops 24 May 2026. Experimental uncalibrated rating model underperformed the pole-sitter baseline and cannot be considered forward-ready. An independent OpenF1 historical result source has a newer completed 8 November race, but those observations have not yet been reconciled into the model.",
       "paperBetEligible": false
     },
     "UFC": {
@@ -42,5 +42,16 @@
   "historicDisputedStakeLockedZAR": "500.00",
   "forwardPaperBetsCreated": 0,
   "realMoneyBets": 0,
-  "nextRequired": "Set private provider key and independently verify model/market contract before any forward paper selection; do not invent events or price fills."
+  "nextRequired": "Set private provider key and independently verify model/market contract before any forward paper selection; do not invent events or price fills.",
+  "independentOpenF1": {
+    "source": "https://openf1.org/docs/",
+    "sourceKind": "UNOFFICIAL_HISTORICAL_SESSION_RESULT",
+    "latestCompletedRaceEndUTC": "2026-11-08T19:00:00Z",
+    "freshnessStatus": "RECENT_WITHIN_30_DAYS",
+    "evidenceRunUrl": "https://github.com/jakalsalfa319/jsa-ufcash-public-worker/actions/runs/44961977020",
+    "independentlyVerifiedAgainstOfficialF1": false,
+    "retrainedExistingModel": false,
+    "forwardBetEligible": false,
+    "terms": "Personal noncommercial historical use; no paid real-time data used."
+  }
 }
