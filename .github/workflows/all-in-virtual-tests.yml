@@ -69,7 +69,7 @@ jobs:
         run: |
           python -m scripts.all_in_challenge historical --input research/2026-11-21-qatar-reference-input.json --output /tmp/basket.json --bankroll 2000 --strategy BASKET
           python -m scripts.all_in_challenge historical --input research/2026-11-21-qatar-reference-input.json --output /tmp/single.json --bankroll 2000 --strategy SINGLE
-  free-f1-calendar-observation:
+  five-sport-readonly-observation:
     if: github.repository == 'jakalsalfa319/jsa-ufcash-public-worker' && (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
     runs-on: ubuntu-24.04
     timeout-minutes: 5
@@ -81,6 +81,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Fetch read-only F1 source schedule without odds or bets
+        continue-on-error: true
         run: python -m scripts.f1_public_feed --year $(date -u +%Y) --output results/virtual/f1-observation.json
       - name: Re-evaluate the source-controlled UF1Cash R25k wallet without betting
         run: |
