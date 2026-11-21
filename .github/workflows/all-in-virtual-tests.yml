@@ -13,6 +13,9 @@ on:
       - 'tests/test_all_in_challenge.py'
       - 'scripts/f1_public_feed.py'
       - 'scripts/uf1cash_f1_ratings.py'
+      - 'scripts/uf1cash_openf1_freshness.py'
+      - 'tests/test_uf1cash_openf1_freshness.py'
+      - 'docs/UF1CASH_OPENF1_SOURCE.md'
       - 'tests/test_uf1cash_f1_ratings.py'
       - 'scripts/multisport_markets.py'
       - 'scripts/cricsheet_history.py'
@@ -43,6 +46,9 @@ on:
       - 'tests/test_all_in_challenge.py'
       - 'scripts/f1_public_feed.py'
       - 'scripts/uf1cash_f1_ratings.py'
+      - 'scripts/uf1cash_openf1_freshness.py'
+      - 'tests/test_uf1cash_openf1_freshness.py'
+      - 'docs/UF1CASH_OPENF1_SOURCE.md'
       - 'tests/test_uf1cash_f1_ratings.py'
       - 'scripts/multisport_markets.py'
       - 'scripts/cricsheet_history.py'
@@ -82,7 +88,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Run all-in virtual ZAR and F1 source checks
-        run: python -m unittest discover -s tests -p 'test_*all_in_challenge.py' -v && python -m unittest discover -s tests -p 'test_f1_public_feed.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_f1_ratings.py' -v && python -m unittest discover -s tests -p 'test_multisport_markets.py' -v && python -m unittest discover -s tests -p 'test_cricket_market.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_daily_radar.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_virtual_markets.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_odds_discovery.py' -v
+        run: python -m unittest discover -s tests -p 'test_*all_in_challenge.py' -v && python -m unittest discover -s tests -p 'test_f1_public_feed.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_f1_ratings.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_openf1_freshness.py' -v && python -m unittest discover -s tests -p 'test_multisport_markets.py' -v && python -m unittest discover -s tests -p 'test_cricket_market.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_daily_radar.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_virtual_markets.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_odds_discovery.py' -v
       - name: Re-run historical scenario without altering frozen models
         run: |
           python -m scripts.all_in_challenge historical --input research/2026-11-21-qatar-reference-input.json --output /tmp/basket.json --bankroll 2000 --strategy BASKET
@@ -111,6 +117,17 @@ jobs:
           s=json.loads(Path('results/virtual/f1-historical-ratings.json').read_text())
           assert s['newPaperBets']==0 and s['realBets']==0 and not s['paperBetEligible']
           print('F1 historical rounds',s['historicalRacesProcessed'])
+          PY
+      - name: Check latest finished 2026 race from independent OpenF1 historical source
+        continue-on-error: true
+        run: |
+          python -m scripts.uf1cash_openf1_freshness --year 2026 --output results/virtual/f1-openf1-freshness.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          v=json.loads(Path('results/virtual/f1-openf1-freshness.json').read_text())
+          assert v['realBets']==0 and v['virtualBets']==0
+          assert v['paperBetEligible'] is False
           PY
       - name: Re-evaluate the source-controlled UF1Cash R25k wallet without betting
         run: |
@@ -155,6 +172,7 @@ jobs:
           path: |
             results/virtual/f1-observation.json
             results/virtual/f1-historical-ratings.json
+            results/virtual/f1-openf1-freshness.json
             results/virtual/uf1cash-goal-observation.json
             results/virtual/uf1cash-five-sport-radar.json
             results/virtual/uf1cash-odds-discovery.json
