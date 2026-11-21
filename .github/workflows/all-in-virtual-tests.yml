@@ -1,4 +1,4 @@
-name: UFCash All-In R2000 Virtual Challenge (R0)
+name: UF1Cash Five-Sport Virtual R25000 Challenge (R0)
 
 on:
   pull_request:
@@ -10,6 +10,9 @@ on:
       - 'tests/test_all_in_challenge.py'
       - 'scripts/f1_public_feed.py'
       - 'scripts/multisport_markets.py'
+      - 'scripts/cricsheet_history.py'
+      - 'tests/test_cricket_market.py'
+      - 'docs/UF1CASH_FIVE_SPORT_SCOPE.md'
       - 'tests/test_multisport_markets.py'
       - 'docs/RUGBY_HORSE_MARKETS.md'
       - 'tests/test_f1_public_feed.py'
@@ -25,6 +28,9 @@ on:
       - 'tests/test_all_in_challenge.py'
       - 'scripts/f1_public_feed.py'
       - 'scripts/multisport_markets.py'
+      - 'scripts/cricsheet_history.py'
+      - 'tests/test_cricket_market.py'
+      - 'docs/UF1CASH_FIVE_SPORT_SCOPE.md'
       - 'tests/test_multisport_markets.py'
       - 'docs/RUGBY_HORSE_MARKETS.md'
       - 'tests/test_f1_public_feed.py'
@@ -32,7 +38,7 @@ on:
       - 'research/2026-11-21-qatar-reference-input.json'
   workflow_dispatch:
   schedule:
-    - cron: '0 8 * * 1,5' # Mondays/Fridays, 10:00 SAST (approx; Actions schedule not guaranteed)
+    - cron: '0 8 * * *' # Daily, approximately 10:00 SAST; GitHub Actions cron may be delayed
 
 permissions:
   contents: read
@@ -52,7 +58,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Run all-in virtual ZAR and F1 source checks
-        run: python -m unittest discover -s tests -p 'test_*all_in_challenge.py' -v && python -m unittest discover -s tests -p 'test_f1_public_feed.py' -v && python -m unittest discover -s tests -p 'test_multisport_markets.py' -v
+        run: python -m unittest discover -s tests -p 'test_*all_in_challenge.py' -v && python -m unittest discover -s tests -p 'test_f1_public_feed.py' -v && python -m unittest discover -s tests -p 'test_multisport_markets.py' -v && python -m unittest discover -s tests -p 'test_cricket_market.py' -v
       - name: Re-run historical scenario without altering frozen models
         run: |
           python -m scripts.all_in_challenge historical --input research/2026-11-21-qatar-reference-input.json --output /tmp/basket.json --bankroll 2000 --strategy BASKET
@@ -86,7 +92,7 @@ jobs:
       - name: Publish F1 research observation as ephemeral artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: jsa-uf1cash-f1-calendar-and-virtual-goal
+          name: jsa-uf1cash-daily-f1-calendar-and-five-sport-goal
           retention-days: 30
           path: |
             results/virtual/f1-observation.json

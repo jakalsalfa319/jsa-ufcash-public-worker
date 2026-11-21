@@ -64,6 +64,18 @@ class Uf1CashStatusTests(unittest.TestCase):
         self.assertEqual(archive['schema'],'UF1CASH_HISTORICAL_EVENT_RECORD_V1')
         self.assertEqual(archive['virtualZAR'],summary(a,b,c)['pastCardRecord'])
         self.assertEqual(archive['classification'],'RETROSPECTIVE_ONLY_NOT_RECORDED_BEFORE_EVENT')
+    def test_active_scope_revision_only_in_v2_wallet(self):
+        from scripts.uf1cash_status import active_summary
+        a,b,c=fixture()
+        auth=json.loads((ROOT/"records/uf1cash/wallet-rollover-authorization-v2.json").read_text())
+        v2=active_summary(a,b,c,auth)
+        self.assertEqual(v2["developmentFocusPercent"],
+            {"UFC":50,"F1":12.5,"RUGBY_UNION":12.5,"HORSE_RACING":12.5,"CRICKET":12.5})
+        self.assertEqual(v2["eligibleForwardSports"],
+            ["UFC","F1","RUGBY_UNION","HORSE_RACING","CRICKET"])
+        self.assertNotIn("horse_racing",v2["researchBench"])
+        self.assertEqual(v2["currentBalanceZAR"],"3071.74")
+
     def test_active_wallet_rollforward_is_3071(self):
         a,b,c=fixture()
         authorization=json.loads((ROOT/'records/uf1cash/wallet-rollover-authorization-v2.json').read_text(encoding='utf-8'))

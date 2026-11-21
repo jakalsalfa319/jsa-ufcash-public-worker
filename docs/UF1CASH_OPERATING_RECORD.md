@@ -1,5 +1,7 @@
 # J$A // UF1Cash | Virtual ZAR challenge & research ledger
 
+**Latest user-approved sports scope (22 Nov 2026):** UFC 50%; F1, rugby union, horse racing and cricket 12.5% each of research focus. The full-wallet all-in rule and R25,000 milestone remain unchanged. Rugby/horse markets are validation adapters only; cricket is being added as an explicitly pre-event T20 market. No automatic bet without model and fresh quotes. Older 75/25 passages below are superseded historical notes.
+
 **Current governing rule:** The R25,000 virtual challenge supersedes older examples below. Every qualifying round uses the full current available balance (currently R3,071.74), and only at R25,000 may a replacement challenge strategy be discussed, with approval required. See [locked milestone policy](UF1CASH_25K_CHALLENGE.md). The user adopted the Qatar retrospective basket into the working wallet, without claiming actual pre-event bet execution.
 
 

@@ -15,11 +15,17 @@
   "uncommittedAfterQualifyingRoundZAR": "0.00",
   "allowedSports": [
     "UFC",
-    "F1"
+    "F1",
+    "RUGBY_UNION",
+    "HORSE_RACING",
+    "CRICKET"
   ],
   "developmentFocusPercent": {
-    "UFC": 75,
-    "F1": 25
+    "UFC": 50,
+    "F1": 12.5,
+    "RUGBY_UNION": 12.5,
+    "HORSE_RACING": 12.5,
+    "CRICKET": 12.5
   },
   "researchFocusIsNotStakeSplit": true,
   "skipUnqualifiedMarkets": true,

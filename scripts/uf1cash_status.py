@@ -120,6 +120,24 @@ def active_summary(genesis:dict, source:dict, review:dict, authorization:dict)->
     if authorization.get('roundId')!='ufc-qatar-2026-11-21' or authorization.get('strategy')!='BASKET':
         raise ValueError('Wrong historical scenario selected')
     out=summary(genesis,source,review)
+    # Scope revision applies to the current user-adopted V2 wallet ONLY.
+    # Never rewrite the archived original V1 research snapshot or Qatar model provenance.
+    out["developmentFocusPercent"] = {
+        "UFC": 50, "F1": 12.5, "RUGBY_UNION": 12.5,
+        "HORSE_RACING": 12.5, "CRICKET": 12.5
+    }
+    out["eligibleForwardSports"] = ["UFC", "F1", "RUGBY_UNION", "HORSE_RACING", "CRICKET"]
+    out["researchBench"] = {
+        name: "ON_HOLD_NO_ACTIVE_MODEL_OR_PAPER_SELECTION"
+        for name in ("tennis", "basketball", "football", "other_motorsport")
+    }
+    out["nextResearch"].update({
+        "F1": "Validate historical F1 winner-market predictions; calendar and non-executable sources only",
+        "RUGBY_UNION": "Three-way win/draw/loss predictions with confirmed match fixtures and fresh public fixed-odds board",
+        "HORSE_RACING": "Complete declared field, fixed WIN quotes and scratchings checks before any paper decision",
+        "CRICKET": "T20 winner incl. Super Over probabilities using permitted historical data and fresh odds",
+    })
+
     p=out['pastCardRecord']['basket']
     bets=p['selections']
     if len(bets)!=4 or sum(cents(x['virtualStakeZAR']) for x in bets)!=200000:
