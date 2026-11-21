@@ -1,0 +1,32 @@
+{
+  "schema": "UFCASH_FUTURE_EVENT_WATCHLIST_V1",
+  "eventDate": "2026-12-05",
+  "eventName": "UFC Fight Night: Adesanya vs Magomedov",
+  "officialCardUrl": "https://www.ufc.com/event/ufc-fight-night-december-05-2026",
+  "observedDate": "2026-11-21",
+  "country": "Saudi Arabia",
+  "currency": "ZAR",
+  "virtualBankrollZAR": 1000,
+  "maximumStakeFraction": 0.01,
+  "maximumEventExposureFraction": 0.05,
+  "modelMinExpectedRoi": 0.03,
+  "status": "WATCHLIST_ONLY_NO_REAL_OR_PAPER_BETS",
+  "fights": [
+    {
+      "red": "Israel Adesanya",
+      "blue": "Shara Magomedov",
+      "modelPRed": null,
+      "quote": null,
+      "decision": "NO_BET_MODEL_AND_EXECUTABLE_PRICE_NOT_FROZEN"
+    },
+    {
+      "red": "Ian Machado Garry",
+      "blue": "Yaroslav Amosov",
+      "modelPRed": null,
+      "quote": null,
+      "decision": "NO_BET_MODEL_AND_EXECUTABLE_PRICE_NOT_FROZEN"
+    }
+  ],
+  "futureCardChangesPossible": true,
+  "sourceEvidenceLimit": "Official UFC listing is not an authenticated sportsbook price or a complete pre-event feature table."
+}
