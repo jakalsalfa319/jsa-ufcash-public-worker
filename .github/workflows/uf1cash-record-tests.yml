@@ -8,6 +8,8 @@ on:
       - 'tests/test_uf1cash_status.py'
       - 'research/uf1cash-qatar-2026-11-21-evidence-v1.json'
       - 'public/uf1cash-status.json'
+      - 'records/uf1cash/status-snapshot-v1.json'
+      - 'records/uf1cash/wallet-rollover-authorization-v2.json'
       - 'records/uf1cash/2026-11-21-qatar-whatif-v1.json'
       - 'public/uf1cash.html'
       - 'docs/UF1CASH_OPERATING_RECORD.md'
@@ -19,6 +21,8 @@ on:
       - 'tests/test_uf1cash_status.py'
       - 'research/uf1cash-qatar-2026-11-21-evidence-v1.json'
       - 'public/uf1cash-status.json'
+      - 'records/uf1cash/status-snapshot-v1.json'
+      - 'records/uf1cash/wallet-rollover-authorization-v2.json'
       - 'records/uf1cash/2026-11-21-qatar-whatif-v1.json'
       - 'public/uf1cash.html'
       - 'docs/UF1CASH_OPERATING_RECORD.md'
@@ -43,9 +47,15 @@ jobs:
           python-version: '3.12'
       - name: Test immutable-wallet and retrospective separation
         run: python -m unittest discover -s tests -p 'test_uf1cash_status.py' -v
-      - name: Recompute and exactly compare source-controlled status
+      - name: Recompute current source-controlled virtual wallet status
         run: |
           python -m scripts.uf1cash_status --output /tmp/uf1cash-status-rebuilt.json
-          cmp /tmp/uf1cash-status-rebuilt.json public/uf1cash-status.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          left=json.loads(Path('/tmp/uf1cash-status-rebuilt.json').read_text())
+          right=json.loads(Path('public/uf1cash-status.json').read_text())
+          assert left == right, 'UF1Cash wallet status out of sync with generator'
+          PY
       - name: Confirm original all-in controls still pass
         run: python -m unittest discover -s tests -p 'test_all_in_challenge.py' -v

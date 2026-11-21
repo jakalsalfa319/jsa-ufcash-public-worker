@@ -1,0 +1,21 @@
+{
+  "schema": "UF1CASH_USER_AUTHORIZED_RETROACTIVE_VIRTUAL_ROLLOVER_V2",
+  "recordedOnDate": "2026-11-22",
+  "roundId": "ufc-qatar-2026-11-21",
+  "strategy": "BASKET",
+  "source": "USER_INSTRUCTION_IN_CHAT_2026-11-22",
+  "purpose": "USE_REPORTED_GROSS_PAYOUTS_AS_WORKING_VIRTUAL_WALLET",
+  "noPreEventBetReceipt": true,
+  "noRealWagers": true,
+  "historicSource": "public/all-in-qatar-2026-11-21-basket.json",
+  "originalGenesis": "public/ufcash-r2000-allin-genesis.json",
+  "originalPublishedStatus": "records/uf1cash/status-snapshot-v1.json",
+  "selectionCount": 4,
+  "stakeEachZAR": "500.00",
+  "disputedSelection": "Tallison Teixeira",
+  "disputedSelectionSettlement": "PENDING_EVIDENCE_CONFLICT",
+  "pendingStakeAlreadyDeductedZAR": "500.00",
+  "forwardUseOnlyAvailableCreditedBalance": true,
+  "noTopups": true,
+  "note": "Pre-event predictions existed, but hypothetical decisions/prices were reconstructed after the event. Never claim historical tickets were genuinely frozen before the fights."
+}

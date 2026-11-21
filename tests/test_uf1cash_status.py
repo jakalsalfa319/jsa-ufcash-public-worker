@@ -3,7 +3,7 @@ import copy
 import json
 import unittest
 from pathlib import Path
-from scripts.uf1cash_status import summary
+from scripts.uf1cash_status import summary, active_summary
 
 ROOT=Path(__file__).resolve().parents[1]
 FILES=['public/ufcash-r2000-allin-genesis.json','research/2026-11-21-qatar-reference-input.json','research/uf1cash-qatar-2026-11-21-evidence-v1.json']
@@ -56,7 +56,7 @@ class Uf1CashStatusTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'Wallet has changed'):summary(a,b,c)
     def test_generated_current_status_bytewise_reproducible(self):
         a,b,c=fixture()
-        expected=json.loads((ROOT/'public/uf1cash-status.json').read_text(encoding='utf-8'))
+        expected=json.loads((ROOT/'records/uf1cash/status-snapshot-v1.json').read_text(encoding='utf-8'))
         self.assertEqual(summary(a,b,c),expected)
     def test_historical_event_archive_matches_recomputed_book(self):
         a,b,c=fixture()
@@ -64,6 +64,24 @@ class Uf1CashStatusTests(unittest.TestCase):
         self.assertEqual(archive['schema'],'UF1CASH_HISTORICAL_EVENT_RECORD_V1')
         self.assertEqual(archive['virtualZAR'],summary(a,b,c)['pastCardRecord'])
         self.assertEqual(archive['classification'],'RETROSPECTIVE_ONLY_NOT_RECORDED_BEFORE_EVENT')
+    def test_active_wallet_rollforward_is_3071(self):
+        a,b,c=fixture()
+        authorization=json.loads((ROOT/'records/uf1cash/wallet-rollover-authorization-v2.json').read_text(encoding='utf-8'))
+        current=active_summary(a,b,c,authorization)
+        self.assertEqual(current['currentBalanceZAR'],'3071.74')
+        self.assertEqual(current['prospectiveWallet']['committedZAR'],'500.00')
+        self.assertEqual(current['prospectiveWallet']['validPreEventPaperSelections'],0)
+        self.assertTrue(current['pastCardRecord']['liveChallengeBankrollAffected'])
+        self.assertEqual(current,json.loads((ROOT/'public/uf1cash-status.json').read_text(encoding='utf-8')))
+    def test_active_rollforward_cannot_credit_dispute(self):
+        a,b,c=fixture()
+        authorization=json.loads((ROOT/'records/uf1cash/wallet-rollover-authorization-v2.json').read_text(encoding='utf-8'))
+        b=copy.deepcopy(b)
+        d=next(q for q in b['fights'] if q['blue']=='Tallison Teixeira')
+        d['outcomeStatus']='REPORTED'
+        d['reportedWinner']='Tallison Teixeira'
+        with self.assertRaises(ValueError):
+            active_summary(a,b,c,authorization)
     def test_no_profitability_claim(self):
         x=summary(*fixture())
         self.assertIsNone(x['profitabilityClaim'])
