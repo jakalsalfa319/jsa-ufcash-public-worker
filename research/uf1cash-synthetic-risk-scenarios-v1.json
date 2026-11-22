@@ -1,0 +1,167 @@
+{
+  "schema": "UF1CASH_SYNTHETIC_ALLIN_STRESS_INPUT_V1",
+  "mode": "SYNTHETIC_ONLY",
+  "seed": 20261122,
+  "trialCount": 20000,
+  "startingBalanceZAR": "3071.74",
+  "targetBalanceZAR": "25000.00",
+  "rounds": [
+    {
+      "roundId": "synthetic-round-1",
+      "tickets": [
+        {
+          "ticketId": "synthetic-pick-1",
+          "sport": "UFC",
+          "weight": "1"
+        }
+      ],
+      "jointScenarios": [
+        {
+          "label": "HYPOTHETICAL_WIN",
+          "probability": "0.55",
+          "grossPayoutMultipliers": {
+            "synthetic-pick-1": "2.00"
+          }
+        },
+        {
+          "label": "HYPOTHETICAL_LOSS",
+          "probability": "0.45",
+          "grossPayoutMultipliers": {
+            "synthetic-pick-1": "0.00"
+          }
+        }
+      ]
+    },
+    {
+      "roundId": "synthetic-round-2",
+      "tickets": [
+        {
+          "ticketId": "synthetic-pick-2",
+          "sport": "F1",
+          "weight": "1"
+        }
+      ],
+      "jointScenarios": [
+        {
+          "label": "HYPOTHETICAL_WIN",
+          "probability": "0.55",
+          "grossPayoutMultipliers": {
+            "synthetic-pick-2": "2.00"
+          }
+        },
+        {
+          "label": "HYPOTHETICAL_LOSS",
+          "probability": "0.45",
+          "grossPayoutMultipliers": {
+            "synthetic-pick-2": "0.00"
+          }
+        }
+      ]
+    },
+    {
+      "roundId": "synthetic-round-3",
+      "tickets": [
+        {
+          "ticketId": "synthetic-pick-3",
+          "sport": "UFC",
+          "weight": "1"
+        }
+      ],
+      "jointScenarios": [
+        {
+          "label": "HYPOTHETICAL_WIN",
+          "probability": "0.55",
+          "grossPayoutMultipliers": {
+            "synthetic-pick-3": "2.00"
+          }
+        },
+        {
+          "label": "HYPOTHETICAL_LOSS",
+          "probability": "0.45",
+          "grossPayoutMultipliers": {
+            "synthetic-pick-3": "0.00"
+          }
+        }
+      ]
+    },
+    {
+      "roundId": "synthetic-round-4",
+      "tickets": [
+        {
+          "ticketId": "synthetic-pick-4",
+          "sport": "F1",
+          "weight": "1"
+        }
+      ],
+      "jointScenarios": [
+        {
+          "label": "HYPOTHETICAL_WIN",
+          "probability": "0.55",
+          "grossPayoutMultipliers": {
+            "synthetic-pick-4": "2.00"
+          }
+        },
+        {
+          "label": "HYPOTHETICAL_LOSS",
+          "probability": "0.45",
+          "grossPayoutMultipliers": {
+            "synthetic-pick-4": "0.00"
+          }
+        }
+      ]
+    },
+    {
+      "roundId": "synthetic-round-5",
+      "tickets": [
+        {
+          "ticketId": "synthetic-pick-5",
+          "sport": "UFC",
+          "weight": "1"
+        }
+      ],
+      "jointScenarios": [
+        {
+          "label": "HYPOTHETICAL_WIN",
+          "probability": "0.55",
+          "grossPayoutMultipliers": {
+            "synthetic-pick-5": "2.00"
+          }
+        },
+        {
+          "label": "HYPOTHETICAL_LOSS",
+          "probability": "0.45",
+          "grossPayoutMultipliers": {
+            "synthetic-pick-5": "0.00"
+          }
+        }
+      ]
+    },
+    {
+      "roundId": "synthetic-round-6",
+      "tickets": [
+        {
+          "ticketId": "synthetic-pick-6",
+          "sport": "F1",
+          "weight": "1"
+        }
+      ],
+      "jointScenarios": [
+        {
+          "label": "HYPOTHETICAL_WIN",
+          "probability": "0.55",
+          "grossPayoutMultipliers": {
+            "synthetic-pick-6": "2.00"
+          }
+        },
+        {
+          "label": "HYPOTHETICAL_LOSS",
+          "probability": "0.45",
+          "grossPayoutMultipliers": {
+            "synthetic-pick-6": "0.00"
+          }
+        }
+      ]
+    }
+  ],
+  "note": "All values fictional. A 55% true win probability at 2.00 decimal odds is a deliberately hypothetical edge, NOT estimated from UF1Cash sports models or available bookmaker markets."
+}

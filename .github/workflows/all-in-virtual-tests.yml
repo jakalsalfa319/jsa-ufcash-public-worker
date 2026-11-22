@@ -21,6 +21,13 @@ on:
       - 'scripts/cricsheet_history.py'
       - 'scripts/uf1cash_daily_radar.py'
       - 'scripts/uf1cash_odds_discovery.py'
+      - 'scripts/uf1cash_simulation_lab.py'
+      - 'tests/test_uf1cash_simulation_lab.py'
+      - 'scripts/uf1cash_forecast_skill.py'
+      - 'tests/test_uf1cash_forecast_skill.py'
+      - 'research/uf1cash-synthetic-risk-scenarios-v1.json'
+      - 'docs/UF1CASH_SIMULATION_SKILLS.md'
+      - 'public/uf1cash-simulations.html'
       - 'tests/test_uf1cash_odds_discovery.py'
       - 'public/index.html'
       - 'docs/UF1CASH_LIVE_DEPLOYMENT_AND_FEEDS.md'
@@ -54,6 +61,13 @@ on:
       - 'scripts/cricsheet_history.py'
       - 'scripts/uf1cash_daily_radar.py'
       - 'scripts/uf1cash_odds_discovery.py'
+      - 'scripts/uf1cash_simulation_lab.py'
+      - 'tests/test_uf1cash_simulation_lab.py'
+      - 'scripts/uf1cash_forecast_skill.py'
+      - 'tests/test_uf1cash_forecast_skill.py'
+      - 'research/uf1cash-synthetic-risk-scenarios-v1.json'
+      - 'docs/UF1CASH_SIMULATION_SKILLS.md'
+      - 'public/uf1cash-simulations.html'
       - 'tests/test_uf1cash_odds_discovery.py'
       - 'public/index.html'
       - 'docs/UF1CASH_LIVE_DEPLOYMENT_AND_FEEDS.md'
@@ -88,7 +102,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Run all-in virtual ZAR and F1 source checks
-        run: python -m unittest discover -s tests -p 'test_*all_in_challenge.py' -v && python -m unittest discover -s tests -p 'test_f1_public_feed.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_f1_ratings.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_openf1_freshness.py' -v && python -m unittest discover -s tests -p 'test_multisport_markets.py' -v && python -m unittest discover -s tests -p 'test_cricket_market.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_daily_radar.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_virtual_markets.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_odds_discovery.py' -v
+        run: python -m unittest discover -s tests -p 'test_*all_in_challenge.py' -v && python -m unittest discover -s tests -p 'test_f1_public_feed.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_f1_ratings.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_openf1_freshness.py' -v && python -m unittest discover -s tests -p 'test_multisport_markets.py' -v && python -m unittest discover -s tests -p 'test_cricket_market.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_daily_radar.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_virtual_markets.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_odds_discovery.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_simulation_lab.py' -v && python -m unittest discover -s tests -p 'test_uf1cash_forecast_skill.py' -v
       - name: Re-run historical scenario without altering frozen models
         run: |
           python -m scripts.all_in_challenge historical --input research/2026-11-21-qatar-reference-input.json --output /tmp/basket.json --bankroll 2000 --strategy BASKET
@@ -164,6 +178,18 @@ jobs:
           assert v['realBets']==0 and v['eligibleSelections']==0
           assert v['status'] in ('NOT_CONNECTED_KEY_REQUIRED','CONNECTED_METADATA_ONLY','PARTIAL_SOURCE_FAILURE')
           PY
+      - name: Run repeatable synthetic all-in risk simulations, never alter wallet
+        run: |
+          python -m scripts.uf1cash_simulation_lab --input research/uf1cash-synthetic-risk-scenarios-v1.json --wallet public/uf1cash-status.json --policy records/uf1cash/challenge-policy-v3.json --output results/virtual/uf1cash-synthetic-stress.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('results/virtual/uf1cash-synthetic-stress.json').read_text())
+          assert r['mode']=='SYNTHETIC_ONLY' and r['noAuthoritativeWalletMutation']
+          assert r['trialCount']==20000 and r['noRealBets']
+          assert r['reachedGoalCount']+r['ruinCount']+r['survivingBelowGoalCount']==20000
+          assert r['originalAvailableVirtualZAR']=='3071.74' and r['virtualGoalZAR']=='25000.00'
+          PY
       - name: Publish F1 research observation as ephemeral artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
@@ -176,3 +202,4 @@ jobs:
             results/virtual/uf1cash-goal-observation.json
             results/virtual/uf1cash-five-sport-radar.json
             results/virtual/uf1cash-odds-discovery.json
+            results/virtual/uf1cash-synthetic-stress.json
