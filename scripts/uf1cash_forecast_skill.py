@@ -78,6 +78,8 @@ def audit(payload,now=None):
         h=item.get("modelSha256")
         if not isinstance(h,str) or len(h)!=64 or any(c not in "0123456789abcdef" for c in h):
             raise ValueError("Immutable model SHA required")
+        if item.get("resultStatus") != "FINAL_REVIEWED":
+            raise ValueError("Only final reviewed results may be scored; pending and disputed are excluded")
         y=item.get("outcome")
         if type(y) is not int or y not in (0,1):
             raise ValueError("Outcome must be definite zero or one; pending/disputed excluded")
