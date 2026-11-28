@@ -9,6 +9,7 @@ on:
       - 'tests/test_uf1cash_simulation_lab.py'
       - 'scripts/uf1cash_forecast_skill.py'
       - 'tests/test_uf1cash_forecast_skill.py'
+      - 'tests/test_uf1cash_paired_baseline.py'
       - 'research/uf1cash-synthetic-risk-scenarios-v1.json'
       - 'docs/UF1CASH_SIMULATION_SKILLS.md'
       - 'public/uf1cash-simulations.html'
@@ -43,6 +44,7 @@ on:
       - 'tests/test_uf1cash_simulation_lab.py'
       - 'scripts/uf1cash_forecast_skill.py'
       - 'tests/test_uf1cash_forecast_skill.py'
+      - 'tests/test_uf1cash_paired_baseline.py'
       - 'research/uf1cash-synthetic-risk-scenarios-v1.json'
       - 'docs/UF1CASH_SIMULATION_SKILLS.md'
       - 'public/uf1cash-simulations.html'
@@ -118,5 +120,6 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_uf1cash_simulation_lab.py' -v
           python -m unittest discover -s tests -p 'test_uf1cash_forecast_skill.py' -v
+          python -m unittest discover -s tests -p 'test_uf1cash_paired_baseline.py' -v
       - name: Confirm original all-in controls still pass
         run: python -m unittest discover -s tests -p 'test_all_in_challenge.py' -v
