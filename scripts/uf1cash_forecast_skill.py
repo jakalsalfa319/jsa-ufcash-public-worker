@@ -10,6 +10,7 @@ from collections import defaultdict
 from datetime import datetime,timezone
 import json
 import math
+import random
 from pathlib import Path
 from scripts.all_in_challenge import timestamp,url_good,d
 
@@ -21,6 +22,37 @@ def _text(value,label):
     if not isinstance(value,str) or not value.strip():
         raise ValueError(label+" required")
     return value.strip()
+
+def _paired_baseline(rows, reps=1000):
+    """Paired Brier difference; event-cluster bootstrap, descriptive only."""
+    clusters=defaultdict(list)
+    for p,y,q,event in rows:
+        if q is not None:
+            clusters[event].append(((p-y)**2,(q-y)**2))
+    if not clusters:
+        return None
+    groups=[clusters[k] for k in sorted(clusters)]
+    matched=[v for g in groups for v in g]
+    n=len(matched)
+    model=sum(a for a,b in matched)/n
+    base=sum(b for a,b in matched)/n
+    interval=None
+    if len(groups)>=10:
+        # Resample whole events; do not treat same-event markets as independent.
+        totals=[(sum(a-b for a,b in g),len(g)) for g in groups]
+        rng=random.Random(20261128)
+        draws=[]
+        for _ in range(reps):
+            sampled=rng.choices(totals,k=len(totals))
+            draws.append(sum(a for a,b in sampled)/sum(b for a,b in sampled))
+        draws.sort()
+        interval=[round(draws[int((reps-1)*q)],6) for q in (.025,.975)]
+    return {"matchedRows":n,"matchedEvents":len(groups),
+            "modelBrier":round(model,6),"baselineBrier":round(base,6),
+            "pairedDifference":round(model-base,6),
+            "eventBootstrap95Interval":interval,
+            "intervalStatus":"DESCRIPTIVE_EVENT_BOOTSTRAP" if interval else "INSUFFICIENT_EVENTS",
+            "baselineProvenanceIndependentlyVerified":False}
 
 def _metrics(rows):
     n=len(rows)
@@ -46,7 +78,8 @@ def _metrics(rows):
             "expectedCalibrationError":round(ece,6),
             "baseRate":round(sum(y for p,y,_,_ in rows)/n,6),
             "baselineBrierLossOnAvailableMatchedRows":round(sum(baseline)/len(baseline),6) if baseline else None,
-            "baselineMatchedCount":len(baseline),"calibrationBins":reliability}
+            "baselineMatchedCount":len(baseline),"calibrationBins":reliability,
+            "pairedBaselineComparison":_paired_baseline(rows)}
 
 def audit(payload,now=None):
     if not isinstance(payload,dict) or payload.get("schema")!=SCHEMA:
@@ -65,7 +98,7 @@ def audit(payload,now=None):
         event=_text(item.get("eventId"),"Event ID")
         market=_text(item.get("marketId"),"Market identity")
         selection=_text(item.get("selectionId"),"Selection identity")
-        ident=(event,market,selection)
+        ident=(sport,event,market,selection)
         if ident in seen:raise ValueError("Duplicate scored event/market/selection")
         seen.add(ident)
         predicted=timestamp(item.get("predictedAtUTC"))
@@ -90,7 +123,7 @@ def audit(payload,now=None):
         baseline=None if raw is None else float(d(raw))
         if baseline is not None and not 0<baseline<1:
             raise ValueError("Baseline probability out of range")
-        entry=(p,y,baseline,event)
+        entry=(p,y,baseline,sport+":"+event)
         all_rows.append(entry)
         group[sport].append(entry)
     return {"schema":REPORT,"mode":"SCORE_SUPPLIED_PROSPECTIVE_RECORDS",
