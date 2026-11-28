@@ -47,3 +47,31 @@ class HoldoutTests(unittest.TestCase):
         rows[0]["featuresAt"]="2025-01-02T00:00:00"
         with self.assertRaisesRegex(ValueError,"Timezone"):
             validate(rows,*CUT)
+
+    def test_order_independent_manifest(self):
+        rows=fixture()
+        self.assertEqual(validate(rows,*CUT),validate(list(reversed(rows)),*CUT))
+    def test_timestamp_change_changes_digest(self):
+        rows=fixture()
+        first=validate(rows,*CUT)["declaredTimestampManifestSha256"]
+        rows[0]["featuresAt"]="2025-01-01T00:00:00Z"
+        self.assertNotEqual(first,validate(rows,*CUT)["declaredTimestampManifestSha256"])
+    def test_equivalent_timezone(self):
+        rows=fixture()
+        first=validate(rows,*CUT)
+        rows[0]["startsAt"]="2025-01-03T02:00:00+02:00"
+        self.assertEqual(first,validate(rows,*CUT))
+    def test_exclusion_reason_at_boundary(self):
+        rows=fixture()+[row("late","01")]
+        rows[-1]["resultAt"]=CUT[0]
+        self.assertEqual(validate(rows,*CUT)["partitions"]["excluded"][0]["reason"],"LABEL_NOT_AVAILABLE_BEFORE_BOUNDARY")
+    def test_unsupported_sport(self):
+        rows=fixture()
+        rows[0]["sport"]="UNKNOWN"
+        with self.assertRaisesRegex(ValueError,"Unsupported"):
+            validate(rows,*CUT)
+    def test_missing_timestamp(self):
+        rows=fixture()
+        del rows[0]["featuresAt"]
+        with self.assertRaisesRegex(ValueError,"Timestamp"):
+            validate(rows,*CUT)
